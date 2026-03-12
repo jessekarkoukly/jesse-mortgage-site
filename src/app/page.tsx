@@ -29,12 +29,12 @@ export default function HomePage() {
       <main>
         <Hero onBookingOpen={openCalendly} />
         <LenderTicker />
-        <HowICanHelp onBookingOpen={openCalendly} />
-        <ProcessAccordion />
         <AboutSection />
+        <HowICanHelp onBookingOpen={openCalendly} />
         <BrokerVsBank />
-        <BlogPreview />
+        <ProcessAccordion />
         <FAQSection />
+        <BlogPreview />
         <EmailCapture />
         <RenewalCapture />
       </main>
