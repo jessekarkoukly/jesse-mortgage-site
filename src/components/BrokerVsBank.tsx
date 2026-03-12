@@ -55,7 +55,7 @@ function CheckIcon() {
 
 export default function BrokerVsBank() {
   return (
-    <section className="bg-sand py-16 md:py-20 px-6">
+    <section className="bg-navy py-16 md:py-20 px-6">
       <div className="max-w-5xl mx-auto">
         <p
           className="text-[0.6875rem] font-semibold text-coral tracking-[0.2em] uppercase mb-3 text-center"
@@ -64,7 +64,7 @@ export default function BrokerVsBank() {
           Why Work With a Broker
         </p>
         <h2
-          className="text-[1.75rem] sm:text-[2.25rem] font-bold text-navy leading-tight mb-12 text-center"
+          className="text-[1.75rem] sm:text-[2.25rem] font-bold text-white leading-tight mb-12 text-center"
           style={{ fontFamily: "var(--font-spectral)" }}
         >
           The bank works for the bank<span className="text-coral">.</span>
@@ -72,9 +72,9 @@ export default function BrokerVsBank() {
 
         <div className="grid md:grid-cols-2 gap-5 md:gap-6">
           {/* Bank column */}
-          <div className="bg-white rounded-2xl border border-sand-2 p-6 md:p-8">
-            <div className="flex items-center gap-3 mb-6 pb-5 border-b border-sand-2">
-              <span className="w-10 h-10 rounded-xl bg-sand flex items-center justify-center">
+          <div className="bg-navy-2 rounded-2xl border border-white/10 p-6 md:p-8">
+            <div className="flex items-center gap-3 mb-6 pb-5 border-b border-white/10">
+              <span className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                   <path d="M10 2L2 7h16L10 2z" stroke="#8A9BAA" strokeWidth="1.5" strokeLinejoin="round" />
                   <path d="M4 7v8M8 7v8M12 7v8M16 7v8" stroke="#8A9BAA" strokeWidth="1.5" strokeLinecap="round" />
@@ -82,7 +82,7 @@ export default function BrokerVsBank() {
                 </svg>
               </span>
               <h3
-                className="text-navy font-bold text-[1.125rem]"
+                className="text-sand font-bold text-[1.125rem]"
                 style={{ fontFamily: "var(--font-spectral)" }}
               >
                 The bank
@@ -94,7 +94,7 @@ export default function BrokerVsBank() {
                   <XIcon />
                   <div>
                     <p
-                      className="text-navy font-semibold text-[0.8125rem] mb-0.5"
+                      className="text-sand font-semibold text-[0.8125rem] mb-0.5"
                       style={{ fontFamily: "var(--font-jakarta)" }}
                     >
                       {row.label}
@@ -112,7 +112,7 @@ export default function BrokerVsBank() {
           </div>
 
           {/* Broker column */}
-          <div className="bg-navy rounded-2xl p-6 md:p-8 relative overflow-hidden">
+          <div className="bg-navy rounded-2xl border border-coral/30 p-6 md:p-8 relative overflow-hidden">
             <div className="absolute -top-20 -right-20 w-40 h-40 bg-coral/10 rounded-full blur-3xl" />
             <div className="relative">
               <div className="flex items-center gap-3 mb-6 pb-5 border-b border-white/10">
