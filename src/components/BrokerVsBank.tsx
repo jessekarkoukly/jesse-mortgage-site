@@ -112,43 +112,40 @@ export default function BrokerVsBank() {
           </div>
 
           {/* Broker column */}
-          <div className="bg-navy rounded-2xl border border-coral/30 p-6 md:p-8 relative overflow-hidden">
-            <div className="absolute -top-20 -right-20 w-40 h-40 bg-coral/10 rounded-full blur-3xl" />
-            <div className="relative">
-              <div className="flex items-center gap-3 mb-6 pb-5 border-b border-white/10">
-                <span className="w-10 h-10 rounded-xl bg-coral/15 flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                    <path d="M10 2l2.5 5 5.5.8-4 3.9.9 5.3L10 14.5 5.1 17l.9-5.3-4-3.9 5.5-.8L10 2z" stroke="#E8705A" strokeWidth="1.5" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                <h3
-                  className="text-sand font-bold text-[1.125rem]"
-                  style={{ fontFamily: "var(--font-spectral)" }}
-                >
-                  Your broker
-                </h3>
-              </div>
-              <div className="space-y-5">
-                {ROWS.map((row) => (
-                  <div key={row.label} className="flex items-start gap-3">
-                    <CheckIcon />
-                    <div>
-                      <p
-                        className="text-sand font-semibold text-[0.8125rem] mb-0.5"
-                        style={{ fontFamily: "var(--font-jakarta)" }}
-                      >
-                        {row.label}
-                      </p>
-                      <p
-                        className="text-sand/70 text-[0.9375rem] leading-snug"
-                        style={{ fontFamily: "var(--font-jakarta)" }}
-                      >
-                        {row.broker}
-                      </p>
-                    </div>
+          <div className="bg-white rounded-2xl p-6 md:p-8 relative overflow-hidden">
+            <div className="flex items-center gap-3 mb-6 pb-5 border-b border-sand-2">
+              <span className="w-10 h-10 rounded-xl bg-coral/15 flex items-center justify-center">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M10 2l2.5 5 5.5.8-4 3.9.9 5.3L10 14.5 5.1 17l.9-5.3-4-3.9 5.5-.8L10 2z" stroke="#E8705A" strokeWidth="1.5" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <h3
+                className="text-navy font-bold text-[1.125rem]"
+                style={{ fontFamily: "var(--font-spectral)" }}
+              >
+                Your broker
+              </h3>
+            </div>
+            <div className="space-y-5">
+              {ROWS.map((row) => (
+                <div key={row.label} className="flex items-start gap-3">
+                  <CheckIcon />
+                  <div>
+                    <p
+                      className="text-navy font-semibold text-[0.8125rem] mb-0.5"
+                      style={{ fontFamily: "var(--font-jakarta)" }}
+                    >
+                      {row.label}
+                    </p>
+                    <p
+                      className="text-navy-2 text-[0.9375rem] leading-snug"
+                      style={{ fontFamily: "var(--font-jakarta)" }}
+                    >
+                      {row.broker}
+                    </p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
