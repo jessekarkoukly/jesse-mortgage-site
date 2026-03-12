@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import LenderTicker from "@/components/LenderTicker";
@@ -14,20 +13,23 @@ import EmailCapture from "@/components/EmailCapture";
 import RenewalCapture from "@/components/RenewalCapture";
 import SherwoodFooter from "@/components/SherwoodFooter";
 import JesseFooter from "@/components/JesseFooter";
-import BookingModal from "@/components/BookingModal";
 import HomeJsonLd from "@/components/HomeJsonLd";
 
-export default function HomePage() {
-  const [bookingOpen, setBookingOpen] = useState(false);
+const CALENDLY_URL = "https://calendly.com/working-with-jesse/30min";
 
+function openCalendly() {
+  window.open(CALENDLY_URL, "_blank", "noopener,noreferrer");
+}
+
+export default function HomePage() {
   return (
     <>
       <HomeJsonLd />
-      <Nav onBookingOpen={() => setBookingOpen(true)} />
+      <Nav onBookingOpen={openCalendly} />
       <main>
-        <Hero onBookingOpen={() => setBookingOpen(true)} />
+        <Hero onBookingOpen={openCalendly} />
         <LenderTicker />
-        <HowICanHelp onBookingOpen={() => setBookingOpen(true)} />
+        <HowICanHelp onBookingOpen={openCalendly} />
         <ProcessAccordion />
         <AboutSection />
         <BrokerVsBank />
@@ -38,7 +40,6 @@ export default function HomePage() {
       </main>
       <SherwoodFooter />
       <JesseFooter />
-      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </>
   );
 }
