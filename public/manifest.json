@@ -1,0 +1,26 @@
+{
+  "name": "Jesse Karkoukly | Toronto Mortgage Agent",
+  "short_name": "Jesse Karkoukly",
+  "description": "Toronto mortgage agent with Sherwood Mortgage Group. Compare 50+ lenders and get a clear plan.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F3EE",
+  "theme_color": "#1E2D3D",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

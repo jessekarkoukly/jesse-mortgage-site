@@ -1,26 +1,145 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Brand colours */
+  --color-navy:       #1E2D3D;
+  --color-navy-2:     #2E4255;
+  --color-sand:       #F7F3EE;
+  --color-sand-2:     #EDE7DC;
+  --color-coral:      #E8705A;
+  --color-coral-dark: #D05A45;
+  --color-slate:      #8A9BAA;
+
+  /* Semantic aliases */
+  --color-background: var(--color-sand);
+  --color-foreground:  var(--color-navy);
+
+  /* Font families */
+  --font-spectral:      var(--font-spectral);
+  --font-jakarta:       var(--font-jakarta);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ── Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #F7F3EE;
+  color: #1E2D3D;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #E8705A;
+  color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-spectral), Georgia, serif;
+}
+
+/* ── Marquee animation ── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Utilities ── */
+.coral-dot::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #E8705A;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* ── Calculator Sliders ── */
+/* Track background is set dynamically via inline style for gradient fill */
+input[type="range"].calc-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  /* Fallback if no inline style */
+  background: linear-gradient(to right, #1E2D3D, #E8705A);
+}
+
+input[type="range"].calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #E8705A;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.18);
+  transition: box-shadow 0.15s;
+}
+
+input[type="range"].calc-slider::-webkit-slider-thumb:hover {
+  box-shadow: 0 2px 8px rgba(232, 112, 90, 0.4);
+}
+
+input[type="range"].calc-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #E8705A;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.18);
+}
+
+input[type="range"].calc-slider::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  /* Firefox uses -moz-range-progress for filled portion */
+  background: #E0DDD8;
+}
+
+input[type="range"].calc-slider::-moz-range-progress {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #1E2D3D, #E8705A);
+}
+
+/* ── Touch device optimizations ── */
+@media (pointer: coarse) {
+  input[type="range"].calc-slider::-webkit-slider-thumb {
+    width: 28px;
+    height: 28px;
+  }
+
+  input[type="range"].calc-slider::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+button, a {
+  touch-action: manipulation;
 }
