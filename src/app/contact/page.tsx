@@ -5,7 +5,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "Contact Jesse Karkoukly | Toronto Mortgage Agent",
   description:
-    "Get in touch with Jesse Karkoukly, Toronto mortgage agent. Call, email, or book a 15-30 minute discovery call. Free, no obligation.",
+    "Get in touch with Jesse Karkoukly, Toronto mortgage agent. Call, email, or book an intro call.",
   alternates: { canonical: "/contact" },
   keywords: [
     "contact mortgage agent Toronto",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Contact Jesse Karkoukly | Toronto Mortgage Agent",
     description:
-      "Reach Toronto mortgage agent Jesse Karkoukly by phone or email. Book a free discovery call today.",
+      "Reach Toronto mortgage agent Jesse Karkoukly by phone or email. Book an intro call today.",
     url: "https://jessekarkoukly.com/contact",
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
@@ -141,15 +141,6 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Book CTA note */}
-          <p
-            className="mt-10 text-[0.9rem] text-slate"
-            style={{ fontFamily: "var(--font-jakarta)" }}
-          >
-            Prefer to book online? Use the{" "}
-            <span className="text-coral font-semibold">See My Options</span> button in the top
-            navigation to pick a time that works.
-          </p>
         </div>
       </section>
     </PageShell>

@@ -45,33 +45,9 @@ export default function AboutSection() {
             </p>
             <p>
               I live in The Annex with my family. I work with clients across Toronto and Ontario.
-              When you reach out, you get me.
             </p>
           </div>
 
-          {/* Video button */}
-          <button
-            className="mt-8 flex items-center gap-3 group cursor-pointer"
-            aria-label="Watch a 60-second intro video"
-          >
-            <span className="w-12 h-12 rounded-full bg-coral group-hover:bg-coral-dark transition-colors duration-150 flex items-center justify-center shrink-0">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="white"
-                aria-hidden="true"
-              >
-                <path d="M6 3.5l9 5.5-9 5.5V3.5z" />
-              </svg>
-            </span>
-            <span
-              className="text-[0.9375rem] font-semibold text-navy group-hover:text-coral transition-colors duration-150"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              Watch a 60-second intro
-            </span>
-          </button>
         </div>
       </div>
     </section>

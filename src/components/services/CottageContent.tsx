@@ -74,7 +74,7 @@ const LENDER_FACTORS = [
 const PROCESS_STEPS = [
   {
     num: "01",
-    title: "Discovery call with Jesse",
+    title: "Intro call with Jesse",
     desc: "The property details, your financial picture, and your goals get reviewed together. You will know which financing path makes sense and what the lender will need before you make an offer.",
   },
   {

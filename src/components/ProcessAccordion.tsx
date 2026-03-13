@@ -5,7 +5,7 @@ import { useState } from "react";
 const STEPS = [
   {
     number: "01",
-    title: "Discovery Call",
+    title: "Intro Call",
     subtitle: "Understanding where you are starting from.",
     detail:
       "A short call to understand your situation. What are you trying to do, what does your financial picture look like, and is anything complicated. No forms, no application. By the end of the call, you will know where you stand and what the next step looks like.",
@@ -15,7 +15,7 @@ const STEPS = [
     title: "Document Collection",
     subtitle: "At your pace.",
     detail:
-      "Jesse tells you exactly what he needs and why. Income documents, ID, mortgage statements if applicable. He works around your schedule. No office visits required.",
+      "Jesse tells you exactly what he needs and why. Income documents, ID, mortgage statements if applicable. He works around your schedule.",
   },
   {
     number: "03",

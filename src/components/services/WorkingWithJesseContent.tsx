@@ -6,7 +6,7 @@ import { useState } from "react";
 const STEPS = [
   {
     num: "01",
-    title: "Discovery Call",
+    title: "Intro Call",
     subtitle: "Understanding where you are starting from",
     body: "It starts with a conversation. Your situation, your timeline, what matters most to you. This is a conversation, not an interrogation. I ask the questions, you share what you know, and by the end you have a clear picture of what the path forward looks like.",
     timeline: "15 to 30 min",

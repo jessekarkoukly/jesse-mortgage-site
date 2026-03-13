@@ -6,11 +6,7 @@ import { useState } from "react";
 const FAQS = [
   {
     q: "Do I actually have to pay anything to use a mortgage broker?",
-    a: "No. The lender pays the broker when a mortgage closes, not you. That fee is built into how lenders price their mortgages and does not affect the rate you receive. You pay nothing for the advice, the rate shopping, or the paperwork.",
-  },
-  {
-    q: "What happens if I start working with you and then decide not to?",
-    a: "Nothing. The first thing you might be asked to sign is a rate hold. It locks in today's rate while lenders are shopped on your behalf. If rates go up, you keep the lower locked-in rate. If rates go down, you get the lower rate. It costs nothing, commits you to nothing, and you can walk away at any point.",
+    a: "No. The lender pays the broker when a mortgage closes, not you. That fee is built into how lenders price their mortgages and does not affect the rate you receive. You pay nothing for the advice.",
   },
   {
     q: "Can a broker actually get me a better rate than if I just go to my bank?",
