@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function AffordabilityPage() {
   return (
-    <PageShell>
+    <PageShell hideFloatingCTAs>
       <BreadcrumbJsonLd items={[{ name: "Calculators", href: "/calculators" }, { name: "Affordability", href: "/calculators/affordability" }]} />
       <section className="bg-sand pt-16">
         <div className="max-w-6xl mx-auto px-5 py-10">

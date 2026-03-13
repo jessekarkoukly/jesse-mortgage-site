@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function LandTransferTaxPage() {
   return (
-    <PageShell>
+    <PageShell hideFloatingCTAs>
       <BreadcrumbJsonLd items={[{ name: "Calculators", href: "/calculators" }, { name: "Land Transfer Tax", href: "/calculators/land-transfer-tax" }]} />
       <section className="bg-sand pt-16">
         <div className="max-w-6xl mx-auto px-5 py-10">

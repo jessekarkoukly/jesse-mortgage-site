@@ -15,9 +15,10 @@ function openCalendly() {
 
 interface PageShellProps {
   children: React.ReactNode;
+  hideFloatingCTAs?: boolean;
 }
 
-export default function PageShell({ children }: PageShellProps) {
+export default function PageShell({ children, hideFloatingCTAs }: PageShellProps) {
   // Listen for custom event from "Book a Call" buttons across the site
   useEffect(() => {
     const handleOpen = () => openCalendly();
@@ -31,8 +32,8 @@ export default function PageShell({ children }: PageShellProps) {
       <main>{children}</main>
       <SherwoodFooter />
       <JesseFooter />
-      <StickyMobileCTA />
-      <ScrollCTA />
+      {!hideFloatingCTAs && <StickyMobileCTA />}
+      {!hideFloatingCTAs && <ScrollCTA />}
     </>
   );
 }

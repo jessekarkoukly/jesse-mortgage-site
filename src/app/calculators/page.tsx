@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function CalculatorsPage() {
   return (
-    <PageShell>
+    <PageShell hideFloatingCTAs>
       <BreadcrumbJsonLd items={[{ name: "Calculators", href: "/calculators" }]} />
       <CalculatorHub />
     </PageShell>

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function RequiredIncomePage() {
   return (
-    <PageShell>
+    <PageShell hideFloatingCTAs>
       <BreadcrumbJsonLd items={[{ name: "Calculators", href: "/calculators" }, { name: "Required Income", href: "/calculators/required-income" }]} />
       <section className="bg-sand pt-16">
         <div className="max-w-6xl mx-auto px-5 py-10">

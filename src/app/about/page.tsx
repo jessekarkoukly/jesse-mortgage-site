@@ -81,7 +81,7 @@ const STATS = [
 
 export default function AboutPage() {
   return (
-    <PageShell>
+    <PageShell hideFloatingCTAs>
       <BreadcrumbJsonLd items={[{ name: "About", href: "/about" }]} />
       {/* ── Hero ── */}
       <section className="bg-sand pt-28 pb-20 px-6">

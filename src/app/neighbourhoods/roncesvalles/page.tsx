@@ -56,7 +56,7 @@ const localBusinessSchema = {
 
 export default function RoncesvallesPage() {
   return (
-    <PageShell>
+    <PageShell hideFloatingCTAs>
       <BreadcrumbJsonLd
         items={[
           { name: "Neighbourhoods", href: "/neighbourhoods" },

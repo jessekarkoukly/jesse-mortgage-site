@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function ComparePage() {
   return (
-    <PageShell>
+    <PageShell hideFloatingCTAs>
       <BreadcrumbJsonLd items={[{ name: "Calculators", href: "/calculators" }, { name: "Compare Mortgages", href: "/calculators/compare" }]} />
       <section className="bg-sand pt-16">
         <div className="max-w-6xl mx-auto px-5 py-10">

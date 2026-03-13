@@ -108,7 +108,7 @@ const NEIGHBOURHOODS = [
 
 export default function NeighbourhoodsPage() {
   return (
-    <PageShell>
+    <PageShell hideFloatingCTAs>
       <BreadcrumbJsonLd
         items={[{ name: "Neighbourhoods", href: "/neighbourhoods" }]}
       />
