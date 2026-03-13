@@ -486,7 +486,7 @@ export default function FirstTimeBuyerContent() {
                   Every monthly debt payment you have reduces your maximum mortgage amount. Car loan, student loan, credit card minimums. This surprises a lot of first-time buyers.
                 </p>
                 <p className="text-[0.9375rem] text-navy-2 leading-relaxed mb-2" style={{ fontFamily: "var(--font-jakarta)" }}>
-                  Lenders use two ratios to measure this. You do not need to memorize the names, just understand the idea:
+                  Lenders use two ratios to measure this.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                   <div className="bg-sand rounded-lg p-4">
