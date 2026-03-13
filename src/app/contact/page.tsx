@@ -28,7 +28,7 @@ export default function ContactPage() {
   return (
     <PageShell>
       <BreadcrumbJsonLd items={[{ name: "Contact", href: "/contact" }]} />
-      <section className="bg-sand pt-16 py-20 px-6 min-h-[80vh]">
+      <section className="bg-sand pt-28 md:pt-36 pb-20 px-6 min-h-[80vh]">
         <div className="max-w-3xl mx-auto">
           <p
             className="text-[0.75rem] font-semibold text-slate uppercase tracking-widest mb-4"

@@ -112,7 +112,7 @@ const FUNDING_OPTIONS = [
 
 export default function CottageContent() {
   const [activeSection, setActiveSection] = useState("how-it-works");
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   /* Scroll spy for TOC */

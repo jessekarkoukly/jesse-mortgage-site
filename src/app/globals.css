@@ -26,6 +26,11 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 body {
@@ -130,13 +135,15 @@ input[type="range"].calc-slider::-moz-range-progress {
 /* ── Touch device optimizations ── */
 @media (pointer: coarse) {
   input[type="range"].calc-slider::-webkit-slider-thumb {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
+    border-width: 2px;
   }
 
   input[type="range"].calc-slider::-moz-range-thumb {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
+    border-width: 2px;
   }
 }
 

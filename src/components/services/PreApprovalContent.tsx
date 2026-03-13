@@ -316,7 +316,7 @@ function AffordabilityCalculator({
 
 export default function PreApprovalContent() {
   const [activeSection, setActiveSection] = useState("what-it-is");
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {

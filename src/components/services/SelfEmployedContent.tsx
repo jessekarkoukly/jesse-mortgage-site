@@ -326,8 +326,8 @@ const TIMELINE_PHASES = [
 
 export default function SelfEmployedContent() {
   const [activeSection, setActiveSection] = useState("the-challenge");
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [openScenario, setOpenScenario] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openScenario, setOpenScenario] = useState<number | null>(null);
   const [openKiller, setOpenKiller] = useState<number | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 

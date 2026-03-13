@@ -178,7 +178,7 @@ const FAQ_ITEMS = [
 
 export default function FirstTimeBuyerContent() {
   const [activeSection, setActiveSection] = useState("how-to-qualify");
-  const [openProgram, setOpenProgram] = useState<number | null>(0);
+  const [openProgram, setOpenProgram] = useState<number | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [stressTestOpen, setStressTestOpen] = useState(false);
   const [creditOpen, setCreditOpen] = useState(false);
