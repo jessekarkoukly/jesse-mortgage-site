@@ -29,8 +29,8 @@ export default function HomePage() {
       <main>
         <Hero onBookingOpen={openCalendly} />
         <LenderTicker />
-        <AboutSection />
         <HowICanHelp onBookingOpen={openCalendly} />
+        <AboutSection />
         <BrokerVsBank />
         <ProcessAccordion />
         <FAQSection />
