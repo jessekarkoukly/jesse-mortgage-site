@@ -206,7 +206,7 @@ export default function RequiredIncomeCalculator() {
     const raw = v.replace(/,/g, "");
     setPropertyTaxYearly(v);
     const n = parseFloat(raw);
-    setPropertyTaxMonthly(isNaN(n) ? "" : String(Math.round(n / 12)));
+    setPropertyTaxMonthly(isNaN(n) ? "" : String(parseFloat((n / 12).toFixed(2))));
   }, []);
 
   /* ── Calculations ── */
@@ -605,13 +605,6 @@ export default function RequiredIncomeCalculator() {
                   title={`Home Expenses: $${fmt(results.homeExpenses)}`}
                 />
               )}
-              {cashPct > 0 && (
-                <div
-                  className="bg-[#5BA85B]"
-                  style={{ width: `${cashPct}%` }}
-                  title={`Cash Left: $${fmt(results.cashLeft)}`}
-                />
-              )}
             </div>
 
             {/* Line Items */}
@@ -639,13 +632,6 @@ export default function RequiredIncomeCalculator() {
                   Home Expenses
                 </span>
                 <span className="text-navy font-semibold tabular-nums">${fmt(results.homeExpenses)}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-slate">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#5BA85B] shrink-0" />
-                  Cash Left (Gross)
-                </span>
-                <span className="text-navy font-semibold tabular-nums">${fmt(results.cashLeft)}</span>
               </div>
             </div>
 

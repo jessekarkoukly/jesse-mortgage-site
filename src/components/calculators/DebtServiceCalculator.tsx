@@ -200,7 +200,7 @@ export default function DebtServiceCalculator() {
   const handlePropTaxYearly = useCallback((v: string) => {
     setPropertyTaxYearly(v);
     const n = parseFloat(v);
-    setPropertyTaxMonthly(isNaN(n) ? "" : String(Math.round(n / 12)));
+    setPropertyTaxMonthly(isNaN(n) ? "" : String(parseFloat((n / 12).toFixed(2))));
   }, []);
 
   /* Rental income sync */
@@ -586,12 +586,6 @@ export default function DebtServiceCalculator() {
               <div className="flex justify-between">
                 <span className="text-slate">Home Expenses</span>
                 <span className="text-navy font-semibold">${fmt2(results.homeExpenses)}</span>
-              </div>
-              <div className="flex justify-between pt-3 border-t border-sand-2">
-                <span className="text-navy font-bold">Cash Left (Gross)</span>
-                <span className={`font-bold ${results.cashLeft >= 0 ? "text-navy" : "text-coral"}`}>
-                  ${fmt2(results.cashLeft)}
-                </span>
               </div>
             </div>
 

@@ -234,7 +234,7 @@ export default function AffordabilityCalculator() {
   const handlePropTaxYearly = useCallback((v: string) => {
     setPropertyTaxYearly(v);
     const n = parseFloat(v);
-    setPropertyTaxMonthly(isNaN(n) ? "" : String(Math.round(n / 12)));
+    setPropertyTaxMonthly(isNaN(n) ? "" : String(parseFloat((n / 12).toFixed(2))));
   }, []);
 
   /* Rental income sync */
@@ -748,15 +748,6 @@ export default function AffordabilityCalculator() {
                   Home Expenses
                 </span>
                 <span className="text-navy font-semibold tabular-nums">${fmt2(results.fullHomeExpenses)}</span>
-              </div>
-              <div className="flex items-center justify-between pt-3 border-t border-sand-2">
-                <span className="flex items-center gap-2 text-slate">
-                  <span className="w-2 h-2 rounded-full bg-[#E5E7EB] shrink-0" />
-                  Cash Left (Gross)
-                </span>
-                <span className={`font-semibold tabular-nums ${results.cashLeft >= 0 ? "text-navy" : "text-coral"}`}>
-                  ${fmt2(results.cashLeft)}
-                </span>
               </div>
             </div>
 
