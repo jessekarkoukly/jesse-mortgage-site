@@ -96,7 +96,7 @@ export default function CalculatorHub() {
             <Link
               key={calc.name}
               href={calc.href}
-              className="group bg-white rounded-xl p-6 flex flex-col hover:shadow-lg transition-shadow duration-200"
+              className="group bg-white rounded-xl p-6 flex flex-col hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1 active:scale-[0.98] transition-all duration-200"
             >
               <CalcIcon />
               <p

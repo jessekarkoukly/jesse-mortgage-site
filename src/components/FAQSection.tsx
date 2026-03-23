@@ -64,7 +64,7 @@ export default function FAQSection() {
                     {item.q}
                   </span>
                   <span
-                    className={`shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center transition-colors duration-200 ${
+                    className={`shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all duration-200 group-hover:scale-110 ${
                       isOpen
                         ? "border-coral bg-coral text-white"
                         : "border-sand-2 text-slate group-hover:border-coral group-hover:text-coral"

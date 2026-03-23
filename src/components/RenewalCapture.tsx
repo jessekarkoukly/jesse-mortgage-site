@@ -82,7 +82,7 @@ export default function RenewalCapture() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full sm:w-auto bg-coral text-white font-semibold px-8 py-3 rounded-lg hover:bg-coral-dark disabled:opacity-50 transition-colors cursor-pointer text-[0.875rem]"
+              className="w-full sm:w-auto bg-coral text-white font-semibold px-8 py-3 rounded-lg hover:bg-coral-dark hover:scale-[1.03] active:scale-95 disabled:opacity-50 transition-all cursor-pointer text-[0.875rem]"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
               {status === "loading" ? "Saving..." : "Remind Me"}

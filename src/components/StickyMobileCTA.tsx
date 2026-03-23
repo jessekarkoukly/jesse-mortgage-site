@@ -28,7 +28,7 @@ export default function StickyMobileCTA() {
         onClick={() =>
           window.dispatchEvent(new CustomEvent("open-booking-modal"))
         }
-        className="w-full rounded-lg bg-coral text-white font-bold text-[0.9375rem] py-3 active:bg-coral-dark transition-colors cursor-pointer"
+        className="w-full rounded-lg bg-coral text-white font-bold text-[0.9375rem] py-3 active:bg-coral-dark active:scale-95 transition-all cursor-pointer"
         style={{ fontFamily: "var(--font-jakarta)" }}
       >
         Book a Call

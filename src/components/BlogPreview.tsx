@@ -56,7 +56,7 @@ export default function BlogPreview() {
               href={article.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white rounded-xl border border-sand-2 p-6 hover:border-coral/40 hover:shadow-md transition-all flex flex-col"
+              className="bg-white rounded-xl border border-sand-2 p-6 hover:border-coral/40 hover:shadow-md hover:scale-[1.02] hover:-translate-y-1 active:scale-[0.98] transition-all duration-200 flex flex-col"
             >
               {/* Article thumbnail */}
               <div className="mb-4">

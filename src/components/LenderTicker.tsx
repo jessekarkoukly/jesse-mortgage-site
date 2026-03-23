@@ -49,7 +49,7 @@ export default function LenderTicker() {
                 <img
                   src={lender.logo}
                   alt={lender.name}
-                  className="h-14 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-200"
+                  className="h-14 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 hover:scale-110 transition-all duration-200"
                   loading="lazy"
                 />
               </div>

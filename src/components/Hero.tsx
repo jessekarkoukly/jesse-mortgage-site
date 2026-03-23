@@ -41,7 +41,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
           <div className="flex flex-row gap-3 mb-10">
             <button
               onClick={onBookingOpen}
-              className="bg-coral text-white font-bold px-8 py-4 rounded-lg hover:bg-coral-dark transition-colors duration-150 cursor-pointer text-[0.9375rem] shadow-md hover:shadow-lg"
+              className="bg-coral text-white font-bold px-8 py-4 rounded-lg hover:bg-coral-dark hover:scale-[1.03] active:scale-95 transition-all duration-150 cursor-pointer text-[0.9375rem] shadow-md hover:shadow-lg"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
               Book a Call
@@ -114,7 +114,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
           <div className="flex flex-col sm:flex-row gap-3 mb-7">
             <button
               onClick={onBookingOpen}
-              className="w-full sm:w-auto bg-coral text-white font-bold px-7 py-4 rounded-lg hover:bg-coral-dark transition-colors duration-150 cursor-pointer text-[0.9375rem] shadow-md text-center"
+              className="w-full sm:w-auto bg-coral text-white font-bold px-7 py-4 rounded-lg hover:bg-coral-dark active:scale-95 transition-all duration-150 cursor-pointer text-[0.9375rem] shadow-md text-center"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
               Book a Call

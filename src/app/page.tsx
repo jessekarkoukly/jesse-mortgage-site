@@ -10,7 +10,6 @@ import BrokerVsBank from "@/components/BrokerVsBank";
 import BlogPreview from "@/components/BlogPreview";
 import FAQSection from "@/components/FAQSection";
 import EmailCapture from "@/components/EmailCapture";
-import RenewalCapture from "@/components/RenewalCapture";
 import SherwoodFooter from "@/components/SherwoodFooter";
 import JesseFooter from "@/components/JesseFooter";
 import HomeJsonLd from "@/components/HomeJsonLd";
@@ -35,8 +34,7 @@ export default function HomePage() {
         <ProcessAccordion />
         <FAQSection />
         <BlogPreview />
-        <EmailCapture />
-        <RenewalCapture />
+        <EmailCapture variant="navy" />
       </main>
       <SherwoodFooter />
       <JesseFooter />

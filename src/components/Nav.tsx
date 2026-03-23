@@ -150,7 +150,7 @@ export default function Nav({ onBookingOpen }: NavProps) {
           </a>
           <button
             onClick={onBookingOpen}
-            className="bg-navy text-white text-[1rem] font-semibold px-7 py-3 rounded-lg hover:bg-navy-2 transition-colors duration-150 cursor-pointer"
+            className="bg-navy text-white text-[1rem] font-semibold px-7 py-3 rounded-lg hover:bg-navy-2 hover:scale-[1.03] active:scale-95 transition-all duration-150 cursor-pointer"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
             Book a Call
@@ -243,14 +243,14 @@ export default function Nav({ onBookingOpen }: NavProps) {
           <div className="flex flex-col gap-3">
             <a
               href="tel:4162762666"
-              className="w-full text-center border-2 border-navy text-navy font-semibold py-3 rounded hover:bg-navy hover:text-white transition-colors"
+              className="w-full text-center border-2 border-navy text-navy font-semibold py-3 rounded hover:bg-navy hover:text-white active:scale-95 transition-all"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
               416-276-2666
             </a>
             <button
               onClick={() => { setMenuOpen(false); onBookingOpen(); }}
-              className="w-full bg-navy text-white font-semibold py-3 rounded hover:bg-navy-2 transition-colors cursor-pointer"
+              className="w-full bg-navy text-white font-semibold py-3 rounded hover:bg-navy-2 active:scale-95 transition-all cursor-pointer"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
               Book a Call

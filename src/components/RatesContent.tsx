@@ -115,6 +115,7 @@ export default function RatesContent() {
                         style={{ fontFamily: "var(--font-spectral)" }}
                       >
                         {row.rate}
+                        {row.note === "High ratio only" && "**"}
                       </span>
                     </td>
                   </tr>
@@ -197,7 +198,7 @@ export default function RatesContent() {
           </h2>
           <button
             onClick={handleBookCall}
-            className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark transition-colors cursor-pointer text-[0.9375rem] mb-4"
+            className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark hover:scale-[1.03] active:scale-95 transition-all cursor-pointer text-[0.9375rem] mb-4"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
             Book a Call

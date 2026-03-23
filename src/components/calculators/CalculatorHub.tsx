@@ -10,22 +10,22 @@ const CALCULATORS = [
     icon: "home",
   },
   {
-    name: "Maximum Mortgage",
-    description: "See the maximum mortgage you qualify for.",
+    name: "Affordability",
+    description: "Enter your income and down payment. See the maximum home price you can afford.",
     href: "/calculators/affordability",
-    icon: "wallet",
-  },
-  {
-    name: "Debt Service Calculator",
-    description: "Check if your income supports the mortgage you want (GDS/TDS).",
-    href: "/calculators/debt-service",
-    icon: "gauge",
+    icon: "chart",
   },
   {
     name: "Required Income",
     description: "Pick a home price. See the minimum income to qualify.",
     href: "/calculators/required-income",
     icon: "target",
+  },
+  {
+    name: "Debt Service Calculator",
+    description: "Check if your income supports the mortgage you want (GDS/TDS).",
+    href: "/calculators/debt-service",
+    icon: "gauge",
   },
   {
     name: "Land Transfer Tax",
@@ -120,6 +120,15 @@ function IconMortgage() {
   );
 }
 
+function IconChart() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+      <path d="M4 24V10l8 6 8-10 4 4" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 24h20" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 function IconPenalty() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
@@ -137,6 +146,7 @@ const ICON_MAP: Record<string, () => React.ReactElement> = {
   tax: IconTax,
   receipt: IconReceipt,
   mortgage: IconMortgage,
+  chart: IconChart,
   penalty: IconPenalty,
 };
 
@@ -146,7 +156,7 @@ export default function CalculatorHub() {
   };
 
   return (
-    <section className="bg-navy pt-16 pb-12 px-4 sm:px-6">
+    <section className="bg-navy pt-28 sm:pt-32 pb-12 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">

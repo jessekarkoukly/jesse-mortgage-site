@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import RenewalCapture from "@/components/RenewalCapture";
 
 /* ── FAQ ── */
 const FAQ_ITEMS = [
@@ -407,6 +408,9 @@ export default function RenewalContent() {
           </button>
         </div>
       </section>
+
+      {/* ── Renewal Tracker ── */}
+      <RenewalCapture />
 
       {/* ── Footer CTA ── */}
       <section className="bg-navy text-white">

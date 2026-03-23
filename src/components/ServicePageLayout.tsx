@@ -110,14 +110,14 @@ export default function ServicePageLayout({
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button
               onClick={handleBookCall}
-              className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark transition-colors cursor-pointer text-[0.9375rem]"
+              className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark hover:scale-[1.03] active:scale-95 transition-all cursor-pointer text-[0.9375rem]"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
               {ctaText}
             </button>
             <Link
               href="/services"
-              className="border-2 border-sand text-sand font-semibold px-8 py-3.5 rounded-lg hover:bg-sand hover:text-navy transition-colors text-center text-[0.9375rem]"
+              className="border-2 border-sand text-sand font-semibold px-8 py-3.5 rounded-lg hover:bg-sand hover:text-navy hover:scale-[1.03] active:scale-95 transition-all text-center text-[0.9375rem]"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
               All Services

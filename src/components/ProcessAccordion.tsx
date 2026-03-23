@@ -77,12 +77,12 @@ export default function ProcessAccordion() {
                 className={`rounded-xl border transition-all duration-300 ${
                   isOpen
                     ? "bg-navy border-navy shadow-lg"
-                    : "bg-white border-sand-2 hover:border-coral/30 hover:shadow-md"
+                    : "bg-white border-sand-2 hover:border-coral/30 hover:shadow-md hover:-translate-y-0.5"
                 }`}
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="w-full text-left p-5 sm:p-6 flex items-center gap-5 cursor-pointer"
+                  className="w-full text-left p-5 sm:p-6 flex items-center gap-5 cursor-pointer group"
                   aria-expanded={isOpen}
                 >
                   {/* Number */}
@@ -117,7 +117,7 @@ export default function ProcessAccordion() {
 
                   {/* Toggle icon */}
                   <span
-                    className={`shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    className={`shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${
                       isOpen
                         ? "bg-coral text-white rotate-45 text-[1.375rem]"
                         : "bg-sand text-slate text-[1.25rem]"

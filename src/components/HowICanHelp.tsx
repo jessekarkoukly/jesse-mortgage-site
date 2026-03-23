@@ -140,10 +140,10 @@ function AccordionCard({
 }) {
   return (
     <div
-      className={`rounded-xl border transition-colors duration-300 overflow-hidden ${
+      className={`rounded-xl border transition-all duration-300 overflow-hidden ${
         isOpen
           ? "bg-[#243a4f] border-navy-2"
-          : "bg-navy border-navy-2 hover:border-coral"
+          : "bg-navy border-navy-2 hover:border-coral hover:scale-[1.01] hover:-translate-y-0.5"
       }`}
     >
       <button
@@ -232,7 +232,7 @@ function AccordionCard({
               <div className="mt-4">
                 <Link
                   href={card.link}
-                  className="inline-flex items-center gap-2 bg-coral text-white text-[1rem] font-bold px-7 py-4 rounded-xl hover:bg-coral-dark transition-colors min-h-[48px] shadow-lg shadow-coral/20"
+                  className="inline-flex items-center gap-2 bg-coral text-white text-[1rem] font-bold px-7 py-4 rounded-xl hover:bg-coral-dark hover:scale-[1.03] active:scale-95 transition-all min-h-[48px] shadow-lg shadow-coral/20"
                   style={{ fontFamily: "var(--font-jakarta)" }}
                 >
                   Learn More

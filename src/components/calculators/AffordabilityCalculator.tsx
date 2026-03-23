@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 
 /* ── Info Tooltip ── */
 function InfoBubble({ text }: { text: string }) {
@@ -42,57 +42,172 @@ function InfoBubble({ text }: { text: string }) {
 }
 
 /* ── Helpers ── */
+function fmtDollars(n: number) {
+  return Math.round(n).toLocaleString("en-CA");
+}
 function fmt2(n: number) {
   return n.toLocaleString("en-CA", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
-function fmtRound(n: number) {
-  return Math.round(n).toLocaleString("en-CA");
-}
-function fmtPct2(n: number) {
-  return n.toFixed(2);
+
+/* ── Canadian semi-annual compounding ── */
+function monthlyRate(annualRate: number): number {
+  const ear = Math.pow(1 + annualRate / 2, 2) - 1;
+  return Math.pow(1 + ear, 1 / 12) - 1;
 }
 
-function calcMonthlyPayment(principal: number, annualRate: number, amortYears: number) {
+function calcMonthlyPayment(principal: number, annualRate: number, amortYears: number): number {
   if (principal <= 0 || annualRate <= 0 || amortYears <= 0) return 0;
-  const ear = Math.pow(1 + annualRate / 2, 2) - 1;
-  const periodicRate = Math.pow(1 + ear, 1 / 12) - 1;
+  const r = monthlyRate(annualRate);
   const n = amortYears * 12;
-  return (
-    (principal * (periodicRate * Math.pow(1 + periodicRate, n))) /
-    (Math.pow(1 + periodicRate, n) - 1)
-  );
+  return (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
 }
 
-/** Given a max monthly payment, back-calculate the max principal */
-function calcMaxPrincipal(maxPayment: number, annualRate: number, amortYears: number) {
-  if (maxPayment <= 0 || annualRate <= 0 || amortYears <= 0) return 0;
-  const ear = Math.pow(1 + annualRate / 2, 2) - 1;
-  const periodicRate = Math.pow(1 + ear, 1 / 12) - 1;
-  const n = amortYears * 12;
-  return (
-    (maxPayment * (Math.pow(1 + periodicRate, n) - 1)) /
-    (periodicRate * Math.pow(1 + periodicRate, n))
-  );
+/* ── CMHC insurance premium rate (% of mortgage) ── */
+function cmhcPremiumRate(ltv: number): number {
+  if (ltv <= 0.80) return 0;
+  if (ltv <= 0.85) return 0.028;
+  if (ltv <= 0.90) return 0.031;
+  if (ltv <= 0.95) return 0.04;
+  return 0;
 }
 
-const RATE_TERMS = ["1 Year", "2 Year", "3 Year", "4 Year", "5 Year", "6 Year"];
+/* ── Minimum down payment for a given home price ── */
+function minDownPayment(homePrice: number): number {
+  if (homePrice <= 0) return 0;
+  if (homePrice > 1500000) return homePrice * 0.20;
+  if (homePrice <= 500000) return homePrice * 0.05;
+  return 25000 + (homePrice - 500000) * 0.10;
+}
 
-/* ── Affordability level: slider is GDS 0–50, TDS derived ── */
-function getThresholds(gdsVal: number): { gds: number; tds: number; label: string } {
-  const gds = gdsVal / 100;
-  let tds: number;
-  if (gdsVal <= 35) {
-    tds = gdsVal > 0 ? gdsVal * (42 / 35) : 0;
-  } else if (gdsVal <= 39) {
-    tds = 42 + ((gdsVal - 35) / (39 - 35)) * (44 - 42);
-  } else {
-    tds = 44 + ((gdsVal - 39) / (50 - 39)) * (50 - 44);
+/* ── Max home price from down payment alone ── */
+function maxHomePriceFromDP(dp: number): number {
+  if (dp <= 0) return 0;
+  const maxAt5pct = dp / 0.05;
+  if (maxAt5pct <= 500000) return maxAt5pct;
+  const maxTiered = (dp - 25000) / 0.10 + 500000;
+  if (dp >= 25000 && maxTiered <= 1500000) return maxTiered;
+  if (dp >= 300000) return dp / 0.20;
+  if (maxTiered > 1500000) return maxTiered;
+  return maxAt5pct;
+}
+
+/* ── Solve for max home price ──
+ *
+ * Matches Scarlett broker software approach:
+ * - GDS 32% / TDS 40% (conservative thresholds)
+ * - Qualification at contract rate (no stress test markup)
+ * - No assumed property tax or heat (user enters if known)
+ * - CMHC insurance when DP < 20% and price ≤ $1.5M
+ * - Canadian semi-annual compounding
+ */
+function solveMaxHomePrice(
+  grossAnnualIncome: number,
+  downPayment: number,
+  contractRate: number,
+  monthlyDebts: number,
+  amortYears: number = 25
+): {
+  maxHomePrice: number;
+  maxMortgage: number;
+  insuredMortgage: number;
+  insurancePremium: number;
+  monthlyPayment: number;
+  gds: number;
+  tds: number;
+  ltv: number;
+  cashLeftOver: number;
+  bindingConstraint: "gds" | "tds" | "downpayment";
+} {
+  const GDS_LIMIT = 0.32;
+  const TDS_LIMIT = 0.40;
+  const monthlyIncome = grossAnnualIncome / 12;
+
+  const r = monthlyRate(contractRate);
+  const n = amortYears * 12;
+
+  // Binary search for max home price (income-based)
+  let lo = 0;
+  let hi = 10000000;
+
+  for (let i = 0; i < 100; i++) {
+    const mid = (lo + hi) / 2;
+    const mortgage = mid - downPayment;
+    if (mortgage <= 0) {
+      lo = mid;
+      continue;
+    }
+
+    // Check if DP meets minimum
+    if (downPayment < minDownPayment(mid)) {
+      hi = mid;
+      continue;
+    }
+
+    const ltv = mortgage / mid;
+    const premium = (ltv > 0.80 && mid <= 1500000) ? cmhcPremiumRate(ltv) : 0;
+    const insuredMortgage = mortgage * (1 + premium);
+
+    const payment = (insuredMortgage * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+
+    const gdsOk = monthlyIncome > 0 ? (payment / monthlyIncome) <= GDS_LIMIT : false;
+    const tdsOk = monthlyIncome > 0 ? ((payment + monthlyDebts) / monthlyIncome) <= TDS_LIMIT : false;
+
+    if (gdsOk && tdsOk) {
+      lo = mid;
+    } else {
+      hi = mid;
+    }
   }
-  const label = gdsVal <= 35 ? "Baseline" : gdsVal <= 39 ? "Standard" : "Stretched";
-  return { gds, tds: tds / 100, label };
+
+  const incomeBasedMax = Math.floor(lo);
+  const dpBasedMax = Math.floor(maxHomePriceFromDP(downPayment));
+  const maxHP = Math.min(incomeBasedMax, dpBasedMax);
+
+  // Determine binding constraint
+  let bindingConstraint: "gds" | "tds" | "downpayment" = "gds";
+  if (dpBasedMax < incomeBasedMax) {
+    bindingConstraint = "downpayment";
+  } else {
+    const mortgage = maxHP - downPayment;
+    const ltvVal = maxHP > 0 ? mortgage / maxHP : 0;
+    const premium = (ltvVal > 0.80 && maxHP <= 1500000) ? cmhcPremiumRate(ltvVal) : 0;
+    const insured = mortgage * (1 + premium);
+    const payment = calcMonthlyPayment(insured, contractRate, amortYears);
+    const tdsVal = monthlyIncome > 0 ? (payment + monthlyDebts) / monthlyIncome : 0;
+    if (monthlyDebts > 0 && tdsVal >= TDS_LIMIT - 0.001) {
+      bindingConstraint = "tds";
+    }
+  }
+
+  // Final numbers
+  const finalMortgage = Math.max(0, maxHP - downPayment);
+  const finalLTV = maxHP > 0 ? finalMortgage / maxHP : 0;
+  const finalPremiumRate = (finalLTV > 0.80 && maxHP <= 1500000) ? cmhcPremiumRate(finalLTV) : 0;
+  const finalInsuredMortgage = finalMortgage * (1 + finalPremiumRate);
+  const finalInsurancePremium = finalMortgage * finalPremiumRate;
+
+  const actualPayment = calcMonthlyPayment(finalInsuredMortgage, contractRate, amortYears);
+
+  const gds = monthlyIncome > 0 ? actualPayment / monthlyIncome : 0;
+  const tds = monthlyIncome > 0 ? (actualPayment + monthlyDebts) / monthlyIncome : 0;
+
+  const cashLeft = monthlyIncome - actualPayment - monthlyDebts;
+
+  return {
+    maxHomePrice: maxHP,
+    maxMortgage: finalMortgage,
+    insuredMortgage: finalInsuredMortgage,
+    insurancePremium: finalInsurancePremium,
+    monthlyPayment: actualPayment,
+    gds,
+    tds,
+    ltv: finalLTV,
+    cashLeftOver: cashLeft,
+    bindingConstraint,
+  };
 }
 
-/* ── Slider Input ── */
+/* ── Slider Input (with editable text field) ── */
 function SliderInput({
   label,
   value,
@@ -102,8 +217,8 @@ function SliderInput({
   onChange,
   prefix = "$",
   suffix = "",
-  displayValue,
   helperText,
+  formatDisplay,
 }: {
   label: string;
   value: number;
@@ -113,10 +228,32 @@ function SliderInput({
   onChange: (v: number) => void;
   prefix?: string;
   suffix?: string;
-  displayValue?: string;
   helperText?: string;
+  formatDisplay?: (v: number) => string;
 }) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState("");
   const pct = ((value - min) / (max - min)) * 100;
+
+  const displayed = formatDisplay
+    ? formatDisplay(value)
+    : prefix === "$"
+      ? `${prefix}${fmtDollars(value)}`
+      : `${value}${suffix}`;
+
+  const startEditing = () => {
+    setDraft(prefix === "$" ? String(value) : String(value));
+    setEditing(true);
+  };
+
+  const commitEdit = () => {
+    setEditing(false);
+    const parsed = parseFloat(draft.replace(/[^0-9.\-]/g, ""));
+    if (!isNaN(parsed)) {
+      onChange(Math.min(max, Math.max(min, parsed)));
+    }
+  };
+
   return (
     <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] p-3 pb-2 flex flex-col justify-between h-full">
       <div className="flex items-center gap-1.5 mb-1">
@@ -128,14 +265,30 @@ function SliderInput({
         </span>
         {helperText && <InfoBubble text={helperText} />}
       </div>
-      <p
-        className="text-navy font-bold text-[1.125rem] sm:text-[1.25rem] mb-2"
-        style={{ fontFamily: "var(--font-spectral)" }}
-      >
-        {displayValue
-          ? displayValue
-          : `${prefix}${prefix === "$" ? fmt2(value) : value}${suffix}`}
-      </p>
+      {editing ? (
+        <div className="flex items-center gap-1 mb-2">
+          {prefix && <span className="text-slate text-[1rem]">{prefix}</span>}
+          <input
+            type="number"
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            onBlur={commitEdit}
+            onKeyDown={(e) => e.key === "Enter" && commitEdit()}
+            autoFocus
+            className="w-full bg-transparent text-navy font-bold text-[1.125rem] sm:text-[1.25rem] focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            style={{ fontFamily: "var(--font-spectral)" }}
+          />
+          {suffix && <span className="text-slate text-[1rem]">{suffix}</span>}
+        </div>
+      ) : (
+        <p
+          className="text-navy font-bold text-[1.125rem] sm:text-[1.25rem] mb-2 cursor-text"
+          style={{ fontFamily: "var(--font-spectral)" }}
+          onClick={startEditing}
+        >
+          {displayed}
+        </p>
+      )}
       <input
         type="range"
         min={min}
@@ -152,185 +305,18 @@ function SliderInput({
   );
 }
 
-/* ── Plain Input (no slider) ── */
-function PlainInput({
-  label,
-  value,
-  onChange,
-  prefix = "$",
-  suffix = "",
-  note,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  prefix?: string;
-  suffix?: string;
-  note?: string;
-}) {
-  return (
-    <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] p-3 flex flex-col justify-between h-full">
-      <span
-        className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide mb-1"
-        style={{ fontFamily: "var(--font-jakarta)" }}
-      >
-        {label}
-      </span>
-      <div className="flex items-center gap-1">
-        {prefix && <span className="text-slate text-[0.875rem]">{prefix}</span>}
-        <input
-          type="number"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-full bg-transparent text-navy font-bold text-[1.125rem] sm:text-[1.25rem] focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-          style={{ fontFamily: "var(--font-spectral)" }}
-        />
-        {suffix && <span className="text-slate text-[0.875rem]">{suffix}</span>}
-      </div>
-      {note && (
-        <p className="text-[0.625rem] text-slate mt-1" style={{ fontFamily: "var(--font-jakarta)" }}>
-          {note}
-        </p>
-      )}
-    </div>
-  );
-}
-
 /* ════════════════════════════════════════════ */
 
 export default function AffordabilityCalculator() {
-  /* ── State ── */
   const [grossIncome, setGrossIncome] = useState(100000);
-  const [monthlyDebt, setMonthlyDebt] = useState(0);
-  const [rate, setRate] = useState(5.25);
-  const [rateType, setRateType] = useState<"fixed" | "variable">("fixed");
-  const [rateTerm, setRateTerm] = useState("5 Year");
-  const [amortization, setAmortization] = useState(25);
+  const [downPayment, setDownPayment] = useState(50000);
+  const [rate, setRate] = useState(4.90);
+  const [monthlyDebts, setMonthlyDebts] = useState(0);
 
-  // Home expenses
-  const [propertyTaxMonthly, setPropertyTaxMonthly] = useState("");
-  const [propertyTaxYearly, setPropertyTaxYearly] = useState("");
-  const [condoFees, setCondoFees] = useState(0);
-  const [heat, setHeat] = useState(0);
-
-  // Rental income
-  const [rentalToggle, setRentalToggle] = useState(false);
-  const [rentalMonthly, setRentalMonthly] = useState("");
-  const [rentalYearly, setRentalYearly] = useState("");
-
-  // Affordability level
-  const [affordLevel, setAffordLevel] = useState(35);
-  const [customRatios, setCustomRatios] = useState(false);
-  const [customGds, setCustomGds] = useState("35");
-  const [customTds, setCustomTds] = useState("42");
-
-  /* Property tax sync */
-  const handlePropTaxMonthly = useCallback((v: string) => {
-    setPropertyTaxMonthly(v);
-    const n = parseFloat(v);
-    setPropertyTaxYearly(isNaN(n) ? "" : String(Math.round(n * 12)));
-  }, []);
-
-  const handlePropTaxYearly = useCallback((v: string) => {
-    setPropertyTaxYearly(v);
-    const n = parseFloat(v);
-    setPropertyTaxMonthly(isNaN(n) ? "" : String(parseFloat((n / 12).toFixed(2))));
-  }, []);
-
-  /* Rental income sync */
-  const handleRentalMonthly = useCallback((v: string) => {
-    setRentalMonthly(v);
-    const n = parseFloat(v);
-    setRentalYearly(isNaN(n) ? "" : String(Math.round(n * 12)));
-  }, []);
-
-  const handleRentalYearly = useCallback((v: string) => {
-    setRentalYearly(v);
-    const n = parseFloat(v);
-    setRentalMonthly(isNaN(n) ? "" : String(Math.round(n / 12)));
-  }, []);
-
-  /* ── Threshold logic ── */
-  const thresholds = useMemo(() => {
-    if (customRatios) {
-      return {
-        gds: (parseFloat(customGds) || 32) / 100,
-        tds: (parseFloat(customTds) || 40) / 100,
-        label: "Custom",
-      };
-    }
-    return getThresholds(affordLevel);
-  }, [affordLevel, customRatios, customGds, customTds]);
-
-  /* ── Calculate max mortgage from income ── */
-  const results = useMemo(() => {
-    const contractRate = rate / 100;
-    const qualifyingRate = Math.max(contractRate + 0.02, 0.0525);
-
-    const rentalMo = rentalToggle ? parseFloat(rentalMonthly) || 0 : 0;
-    const baseMonthlyIncome = grossIncome / 12;
-    const adjustedMonthlyIncome = baseMonthlyIncome + rentalMo * 0.5;
-
-    const propTaxMo = parseFloat(propertyTaxMonthly) || 0;
-    const condoIncluded = condoFees * 0.5; // 50% per CMHC
-
-    // GDS: (mortgage + propTax + heat + 50% condo) / income <= threshold
-    const maxPaymentGDS =
-      adjustedMonthlyIncome * thresholds.gds - propTaxMo - heat - condoIncluded;
-
-    // TDS: (mortgage + propTax + heat + 50% condo + debt) / income <= threshold
-    const maxPaymentTDS =
-      adjustedMonthlyIncome * thresholds.tds - propTaxMo - heat - condoIncluded - monthlyDebt;
-
-    // The binding constraint is whichever gives the lower max payment
-    const maxPayment = Math.max(0, Math.min(maxPaymentGDS, maxPaymentTDS));
-
-    // Back-calculate max principal from the stress-test payment
-    const maxMortgage = calcMaxPrincipal(maxPayment, qualifyingRate, amortization);
-
-    // Actual monthly payment at contract rate
-    const actualPayment = calcMonthlyPayment(maxMortgage, contractRate, amortization);
-
-    // Full home expenses for display
-    const fullHomeExpenses = propTaxMo + heat + condoFees;
-
-    // Cash left uses actual payment + full expenses
-    const cashLeft = adjustedMonthlyIncome - actualPayment - monthlyDebt - fullHomeExpenses;
-
-    // GDS/TDS at the calculated mortgage (using stress test rate)
-    const stressPayment = calcMonthlyPayment(maxMortgage, qualifyingRate, amortization);
-    const gdsNumerator = stressPayment + propTaxMo + heat + condoIncluded;
-    const gds = adjustedMonthlyIncome > 0 ? gdsNumerator / adjustedMonthlyIncome : 0;
-    const tdsNumerator = gdsNumerator + monthlyDebt;
-    const tds = adjustedMonthlyIncome > 0 ? tdsNumerator / adjustedMonthlyIncome : 0;
-
-    return {
-      maxMortgage,
-      qualifyingRate,
-      actualPayment,
-      fullHomeExpenses,
-      cashLeft,
-      gds,
-      tds,
-    };
-  }, [
-    grossIncome,
-    monthlyDebt,
-    propertyTaxMonthly,
-    condoFees,
-    heat,
-    rate,
-    amortization,
-    rentalToggle,
-    rentalMonthly,
-    thresholds,
-  ]);
-
-  /* ── Visual bar widths ── */
-  const monthlyIncome = grossIncome / 12 + (rentalToggle ? (parseFloat(rentalMonthly) || 0) * 0.5 : 0);
-  const mortgagePct = monthlyIncome > 0 ? Math.min((results.actualPayment / monthlyIncome) * 100, 100) : 0;
-  const debtPct = monthlyIncome > 0 ? Math.min((monthlyDebt / monthlyIncome) * 100, 100 - mortgagePct) : 0;
-  const expPct = monthlyIncome > 0 ? Math.min((results.fullHomeExpenses / monthlyIncome) * 100, 100 - mortgagePct - debtPct) : 0;
+  const results = useMemo(
+    () => solveMaxHomePrice(grossIncome, downPayment, rate / 100, monthlyDebts),
+    [grossIncome, downPayment, rate, monthlyDebts]
+  );
 
   const handleBookCall = () => {
     window.dispatchEvent(new CustomEvent("open-booking-modal"));
@@ -340,422 +326,168 @@ export default function AffordabilityCalculator() {
     <div className="max-w-6xl mx-auto px-4 sm:px-5 md:px-10 py-6 sm:py-10">
       <div className="flex flex-col md:flex-row gap-4 md:gap-8">
         {/* ── LEFT: Inputs ── */}
-        <div className="md:w-[60%] flex flex-col gap-5">
-
-          {/* Gross Annual Income */}
+        <div className="md:w-[55%] flex flex-col gap-5">
           <SliderInput
             label="Gross Annual Income"
             value={grossIncome}
             min={30000}
-            max={500000}
+            max={1000000}
             step={5000}
             onChange={setGrossIncome}
-            helperText="Enter your gross annual income. If you are applying with a co-applicant, combine all incomes and add it here."
+            helperText="Your total annual income before taxes. If applying with a partner, combine both incomes."
           />
 
-          {/* Monthly Debt */}
           <SliderInput
-            label="Monthly Debt Payments"
-            value={monthlyDebt}
+            label="Down Payment"
+            value={downPayment}
+            min={0}
+            max={1000000}
+            step={5000}
+            onChange={setDownPayment}
+            helperText="The amount you have saved for a down payment. Minimum 5% for homes under $500K, 10% on the portion between $500K and $1.5M, and 20% for homes over $1.5M."
+          />
+
+          <SliderInput
+            label="Interest Rate"
+            value={rate}
+            min={1}
+            max={10}
+            step={0.05}
+            onChange={setRate}
+            prefix=""
+            suffix="%"
+            formatDisplay={(v) => `${v.toFixed(2)}%`}
+            helperText="The mortgage interest rate. Your actual rate will depend on the product and term you choose."
+          />
+
+          <SliderInput
+            label="Monthly Debts"
+            value={monthlyDebts}
             min={0}
             max={5000}
             step={100}
-            onChange={setMonthlyDebt}
-            helperText="The sum of all monthly debt payments. Add up all monthly credit card payments, car loans or leases, personal loans or line of credit payments, spouse or child support payments."
+            onChange={setMonthlyDebts}
+            helperText="Monthly debt obligations like car payments, student loans, credit card minimums, and child or spousal support. Do not include rent (that goes away when you buy)."
           />
-
-          {/* ── Home Expenses ── */}
-          <div>
-            <p
-              className="text-navy font-bold text-[0.9375rem] mb-1"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              Home Expenses
-            </p>
-            <p
-              className="text-slate text-[0.75rem] mb-3"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              To budget better and calculate a more realistic total monthly cost, enter the additional home expenses here.
-            </p>
-
-            {/* Property Tax */}
-            <p
-              className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide mb-2"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              Property Tax
-            </p>
-            <div className="grid grid-cols-2 gap-3 mb-3">
-              <PlainInput
-                label="Monthly"
-                value={propertyTaxMonthly}
-                onChange={handlePropTaxMonthly}
-              />
-              <PlainInput
-                label="Yearly"
-                value={propertyTaxYearly}
-                onChange={handlePropTaxYearly}
-              />
-            </div>
-
-            {/* Condo + Heat */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <SliderInput
-                label="Condo Fees (Monthly)"
-                value={condoFees}
-                min={0}
-                max={2000}
-                step={100}
-                onChange={setCondoFees}
-                helperText="Enter your monthly condo fees here. If you plan to live in a house, leave this value at $0."
-              />
-              <SliderInput
-                label="Heat"
-                value={heat}
-                min={0}
-                max={500}
-                step={50}
-                onChange={setHeat}
-                helperText="Enter the anticipated monthly heat cost. If unsure, use $150 for a house and $100 for a condo."
-              />
-            </div>
-            {condoFees > 0 && (
-              <p className="text-[0.625rem] text-slate mt-1" style={{ fontFamily: "var(--font-jakarta)" }}>
-                50% included in ratio calculation per CMHC guidelines.
-              </p>
-            )}
-          </div>
-
-          {/* ── Affordability Level ── */}
-          <div>
-            <div className="flex items-center justify-between mb-1">
-              <p
-                className="text-navy font-bold text-[0.9375rem]"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                Affordability Level
-              </p>
-              <div className="flex items-center gap-2">
-                <span
-                  className="text-[0.625rem] text-slate"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  Custom Ratios
-                </span>
-                <button
-                  onClick={() => setCustomRatios(!customRatios)}
-                  className={`relative w-10 h-5 shrink-0 rounded-full transition-colors cursor-pointer ${
-                    customRatios ? "bg-coral" : "bg-sand-2"
-                  }`}
-                >
-                  <span
-                    className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${
-                      customRatios ? "translate-x-5" : "translate-x-0.5"
-                    }`}
-                  />
-                </button>
-              </div>
-            </div>
-            <p
-              className="text-slate text-[0.75rem] mb-3"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              This slider decides how much of your disposable income is allocated to mortgage payments, home expenses, and monthly debt payments.
-            </p>
-
-            {customRatios ? (
-              <div className="grid grid-cols-2 gap-3">
-                <PlainInput
-                  label="Max GDS (%)"
-                  value={customGds}
-                  onChange={setCustomGds}
-                  prefix=""
-                  suffix="%"
-                />
-                <PlainInput
-                  label="Max TDS (%)"
-                  value={customTds}
-                  onChange={setCustomTds}
-                  prefix=""
-                  suffix="%"
-                />
-              </div>
-            ) : (
-              <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] p-4 pb-3">
-                <div className="flex items-center justify-between mb-3">
-                  <span
-                    className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide"
-                    style={{ fontFamily: "var(--font-jakarta)" }}
-                  >
-                    GDS: {(thresholds.gds * 100).toFixed(0)}% / TDS: {(thresholds.tds * 100).toFixed(0)}%
-                  </span>
-                </div>
-                <div className="relative">
-                  <div
-                    className="relative h-3 rounded-full"
-                    style={{
-                      background: "linear-gradient(to right, #22c55e 0%, #22c55e 60%, #eab308 75%, #E8705A 100%)",
-                    }}
-                  >
-                    {/* Baseline dot at 70% (35/50) */}
-                    <div
-                      className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white border border-[#ccc] z-[5] pointer-events-none"
-                      style={{ left: "70%" }}
-                    />
-                    {/* Standard dot at 78% (39/50) */}
-                    <div
-                      className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white border border-[#ccc] z-[5] pointer-events-none"
-                      style={{ left: "78%" }}
-                    />
-                    <input
-                      type="range"
-                      min={0}
-                      max={50}
-                      step={1}
-                      value={affordLevel}
-                      onChange={(e) => setAffordLevel(parseInt(e.target.value))}
-                      className="absolute inset-0 w-full h-full appearance-none cursor-pointer bg-transparent z-10 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-navy [&::-webkit-slider-thumb]:shadow-md"
-                    />
-                  </div>
-                  {/* Labels positioned below dots */}
-                  <div className="relative mt-2 h-4 text-[0.6875rem] text-slate" style={{ fontFamily: "var(--font-jakarta)" }}>
-                    <span className="absolute" style={{ left: "64%", transform: "translateX(-50%)" }}>Baseline</span>
-                    <span className="absolute" style={{ left: "84%", transform: "translateX(-50%)" }}>Standard</span>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* ── Rate ── */}
-          <div>
-            <p
-              className="text-navy font-bold text-[0.9375rem] mb-1"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              Rate
-            </p>
-            <p
-              className="text-slate text-[0.75rem] mb-3"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              Fixed stays the same for the term. Variable moves with prime.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] p-3 pb-2 flex flex-col justify-between">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide" style={{ fontFamily: "var(--font-jakarta)" }}>
-                    Rate
-                  </span>
-                  <div className="flex gap-1 ml-auto">
-                    {(["fixed", "variable"] as const).map((t) => (
-                      <button
-                        key={t}
-                        onClick={() => setRateType(t)}
-                        className={`text-[0.5625rem] font-semibold px-2 py-0.5 rounded capitalize cursor-pointer transition-colors ${
-                          rateType === t ? "bg-navy text-white" : "bg-white text-slate"
-                        }`}
-                        style={{ fontFamily: "var(--font-jakarta)" }}
-                      >
-                        {t}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <p className="text-navy font-bold text-[1.125rem] sm:text-[1.25rem] mb-2" style={{ fontFamily: "var(--font-spectral)" }}>
-                  {rate.toFixed(2)}%
-                </p>
-                <input
-                  type="range"
-                  min={1}
-                  max={12}
-                  step={0.1}
-                  value={rate}
-                  onChange={(e) => setRate(parseFloat(e.target.value))}
-                  className="w-full h-1.5 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-navy [&::-webkit-slider-thumb]:shadow-md"
-                  style={{
-                    background: `linear-gradient(to right, #1E2D3D 0%, #E8705A ${((rate - 1) / 11) * 100}%, #E5E7EB ${((rate - 1) / 11) * 100}%, #E5E7EB 100%)`,
-                  }}
-                />
-              </div>
-              <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] p-3 flex flex-col justify-between">
-                <span className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide mb-1" style={{ fontFamily: "var(--font-jakarta)" }}>
-                  Rate Term
-                </span>
-                <select
-                  value={rateTerm}
-                  onChange={(e) => setRateTerm(e.target.value)}
-                  className="w-full bg-transparent text-navy font-bold text-[1.125rem] sm:text-[1.25rem] focus:outline-none cursor-pointer appearance-none"
-                  style={{ fontFamily: "var(--font-spectral)" }}
-                >
-                  {RATE_TERMS.map((t) => (
-                    <option key={t} value={t}>{t}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-
-          {/* ── Amortization ── */}
-          <div>
-            <p
-              className="text-navy font-bold text-[0.9375rem] mb-1"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              Amortization
-            </p>
-            <p
-              className="text-slate text-[0.75rem] mb-3"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              The total time to pay off your mortgage. New mortgages in Canada typically start at 25 or 30 years.
-            </p>
-            <SliderInput
-              label="Amortization"
-              value={amortization}
-              min={5}
-              max={30}
-              step={1}
-              onChange={setAmortization}
-              prefix=""
-              suffix={` year${amortization !== 1 ? "s" : ""}`}
-            />
-          </div>
-
-          {/* ── Rental Income ── */}
-          <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] p-3">
-            <div className="flex items-center justify-between mb-1">
-              <p
-                className="text-navy font-bold text-[0.9375rem]"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                Add Rental Income
-              </p>
-              <button
-                onClick={() => {
-                  setRentalToggle(!rentalToggle);
-                  if (rentalToggle) {
-                    setRentalMonthly("");
-                    setRentalYearly("");
-                  }
-                }}
-                className={`relative w-10 h-5 shrink-0 rounded-full transition-colors cursor-pointer ${
-                  rentalToggle ? "bg-coral" : "bg-sand-2"
-                }`}
-              >
-                <span
-                  className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${
-                    rentalToggle ? "translate-x-5" : "translate-x-0.5"
-                  }`}
-                />
-              </button>
-            </div>
-            {rentalToggle && (
-              <>
-                <p
-                  className="text-slate text-[0.75rem] mb-3"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  If you plan to rent out part of your home, enter the monthly rent. 50% of rental income is added to qualifying income.
-                </p>
-                <div className="grid grid-cols-2 gap-3">
-                  <PlainInput
-                    label="Rental Income (Monthly)"
-                    value={rentalMonthly}
-                    onChange={handleRentalMonthly}
-                  />
-                  <PlainInput
-                    label="Rental Income (Yearly)"
-                    value={rentalYearly}
-                    onChange={handleRentalYearly}
-                  />
-                </div>
-              </>
-            )}
-          </div>
         </div>
 
         {/* ── RIGHT: Results Panel ── */}
-        <div className="md:w-[40%]">
+        <div className="md:w-[45%]">
           <div className="md:sticky md:top-20 bg-white border border-[#E5E7EB] rounded-2xl p-4 sm:p-6 shadow-sm">
-            {/* Maximum Mortgage Amount header */}
+            {/* Max home price */}
             <div className="mb-5">
               <p
                 className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide mb-1"
                 style={{ fontFamily: "var(--font-jakarta)" }}
               >
-                Maximum Mortgage Amount
+                You may be able to afford a home up to
               </p>
               <p
-                className="text-[1.625rem] sm:text-[2rem] font-bold text-coral"
+                className="text-[2rem] sm:text-[2.5rem] font-bold text-coral leading-tight"
                 style={{ fontFamily: "var(--font-spectral)" }}
               >
-                ${fmtRound(results.maxMortgage)}
+                ${fmtDollars(results.maxHomePrice)}
               </p>
             </div>
 
-            {/* Stress test rate + GDS / TDS */}
-            <div className="space-y-2 text-[0.8125rem] mb-4 pb-4 border-b border-sand-2" style={{ fontFamily: "var(--font-jakarta)" }}>
+            {/* Key figures */}
+            <div className="space-y-2.5 text-[0.8125rem] mb-5 pb-5 border-b border-sand-2" style={{ fontFamily: "var(--font-jakarta)" }}>
               <div className="flex items-center justify-between">
-                <span className="text-slate">Stress Test Rate</span>
-                <span className="text-navy font-semibold">{fmtPct2(results.qualifyingRate * 100)}%</span>
+                <span className="text-slate flex items-center gap-1.5">
+                  Mortgage Amount
+                  <InfoBubble text="The total amount you would borrow from the lender. This is the home price minus your down payment." />
+                </span>
+                <span className="text-navy font-semibold">${fmtDollars(results.maxMortgage)}</span>
+              </div>
+              {results.insurancePremium > 0 && (
+                <div className="flex items-center justify-between">
+                  <span className="text-slate flex items-center gap-1.5">
+                    CMHC Insurance
+                    <InfoBubble text="When your down payment is less than 20%, mortgage insurance is required. The premium is added to your mortgage balance." />
+                  </span>
+                  <span className="text-navy font-semibold">${fmtDollars(results.insurancePremium)}</span>
+                </div>
+              )}
+              <div className="flex items-center justify-between">
+                <span className="text-slate flex items-center gap-1.5">
+                  Monthly Payment
+                  <InfoBubble text="Your estimated monthly mortgage payment (principal and interest) at the rate you entered, over a 25-year amortization." />
+                </span>
+                <span className="text-navy font-semibold">${fmt2(results.monthlyPayment)}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-slate flex items-center gap-1.5">
-                  GDS / TDS
-                  <InfoBubble text="GDS (Gross Debt Service) measures housing costs as a share of income. TDS (Total Debt Service) includes housing costs plus all other debts. Lenders use both to determine how much you can borrow." />
+                  LTV
+                  <InfoBubble text="Loan-to-Value ratio. The percentage of the home price covered by the mortgage. Below 80% means no mortgage insurance is required." />
                 </span>
-                <span className="text-navy font-semibold">{fmtPct2(results.gds * 100)}% / {fmtPct2(results.tds * 100)}%</span>
+                <span className="text-navy font-semibold">{(results.ltv * 100).toFixed(0)}%</span>
               </div>
             </div>
 
-            {/* Visual bar */}
-            <div className="h-3 rounded-full bg-[#E5E7EB] overflow-hidden flex mb-2">
-              <div
-                className="bg-navy transition-all duration-300"
-                style={{ width: `${mortgagePct}%` }}
-              />
-              <div
-                className="bg-coral transition-all duration-300"
-                style={{ width: `${debtPct}%` }}
-              />
-              <div
-                className="bg-emerald-500 transition-all duration-300"
-                style={{ width: `${expPct}%` }}
-              />
+            {/* GDS / TDS side by side */}
+            <div className="flex gap-3 mb-5">
+              <div className="flex-1 bg-[#FAFAFA] rounded-lg px-3 py-2 flex items-center justify-between">
+                <span className="text-slate text-[0.6875rem] font-semibold uppercase tracking-wide flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
+                  GDS
+                  <InfoBubble text="Gross Debt Service ratio. The percentage of your gross income going to your mortgage payment. This calculator uses a 32% maximum." />
+                </span>
+                <span className={`font-bold text-[0.9375rem] ${results.gds > 0.32 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
+                  {(results.gds * 100).toFixed(1)}%
+                  <span className="text-slate font-normal text-[0.625rem]"> / 32%</span>
+                </span>
+              </div>
+              <div className="flex-1 bg-[#FAFAFA] rounded-lg px-3 py-2 flex items-center justify-between">
+                <span className="text-slate text-[0.6875rem] font-semibold uppercase tracking-wide flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
+                  TDS
+                  <InfoBubble text="Total Debt Service ratio. The percentage of your gross income going to mortgage payment plus all other monthly debts. This calculator uses a 40% maximum." />
+                </span>
+                <span className={`font-bold text-[0.9375rem] ${results.tds > 0.40 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
+                  {(results.tds * 100).toFixed(1)}%
+                  <span className="text-slate font-normal text-[0.625rem]"> / 40%</span>
+                </span>
+              </div>
             </div>
 
-            {/* Line items */}
-            <div className="flex flex-col gap-3 text-[0.8125rem] pt-3" style={{ fontFamily: "var(--font-jakarta)" }}>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-slate">
-                  <span className="w-2 h-2 rounded-full bg-navy shrink-0" />
-                  Monthly Mortgage
-                </span>
-                <span className="text-navy font-semibold tabular-nums">${fmt2(results.actualPayment)}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-slate">
-                  <span className="w-2 h-2 rounded-full bg-coral shrink-0" />
-                  Debt Payments
-                </span>
-                <span className="text-navy font-semibold tabular-nums">${fmt2(monthlyDebt)}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="flex items-center gap-2 text-slate">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
-                  Home Expenses
-                </span>
-                <span className="text-navy font-semibold tabular-nums">${fmt2(results.fullHomeExpenses)}</span>
-              </div>
+            {/* Money left over */}
+            <div className="bg-[#FAFAFA] rounded-lg p-3 mb-5 flex items-center justify-between" style={{ fontFamily: "var(--font-jakarta)" }}>
+              <span className="text-slate text-[0.8125rem] flex items-center gap-1.5">
+                Money Left Over
+                <InfoBubble text="What remains from your gross monthly income after your mortgage payment and other debts. This is before income tax and other living expenses." />
+              </span>
+              <span className="text-navy font-bold text-[1.125rem]" style={{ fontFamily: "var(--font-spectral)" }}>
+                ${fmtDollars(results.cashLeftOver)}/mo
+              </span>
             </div>
+
+            {/* Constraint note */}
+            {results.bindingConstraint === "downpayment" && (
+              <div
+                className="bg-coral/10 border border-coral/20 rounded-lg px-4 py-3 mb-5 text-[0.75rem] text-navy leading-relaxed"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Your down payment is the limiting factor. With more saved, your income could support a higher price.
+              </div>
+            )}
+
+            {/* Disclaimer */}
+            <p
+              className="text-[0.6875rem] text-slate leading-relaxed mb-5"
+              style={{ fontFamily: "var(--font-jakarta)" }}
+            >
+              This is an estimate for illustration purposes only. Actual mortgage approval depends on your full application, credit history, and lender criteria. This is not a mortgage commitment or guarantee.
+            </p>
 
             {/* CTA */}
-            <div className="mt-6 pt-5 border-t border-sand-2 space-y-2.5">
+            <div className="space-y-2.5">
+              <p
+                className="text-navy text-[0.8125rem] font-medium text-center"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Want Jesse to run your exact numbers? It takes one call.
+              </p>
               <button
                 onClick={handleBookCall}
-                className="w-full bg-coral text-white font-semibold py-3 rounded-lg hover:bg-coral-dark transition-colors cursor-pointer text-[0.875rem]"
+                className="w-full bg-coral text-white font-semibold py-3 rounded-lg hover:bg-coral-dark hover:scale-[1.03] active:scale-95 transition-all cursor-pointer text-[0.875rem]"
                 style={{ fontFamily: "var(--font-jakarta)" }}
               >
                 Book a Call

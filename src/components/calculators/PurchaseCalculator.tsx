@@ -168,7 +168,7 @@ function InputBox({
       </div>
       {note && (
         <p
-          className="text-[0.6875rem] text-coral mt-2 mb-2 px-1"
+          className="text-[0.6875rem] text-coral mt-2 mb-2 px-1 relative z-10"
           style={{ fontFamily: 'var(--font-jakarta)' }}
         >
           {note}

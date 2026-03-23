@@ -72,7 +72,7 @@ export default function BrokerVsBank() {
 
         <div className="grid md:grid-cols-2 gap-5 md:gap-6">
           {/* Bank column */}
-          <div className="bg-navy-2 rounded-2xl border border-white/10 p-6 md:p-8">
+          <div className="bg-navy-2 rounded-2xl border border-white/10 p-6 md:p-8 hover:scale-[1.01] transition-all duration-300">
             <div className="flex items-center gap-3 mb-6 pb-5 border-b border-white/10">
               <span className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -112,7 +112,7 @@ export default function BrokerVsBank() {
           </div>
 
           {/* Broker column */}
-          <div className="bg-white rounded-2xl p-6 md:p-8">
+          <div className="bg-white rounded-2xl p-6 md:p-8 hover:scale-[1.01] transition-all duration-300">
             <div className="flex items-center gap-3 mb-6 pb-5 border-b border-sand-2">
               <span className="w-10 h-10 rounded-xl bg-coral/15 flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">

@@ -21,14 +21,14 @@ export default function CTABand({ onBookingOpen }: CTABandProps) {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
             onClick={onBookingOpen}
-            className="bg-sand text-navy font-semibold px-8 py-3.5 rounded hover:bg-white transition-colors duration-150 cursor-pointer text-[0.9375rem] w-full sm:w-auto"
+            className="bg-sand text-navy font-semibold px-8 py-3.5 rounded hover:bg-white hover:scale-[1.03] active:scale-95 transition-all duration-150 cursor-pointer text-[0.9375rem] w-full sm:w-auto"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
             Book a Call
           </button>
           <a
             href="tel:4162762666"
-            className="border-2 border-slate text-white font-semibold px-8 py-3.5 rounded hover:border-white transition-colors duration-150 text-center text-[0.9375rem] w-full sm:w-auto"
+            className="border-2 border-slate text-white font-semibold px-8 py-3.5 rounded hover:border-white hover:scale-[1.03] active:scale-95 transition-all duration-150 text-center text-[0.9375rem] w-full sm:w-auto"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
             416-276-2666
