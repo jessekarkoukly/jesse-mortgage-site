@@ -1,23 +1,18 @@
-import { createClient } from "@supabase/supabase-js";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { supabase } from "@/lib/supabase";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
     const { email, source } = await req.json();
 
-    if (!email) {
+    if (!email || typeof email !== "string") {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
-
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     const { error } = await supabase
       .from("email_subscribers")
       .upsert(
-        { email, source: source || "homepage", created_at: new Date().toISOString() },
+        { email: email.toLowerCase().trim(), source: source || "homepage", created_at: new Date().toISOString() },
         { onConflict: "email" }
       );
 
