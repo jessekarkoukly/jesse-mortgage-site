@@ -65,17 +65,17 @@ export default function Nav({ onBookingOpen }: NavProps) {
         scrolled ? "shadow-[0_2px_12px_rgba(30,45,61,0.10)]" : ""
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-[4.5rem] flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-20 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex flex-col leading-none select-none shrink-0">
           <span
-            className="text-[1.5rem] lg:text-[2rem] font-bold text-navy"
+            className="text-[1.5rem] lg:text-[2.25rem] font-bold text-navy"
             style={{ fontFamily: "var(--font-spectral)" }}
           >
             Jesse<span className="text-coral">.</span>
           </span>
           <span
-            className="text-[0.8rem] lg:text-[1.05rem] font-normal text-slate -mt-1"
+            className="text-[0.8rem] lg:text-[1.15rem] font-normal text-slate -mt-1"
             style={{ fontFamily: "var(--font-spectral)" }}
           >
             Karkoukly

@@ -6,9 +6,9 @@ interface HeroProps {
 
 export default function Hero({ onBookingOpen }: HeroProps) {
   return (
-    <section className="bg-sand pt-16 sm:pt-20">
+    <section className="bg-sand pt-16 sm:pt-20 lg:pt-20">
       {/* ── Desktop: two-column full-height ── */}
-      <div className="hidden lg:grid lg:grid-cols-2 min-h-[calc(100vh-4rem)]">
+      <div className="hidden lg:grid lg:grid-cols-2 min-h-[calc(100vh-5rem)]">
 
         {/* Left: copy */}
         <div className="flex flex-col justify-center px-12 xl:px-20 py-20">
@@ -31,7 +31,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
           </h1>
 
           <p
-            className="text-[1.0625rem] text-navy-2 leading-relaxed mb-10 max-w-md"
+            className="text-[1.1875rem] text-navy-2 leading-relaxed mb-10 max-w-lg"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
             I&rsquo;m Jesse. I look at your full picture, compare options across 50+ lenders, and
