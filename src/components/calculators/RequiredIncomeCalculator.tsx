@@ -179,14 +179,14 @@ export default function RequiredIncomeCalculator() {
   const [monthlyDebts, setMonthlyDebts] = useState(0);
 
   const results = useMemo(() => {
-    const GDS_LIMIT = 0.32;
-    const TDS_LIMIT = 0.40;
+    const GDS_LIMIT = 0.39;
+    const TDS_LIMIT = 0.44;
     const contractRate = rate / 100;
     const amortYears = 25;
 
     const mortgage = Math.max(0, homePrice - downPayment);
     const ltv = homePrice > 0 ? mortgage / homePrice : 0;
-    const premiumRate = (ltv > 0.80 && homePrice <= 1500000) ? cmhcPremiumRate(ltv) : 0;
+    const premiumRate = (ltv > 0.80 && homePrice < 1500000) ? cmhcPremiumRate(ltv) : 0;
     const insurancePremium = mortgage * premiumRate;
     const insuredMortgage = mortgage + insurancePremium;
 
@@ -344,23 +344,23 @@ export default function RequiredIncomeCalculator() {
             {/* GDS / TDS side by side */}
             <div className="flex gap-3 mb-5">
               <div className="flex-1 bg-[#FAFAFA] rounded-lg px-3 py-2 flex items-center justify-between">
-                <span className="text-slate text-[0.6875rem] font-semibold uppercase tracking-wide flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
+                <span className="text-slate text-[0.6875rem] font-semibold tracking-wide flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
                   GDS
-                  <InfoBubble text="Gross Debt Service ratio. The percentage of your gross income going to your mortgage payment. This calculator uses a 32% maximum." />
+                  <InfoBubble text="Gross debt service ratio. The percentage of your gross income going to your mortgage payment. This calculator uses a 39% maximum." />
                 </span>
-                <span className={`font-bold text-[0.9375rem] ${results.gds > 0.32 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
+                <span className={`font-bold text-[0.9375rem] ${results.gds > 0.39 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
                   {(results.gds * 100).toFixed(1)}%
-                  <span className="text-slate font-normal text-[0.625rem]"> / 32%</span>
+                  <span className="text-slate font-normal text-[0.625rem]"> / 39%</span>
                 </span>
               </div>
               <div className="flex-1 bg-[#FAFAFA] rounded-lg px-3 py-2 flex items-center justify-between">
-                <span className="text-slate text-[0.6875rem] font-semibold uppercase tracking-wide flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
+                <span className="text-slate text-[0.6875rem] font-semibold tracking-wide flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
                   TDS
-                  <InfoBubble text="Total Debt Service ratio. The percentage of your gross income going to mortgage payment plus all other monthly debts. This calculator uses a 40% maximum." />
+                  <InfoBubble text="Total debt service ratio. The percentage of your gross income going to mortgage payment plus all other monthly debts. This calculator uses a 44% maximum." />
                 </span>
-                <span className={`font-bold text-[0.9375rem] ${results.tds > 0.40 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
+                <span className={`font-bold text-[0.9375rem] ${results.tds > 0.44 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
                   {(results.tds * 100).toFixed(1)}%
-                  <span className="text-slate font-normal text-[0.625rem]"> / 40%</span>
+                  <span className="text-slate font-normal text-[0.625rem]"> / 44%</span>
                 </span>
               </div>
             </div>

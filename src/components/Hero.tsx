@@ -46,6 +46,15 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             >
               Book a Call
             </button>
+            <a
+              href="https://app.scarlettnetwork.com/Jesse_Karkoukly/application/0/interview/purpose"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border border-navy/30 text-navy font-semibold px-6 py-3.5 rounded-lg hover:border-navy hover:bg-navy hover:text-white active:scale-95 transition-all duration-150 text-[0.875rem]"
+              style={{ fontFamily: "var(--font-jakarta)" }}
+            >
+              Start Application
+            </a>
           </div>
 
           {/* Trust chips */}
@@ -119,6 +128,15 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             >
               Book a Call
             </button>
+            <a
+              href="https://app.scarlettnetwork.com/Jesse_Karkoukly/application/0/interview/purpose"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto border border-navy/30 text-navy font-semibold px-6 py-3.5 rounded-lg hover:border-navy hover:bg-navy hover:text-white active:scale-95 transition-all duration-150 text-[0.875rem] text-center"
+              style={{ fontFamily: "var(--font-jakarta)" }}
+            >
+              Start Application
+            </a>
           </div>
 
           <div className="flex flex-wrap gap-3 sm:gap-4">

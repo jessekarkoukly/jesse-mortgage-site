@@ -51,17 +51,17 @@ export default function ProcessAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-sand py-20 px-6">
+    <section className="bg-sand py-24 sm:py-28 px-6">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <p
-          className="text-[0.6875rem] font-semibold text-coral tracking-[0.2em] uppercase mb-4"
+          className="text-[0.8125rem] font-semibold text-coral tracking-[0.2em] uppercase mb-4"
           style={{ fontFamily: "var(--font-jakarta)" }}
         >
           How It Works
         </p>
         <h2
-          className="text-[2rem] sm:text-[2.5rem] font-bold text-navy leading-tight mb-12"
+          className="text-[2.25rem] sm:text-[2.75rem] font-bold text-navy leading-tight mb-14"
           style={{ fontFamily: "var(--font-spectral)" }}
         >
           Six steps from first call to keys in hand<span className="text-coral">.</span>

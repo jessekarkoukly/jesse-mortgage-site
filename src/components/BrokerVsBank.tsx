@@ -55,16 +55,16 @@ function CheckIcon() {
 
 export default function BrokerVsBank() {
   return (
-    <section className="bg-navy py-16 md:py-20 px-6">
+    <section className="bg-navy py-24 sm:py-28 px-6">
       <div className="max-w-5xl mx-auto">
         <p
-          className="text-[0.6875rem] font-semibold text-coral tracking-[0.2em] uppercase mb-3 text-center"
+          className="text-[0.8125rem] font-semibold text-coral tracking-[0.2em] uppercase mb-3 text-center"
           style={{ fontFamily: "var(--font-jakarta)" }}
         >
           Why Work With a Broker
         </p>
         <h2
-          className="text-[1.75rem] sm:text-[2.25rem] font-bold text-white leading-tight mb-12 text-center"
+          className="text-[2rem] sm:text-[2.5rem] font-bold text-white leading-tight mb-14 text-center"
           style={{ fontFamily: "var(--font-spectral)" }}
         >
           The bank works for the bank<span className="text-coral">.</span>

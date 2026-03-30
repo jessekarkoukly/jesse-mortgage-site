@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <section className="bg-sand py-20 px-6">
+    <section className="bg-sand py-24 sm:py-28 px-6">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Photo */}
         <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] rounded-2xl overflow-hidden order-2 lg:order-1">
@@ -17,20 +17,20 @@ export default function AboutSection() {
         {/* Copy */}
         <div className="order-1 lg:order-2">
           <p
-            className="text-[0.75rem] font-semibold text-slate uppercase tracking-widest mb-4"
+            className="text-[0.8125rem] font-semibold text-coral tracking-[0.2em] uppercase mb-5"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
             About Jesse
           </p>
           <h2
-            className="text-[2rem] sm:text-[2.5rem] font-bold text-navy leading-tight mb-8"
+            className="text-[2.25rem] sm:text-[2.75rem] font-bold text-navy leading-tight mb-8"
             style={{ fontFamily: "var(--font-spectral)" }}
           >
             You should understand exactly what you are signing. I make sure you do.
           </h2>
 
           <div
-            className="flex flex-col gap-5 text-[1.0625rem] text-navy-2 leading-relaxed"
+            className="flex flex-col gap-6 text-[1.125rem] text-navy-2 leading-relaxed"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
             <p>

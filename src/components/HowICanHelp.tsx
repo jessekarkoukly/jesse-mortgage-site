@@ -149,7 +149,7 @@ function AccordionCard({
       <button
         onClick={onToggle}
         className={`w-full text-left cursor-pointer ${
-          card.featured ? "p-5 sm:p-7 md:p-8" : "p-4 sm:p-5 md:p-6"
+          card.featured ? "p-5 sm:p-7 md:p-8" : "p-5 sm:p-6 md:p-7"
         }`}
         aria-expanded={isOpen}
       >
@@ -158,8 +158,8 @@ function AccordionCard({
             <p
               className={`font-bold text-sand leading-snug ${
                 card.featured
-                  ? "text-[1.25rem] sm:text-[1.5rem]"
-                  : "text-[1.0625rem] sm:text-[1.125rem]"
+                  ? "text-[1.375rem] sm:text-[1.625rem]"
+                  : "text-[1.125rem] sm:text-[1.25rem]"
               }`}
               style={{ fontFamily: "var(--font-spectral)" }}
             >
@@ -167,7 +167,7 @@ function AccordionCard({
             </p>
             <p
               className={`text-slate mt-2 leading-relaxed ${
-                card.featured ? "text-[0.9375rem]" : "text-[0.8125rem]"
+                card.featured ? "text-[1rem]" : "text-[0.9375rem]"
               }`}
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
@@ -203,7 +203,7 @@ function AccordionCard({
             className={`${
               card.featured
                 ? "px-5 pb-5 sm:px-7 sm:pb-7 md:px-8 md:pb-8"
-                : "px-4 pb-4 sm:px-5 sm:pb-5 md:px-6 md:pb-6"
+                : "px-5 pb-5 sm:px-6 sm:pb-6 md:px-7 md:pb-7"
             }`}
           >
             <div className="border-t border-navy-2 pt-4">
@@ -211,7 +211,7 @@ function AccordionCard({
                 {card.bullets.map((bullet, i) => (
                   <li
                     key={i}
-                    className="flex items-start gap-2 text-[0.875rem] text-sand-2 leading-relaxed"
+                    className="flex items-start gap-2 text-[0.9375rem] text-sand-2 leading-relaxed"
                     style={{ fontFamily: "var(--font-jakarta)" }}
                   >
                     <span className="text-coral mt-0.5 shrink-0">&#8226;</span>
@@ -222,7 +222,7 @@ function AccordionCard({
 
               {card.description && (
                 <p
-                  className="text-[0.875rem] text-slate leading-relaxed mb-4"
+                  className="text-[0.9375rem] text-slate leading-relaxed mb-4"
                   style={{ fontFamily: "var(--font-jakarta)" }}
                 >
                   {card.description}
@@ -272,12 +272,12 @@ export default function HowICanHelp({
   };
 
   return (
-    <section id="services" className="bg-white py-20 px-6 scroll-mt-20">
+    <section id="services" className="bg-white py-24 sm:py-28 px-6 scroll-mt-20">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-16">
           <p
-            className="text-[0.6875rem] font-semibold text-coral tracking-[0.2em] uppercase mb-4"
+            className="text-[0.8125rem] font-semibold text-coral tracking-[0.2em] uppercase mb-4"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
             Services

@@ -508,7 +508,7 @@ export default function DebtServiceCalculator() {
             {/* GDS / TDS header */}
             <div className="grid grid-cols-2 gap-4 mb-5">
               <div>
-                <p className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide mb-1 flex items-center gap-1.5" style={{ fontFamily: "var(--font-jakarta)" }}>
+                <p className="text-[0.6875rem] font-semibold text-slate tracking-wide mb-1 flex items-center gap-1.5" style={{ fontFamily: "var(--font-jakarta)" }}>
                   GDS <InfoBubble text="GDS (Gross Debt Service) measures housing costs as a share of income. It includes your mortgage payment, property tax, heat, and 50% of condo fees. Most lenders cap GDS at 32% to 39%." />
                 </p>
                 <p
@@ -519,7 +519,7 @@ export default function DebtServiceCalculator() {
                 </p>
               </div>
               <div>
-                <p className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide mb-1 flex items-center gap-1.5" style={{ fontFamily: "var(--font-jakarta)" }}>
+                <p className="text-[0.6875rem] font-semibold text-slate tracking-wide mb-1 flex items-center gap-1.5" style={{ fontFamily: "var(--font-jakarta)" }}>
                   TDS <InfoBubble text="TDS (Total Debt Service) includes all housing costs plus your other monthly debts like car loans, credit cards, and student loans. Most lenders cap TDS at 40% to 44%." />
                 </p>
                 <p

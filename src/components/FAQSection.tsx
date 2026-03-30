@@ -34,12 +34,12 @@ export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="bg-white py-20 px-6 scroll-mt-20">
+    <section id="faq" className="bg-white py-24 sm:py-28 px-6 scroll-mt-20">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="mb-10">
           <h2
-            className="text-[2rem] sm:text-[2.5rem] font-bold text-navy leading-tight"
+            className="text-[2.25rem] sm:text-[2.75rem] font-bold text-navy leading-tight"
             style={{ fontFamily: "var(--font-spectral)" }}
           >
             Questions people actually ask.
@@ -54,11 +54,11 @@ export default function FAQSection() {
               <div key={i}>
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="w-full flex items-center justify-between gap-4 py-5 min-h-[48px] text-left cursor-pointer group"
+                  className="w-full flex items-center justify-between gap-4 py-6 min-h-[48px] text-left cursor-pointer group"
                   aria-expanded={isOpen}
                 >
                   <span
-                    className="font-semibold text-navy text-[0.9375rem] sm:text-[0.9375rem] group-hover:text-coral transition-colors duration-150"
+                    className="font-semibold text-navy text-[1.0625rem] sm:text-[1.125rem] group-hover:text-coral transition-colors duration-150"
                     style={{ fontFamily: "var(--font-jakarta)" }}
                   >
                     {item.q}
@@ -90,7 +90,7 @@ export default function FAQSection() {
 
                 {isOpen && (
                   <p
-                    className="pb-5 text-[0.9375rem] text-navy-2 leading-relaxed"
+                    className="pb-6 text-[1.0625rem] text-navy-2 leading-relaxed"
                     style={{ fontFamily: "var(--font-jakarta)" }}
                   >
                     {item.a}

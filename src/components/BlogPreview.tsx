@@ -34,16 +34,16 @@ const ARTICLES = [
 
 export default function BlogPreview() {
   return (
-    <section className="bg-white py-16 md:py-20 px-6">
+    <section className="bg-white py-24 sm:py-28 px-6">
       <div className="max-w-5xl mx-auto">
         <p
-          className="text-[0.6875rem] font-semibold text-coral tracking-[0.2em] uppercase mb-3 text-center"
+          className="text-[0.8125rem] font-semibold text-coral tracking-[0.2em] uppercase mb-3 text-center"
           style={{ fontFamily: "var(--font-jakarta)" }}
         >
           From Jesse
         </p>
         <h2
-          className="text-[1.75rem] sm:text-[2.25rem] font-bold text-navy leading-tight mb-10 text-center"
+          className="text-[2rem] sm:text-[2.5rem] font-bold text-navy leading-tight mb-12 text-center"
           style={{ fontFamily: "var(--font-spectral)" }}
         >
           Recent writing<span className="text-coral">.</span>

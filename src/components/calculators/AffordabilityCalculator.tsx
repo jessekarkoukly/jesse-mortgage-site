@@ -62,7 +62,79 @@ function calcMonthlyPayment(principal: number, annualRate: number, amortYears: n
   return (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
 }
 
-/* ── CMHC insurance premium rate (% of mortgage) ── */
+/* ══════════════════════════════════════════════
+ *  Ontario + Federal Tax Calculation (2025 approx)
+ * ══════════════════════════════════════════════ */
+
+function calcFederalTax(taxableIncome: number): number {
+  const BPA = 16129;
+  const brackets = [
+    { limit: 57375, rate: 0.15 },
+    { limit: 114750, rate: 0.205 },
+    { limit: 158468, rate: 0.26 },
+    { limit: 225414, rate: 0.29 },
+    { limit: Infinity, rate: 0.33 },
+  ];
+  let tax = 0, prev = 0;
+  for (const b of brackets) {
+    if (taxableIncome <= prev) break;
+    tax += (Math.min(taxableIncome, b.limit) - prev) * b.rate;
+    prev = b.limit;
+  }
+  return Math.max(0, tax - BPA * 0.15);
+}
+
+function calcOntarioTax(taxableIncome: number): number {
+  const BPA = 11865;
+  const brackets = [
+    { limit: 52886, rate: 0.0505 },
+    { limit: 105775, rate: 0.0915 },
+    { limit: 150000, rate: 0.1116 },
+    { limit: 220000, rate: 0.1216 },
+    { limit: Infinity, rate: 0.1316 },
+  ];
+  let tax = 0, prev = 0;
+  for (const b of brackets) {
+    if (taxableIncome <= prev) break;
+    tax += (Math.min(taxableIncome, b.limit) - prev) * b.rate;
+    prev = b.limit;
+  }
+  tax = Math.max(0, tax - BPA * 0.0505);
+  const surtaxBase = tax;
+  let surtax = 0;
+  if (surtaxBase > 4991) surtax += (surtaxBase - 4991) * 0.20;
+  if (surtaxBase > 6387) surtax += (surtaxBase - 6387) * 0.36;
+  return tax + surtax;
+}
+
+function calcCPP(income: number): number {
+  const pensionable = Math.min(income, 71300) - 3500;
+  if (pensionable <= 0) return 0;
+  const cpp1 = pensionable * 0.0595;
+  const cpp2Earnings = Math.min(income, 81200) - 71300;
+  const cpp2 = cpp2Earnings > 0 ? cpp2Earnings * 0.04 : 0;
+  return cpp1 + cpp2;
+}
+
+function calcEI(income: number): number {
+  return Math.min(income, 65700) * 0.0164;
+}
+
+function calcAnnualDeductions(grossIncome: number): number {
+  return calcFederalTax(grossIncome) + calcOntarioTax(grossIncome) + calcCPP(grossIncome) + calcEI(grossIncome);
+}
+
+function calcMonthlyTakeHome(grossAnnual: number, isSplit: boolean, income1: number, income2: number): number {
+  if (isSplit) {
+    return (income1 - calcAnnualDeductions(income1) + income2 - calcAnnualDeductions(income2)) / 12;
+  }
+  return (grossAnnual - calcAnnualDeductions(grossAnnual)) / 12;
+}
+
+/* ══════════════════════════════════════════════
+ *  CMHC / Down Payment / Max Home Price
+ * ══════════════════════════════════════════════ */
+
 function cmhcPremiumRate(ltv: number): number {
   if (ltv <= 0.80) return 0;
   if (ltv <= 0.85) return 0.028;
@@ -71,7 +143,6 @@ function cmhcPremiumRate(ltv: number): number {
   return 0;
 }
 
-/* ── Minimum down payment for a given home price ── */
 function minDownPayment(homePrice: number): number {
   if (homePrice <= 0) return 0;
   if (homePrice > 1500000) return homePrice * 0.20;
@@ -79,7 +150,6 @@ function minDownPayment(homePrice: number): number {
   return 25000 + (homePrice - 500000) * 0.10;
 }
 
-/* ── Max home price from down payment alone ── */
 function maxHomePriceFromDP(dp: number): number {
   if (dp <= 0) return 0;
   const maxAt5pct = dp / 0.05;
@@ -91,107 +161,134 @@ function maxHomePriceFromDP(dp: number): number {
   return maxAt5pct;
 }
 
-/* ── Solve for max home price ──
- *
- * Matches Scarlett broker software approach:
- * - GDS 32% / TDS 40% (conservative thresholds)
- * - Qualification at contract rate (no stress test markup)
- * - No assumed property tax or heat (user enters if known)
- * - CMHC insurance when DP < 20% and price ≤ $1.5M
- * - Canadian semi-annual compounding
- */
-function solveMaxHomePrice(
+/* ── Stress test rate ── */
+const BENCHMARK_RATE = 0.0525;
+
+function stressTestRate(contractRate: number): number {
+  return Math.max(contractRate + 0.02, BENCHMARK_RATE);
+}
+
+/* ── Estimate property tax (1% of home price / 12) ── */
+function estimateMonthlyPropertyTax(homePrice: number): number {
+  return (homePrice * 0.01) / 12;
+}
+
+/* ── Default monthly heat ── */
+const DEFAULT_MONTHLY_HEAT = 100;
+
+/* ── Solve for max home price ── */
+function solveMaxMortgageAndHomePrice(
   grossAnnualIncome: number,
   downPayment: number,
   contractRate: number,
   monthlyDebts: number,
-  amortYears: number = 25
+  useStressTest: boolean,
+  monthlyHeat: number,
+  amortYears: number,
+  propTaxOverride?: number | null
 ): {
   maxHomePrice: number;
   maxMortgage: number;
   insuredMortgage: number;
   insurancePremium: number;
   monthlyPayment: number;
+  qualifyingRate: number;
+  estimatedPropTax: number;
+  estimatedHeat: number;
   gds: number;
   tds: number;
   ltv: number;
-  cashLeftOver: number;
   bindingConstraint: "gds" | "tds" | "downpayment";
 } {
-  const GDS_LIMIT = 0.32;
-  const TDS_LIMIT = 0.40;
+  const GDS_LIMIT = 0.39;
+  const TDS_LIMIT = 0.44;
   const monthlyIncome = grossAnnualIncome / 12;
 
-  const r = monthlyRate(contractRate);
+  const qualifyingRate = useStressTest ? stressTestRate(contractRate) : contractRate;
+  const r = monthlyRate(qualifyingRate);
   const n = amortYears * 12;
 
-  // Binary search for max home price (income-based)
-  let lo = 0;
-  let hi = 10000000;
+  // Step 1: Solve for max mortgage from income alone.
+  // Property tax depends on home price, so we iterate to converge.
+  // Start with an estimated home price, solve mortgage, recalculate.
+  let maxMortgage = 0;
 
-  for (let i = 0; i < 100; i++) {
-    const mid = (lo + hi) / 2;
-    const mortgage = mid - downPayment;
-    if (mortgage <= 0) {
-      lo = mid;
-      continue;
-    }
+  // Initial estimate: assume home price ≈ mortgage / 0.8 (rough)
+  let estimatedHomePrice = (monthlyIncome * GDS_LIMIT * 150); // rough starting point
 
-    // Check if DP meets minimum
-    if (downPayment < minDownPayment(mid)) {
-      hi = mid;
-      continue;
-    }
+  for (let iter = 0; iter < 5; iter++) {
+    const propTax = propTaxOverride !== null && propTaxOverride !== undefined
+      ? propTaxOverride
+      : estimateMonthlyPropertyTax(estimatedHomePrice);
+    const heat = monthlyHeat;
 
-    const ltv = mortgage / mid;
-    const premium = (ltv > 0.80 && mid <= 1500000) ? cmhcPremiumRate(ltv) : 0;
-    const insuredMortgage = mortgage * (1 + premium);
+    // Max P&I from GDS
+    const maxHousingGDS = monthlyIncome * GDS_LIMIT;
+    const maxPI_gds = maxHousingGDS - propTax - heat;
 
-    const payment = (insuredMortgage * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+    // Max P&I from TDS
+    const maxHousingTDS = monthlyIncome * TDS_LIMIT - monthlyDebts;
+    const maxPI_tds = maxHousingTDS - propTax - heat;
 
-    const gdsOk = monthlyIncome > 0 ? (payment / monthlyIncome) <= GDS_LIMIT : false;
-    const tdsOk = monthlyIncome > 0 ? ((payment + monthlyDebts) / monthlyIncome) <= TDS_LIMIT : false;
+    const maxPI = Math.min(maxPI_gds, maxPI_tds);
+    if (maxPI <= 0) { maxMortgage = 0; break; }
 
-    if (gdsOk && tdsOk) {
-      lo = mid;
-    } else {
-      hi = mid;
-    }
+    // Solve for mortgage from max P&I (no CMHC in qualification step)
+    maxMortgage = maxPI * (Math.pow(1 + r, n) - 1) / (r * Math.pow(1 + r, n));
+
+    // Update estimated home price for next iteration
+    estimatedHomePrice = maxMortgage + downPayment;
   }
 
-  const incomeBasedMax = Math.floor(lo);
-  const dpBasedMax = Math.floor(maxHomePriceFromDP(downPayment));
-  const maxHP = Math.min(incomeBasedMax, dpBasedMax);
+  maxMortgage = Math.floor(maxMortgage);
+
+  // Step 2: Add down payment to get home price
+  const maxHP_income = maxMortgage + downPayment;
+
+  // Step 3: Check if DP limits the home price
+  const maxHP_dp = Math.floor(maxHomePriceFromDP(downPayment));
+  const maxHP = Math.min(maxHP_income, maxHP_dp);
+
+  // If DP-limited, recalculate mortgage
+  const finalMortgage = Math.max(0, maxHP - downPayment);
 
   // Determine binding constraint
   let bindingConstraint: "gds" | "tds" | "downpayment" = "gds";
-  if (dpBasedMax < incomeBasedMax) {
+  if (maxHP_dp < maxHP_income) {
     bindingConstraint = "downpayment";
   } else {
-    const mortgage = maxHP - downPayment;
-    const ltvVal = maxHP > 0 ? mortgage / maxHP : 0;
-    const premium = (ltvVal > 0.80 && maxHP <= 1500000) ? cmhcPremiumRate(ltvVal) : 0;
-    const insured = mortgage * (1 + premium);
-    const payment = calcMonthlyPayment(insured, contractRate, amortYears);
-    const tdsVal = monthlyIncome > 0 ? (payment + monthlyDebts) / monthlyIncome : 0;
+    const propTax = propTaxOverride !== null && propTaxOverride !== undefined
+      ? propTaxOverride
+      : estimateMonthlyPropertyTax(maxHP);
+    const heat = monthlyHeat;
+    // Check if TDS is the binding constraint
+    const testPayment = calcMonthlyPayment(finalMortgage, qualifyingRate, amortYears);
+    const housingCosts = testPayment + propTax + heat;
+    const tdsVal = monthlyIncome > 0 ? (housingCosts + monthlyDebts) / monthlyIncome : 0;
     if (monthlyDebts > 0 && tdsVal >= TDS_LIMIT - 0.001) {
       bindingConstraint = "tds";
     }
   }
 
-  // Final numbers
-  const finalMortgage = Math.max(0, maxHP - downPayment);
+  // Step 4: Apply CMHC based on final LTV
   const finalLTV = maxHP > 0 ? finalMortgage / maxHP : 0;
-  const finalPremiumRate = (finalLTV > 0.80 && maxHP <= 1500000) ? cmhcPremiumRate(finalLTV) : 0;
+  const finalPremiumRate = (finalLTV > 0.80 && maxHP < 1500000) ? cmhcPremiumRate(finalLTV) : 0;
   const finalInsuredMortgage = finalMortgage * (1 + finalPremiumRate);
   const finalInsurancePremium = finalMortgage * finalPremiumRate;
 
+  // Actual monthly payment at contract rate (what you'd actually pay)
   const actualPayment = calcMonthlyPayment(finalInsuredMortgage, contractRate, amortYears);
 
-  const gds = monthlyIncome > 0 ? actualPayment / monthlyIncome : 0;
-  const tds = monthlyIncome > 0 ? (actualPayment + monthlyDebts) / monthlyIncome : 0;
+  const estPropTax = propTaxOverride !== null && propTaxOverride !== undefined
+    ? propTaxOverride
+    : estimateMonthlyPropertyTax(maxHP);
+  const estHeat = monthlyHeat;
 
-  const cashLeft = monthlyIncome - actualPayment - monthlyDebts;
+  // GDS/TDS use qualifying rate on the base mortgage (no CMHC in qualification)
+  const qualifyingPayment = calcMonthlyPayment(finalMortgage, qualifyingRate, amortYears);
+  const qualifyingHousing = qualifyingPayment + estPropTax + estHeat;
+  const gds = monthlyIncome > 0 ? qualifyingHousing / monthlyIncome : 0;
+  const tds = monthlyIncome > 0 ? (qualifyingHousing + monthlyDebts) / monthlyIncome : 0;
 
   return {
     maxHomePrice: maxHP,
@@ -199,10 +296,12 @@ function solveMaxHomePrice(
     insuredMortgage: finalInsuredMortgage,
     insurancePremium: finalInsurancePremium,
     monthlyPayment: actualPayment,
+    qualifyingRate,
+    estimatedPropTax: estPropTax,
+    estimatedHeat: estHeat,
     gds,
     tds,
     ltv: finalLTV,
-    cashLeftOver: cashLeft,
     bindingConstraint,
   };
 }
@@ -255,16 +354,18 @@ function SliderInput({
   };
 
   return (
-    <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] p-3 pb-2 flex flex-col justify-between h-full">
-      <div className="flex items-center gap-1.5 mb-1">
-        <span
-          className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide"
-          style={{ fontFamily: "var(--font-jakarta)" }}
-        >
-          {label}
-        </span>
-        {helperText && <InfoBubble text={helperText} />}
-      </div>
+    <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] p-3 pb-2 flex flex-col justify-between">
+      {(label || helperText) && (
+        <div className="flex items-center gap-1.5 mb-1">
+          <span
+            className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide"
+            style={{ fontFamily: "var(--font-jakarta)" }}
+          >
+            {label}
+          </span>
+          {helperText && <InfoBubble text={helperText} />}
+        </div>
+      )}
       {editing ? (
         <div className="flex items-center gap-1 mb-2">
           {prefix && <span className="text-slate text-[1rem]">{prefix}</span>}
@@ -308,15 +409,53 @@ function SliderInput({
 /* ════════════════════════════════════════════ */
 
 export default function AffordabilityCalculator() {
+  const [isSplit, setIsSplit] = useState(false);
   const [grossIncome, setGrossIncome] = useState(100000);
+  const [income1, setIncome1] = useState(70000);
+  const [income2, setIncome2] = useState(30000);
   const [downPayment, setDownPayment] = useState(50000);
   const [rate, setRate] = useState(4.90);
   const [monthlyDebts, setMonthlyDebts] = useState(0);
+  const [stressTest, setStressTest] = useState(true);
+  const [propTaxOverride, setPropTaxOverride] = useState<number | null>(null);
+  const [amortYears, setAmortYears] = useState(25);
+
+  const effectiveGross = isSplit ? income1 + income2 : grossIncome;
+
+  const handleToggle = (split: boolean) => {
+    if (split && !isSplit) {
+      setIncome1(Math.round(grossIncome * 0.5));
+      setIncome2(Math.round(grossIncome * 0.5));
+    } else if (!split && isSplit) {
+      setGrossIncome(income1 + income2);
+    }
+    setIsSplit(split);
+  };
 
   const results = useMemo(
-    () => solveMaxHomePrice(grossIncome, downPayment, rate / 100, monthlyDebts),
-    [grossIncome, downPayment, rate, monthlyDebts]
+    () => solveMaxMortgageAndHomePrice(effectiveGross, downPayment, rate / 100, monthlyDebts, stressTest, DEFAULT_MONTHLY_HEAT, amortYears, propTaxOverride),
+    [effectiveGross, downPayment, rate, monthlyDebts, stressTest, amortYears, propTaxOverride]
   );
+
+  // Auto-calculated property tax based on result, unless user has overridden
+  const autoPropTax = estimateMonthlyPropertyTax(results.maxHomePrice);
+  const displayPropTax = propTaxOverride !== null ? propTaxOverride : autoPropTax;
+
+  // If 30yr is selected but home exceeds $1.5M, force back to 25yr
+  const effective30yrBlocked = results.maxHomePrice > 1500000 && amortYears === 30;
+  useEffect(() => {
+    if (effective30yrBlocked) {
+      setAmortYears(25);
+    }
+  }, [effective30yrBlocked]);
+
+  const monthlyTakeHome = useMemo(
+    () => calcMonthlyTakeHome(effectiveGross, isSplit, income1, income2),
+    [effectiveGross, isSplit, income1, income2]
+  );
+
+  const totalMonthlyHousing = results.monthlyPayment + displayPropTax + results.estimatedHeat;
+  const cashLeftOver = monthlyTakeHome - totalMonthlyHousing - monthlyDebts;
 
   const handleBookCall = () => {
     window.dispatchEvent(new CustomEvent("open-booking-modal"));
@@ -326,16 +465,66 @@ export default function AffordabilityCalculator() {
     <div className="max-w-6xl mx-auto px-4 sm:px-5 md:px-10 py-6 sm:py-10">
       <div className="flex flex-col md:flex-row gap-4 md:gap-8">
         {/* ── LEFT: Inputs ── */}
-        <div className="md:w-[55%] flex flex-col gap-5">
-          <SliderInput
-            label="Gross Annual Income"
-            value={grossIncome}
-            min={30000}
-            max={1000000}
-            step={5000}
-            onChange={setGrossIncome}
-            helperText="Your total annual income before taxes. If applying with a partner, combine both incomes."
-          />
+        <div className="md:w-[55%] flex flex-col gap-4">
+
+          {/* Income toggle */}
+          <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] p-3 pb-3">
+            <div className="flex items-center gap-1.5 mb-3">
+              <span
+                className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Gross Annual Income
+              </span>
+              <InfoBubble
+                text={
+                  isSplit
+                    ? "Entering each income separately calculates tax brackets individually, giving you a significantly more accurate after-tax estimate for Money Left Over."
+                    : "Your total household income before taxes. Switch to two incomes for a more accurate after-tax calculation."
+                }
+              />
+            </div>
+
+            <div className="flex mb-3">
+              <button
+                onClick={() => handleToggle(false)}
+                className={`flex-1 py-2 text-[0.8125rem] font-semibold rounded-l-lg border transition-all cursor-pointer ${
+                  !isSplit
+                    ? "bg-navy text-white border-navy"
+                    : "bg-white text-navy border-[#E5E7EB] hover:border-navy/30"
+                }`}
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Combined
+              </button>
+              <button
+                onClick={() => handleToggle(true)}
+                className={`flex-1 py-2 text-[0.8125rem] font-semibold rounded-r-lg border border-l-0 transition-all cursor-pointer ${
+                  isSplit
+                    ? "bg-navy text-white border-navy"
+                    : "bg-white text-navy border-[#E5E7EB] hover:border-navy/30"
+                }`}
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Two Incomes
+              </button>
+            </div>
+
+            {isSplit ? (
+              <div className="grid grid-cols-2 gap-3">
+                <SliderInput label="Person 1" value={income1} min={0} max={500000} step={5000} onChange={setIncome1} />
+                <SliderInput label="Person 2" value={income2} min={0} max={500000} step={5000} onChange={setIncome2} />
+              </div>
+            ) : (
+              <SliderInput label="" value={grossIncome} min={30000} max={1000000} step={5000} onChange={setGrossIncome} />
+            )}
+
+            {isSplit && (
+              <p className="text-[0.75rem] text-slate mt-2 text-center" style={{ fontFamily: "var(--font-jakarta)" }}>
+                Combined: ${fmtDollars(income1 + income2)}/yr
+              </p>
+            )}
+          </div>
 
           <SliderInput
             label="Down Payment"
@@ -357,8 +546,35 @@ export default function AffordabilityCalculator() {
             prefix=""
             suffix="%"
             formatDisplay={(v) => `${v.toFixed(2)}%`}
-            helperText="The mortgage interest rate. Your actual rate will depend on the product and term you choose."
+            helperText="The mortgage interest rate you expect to receive. If stress test is on, qualification uses the higher of this rate + 2% or 5.25%."
           />
+
+          {/* Stress test checkbox */}
+          <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] px-3 py-2">
+            <label className="flex items-center gap-2 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={stressTest}
+                onChange={(e) => setStressTest(e.target.checked)}
+                className="w-4 h-4 rounded border-[#D1D5DB] text-coral accent-coral cursor-pointer"
+              />
+              <span
+                className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Stress Test
+              </span>
+              <InfoBubble text="Canadian lenders are required to qualify you at the higher of your contract rate + 2% or 5.25%. This ensures you can handle rate increases. Uncheck to see your maximum based on contract rate alone (broker pre-qualifier view)." />
+              {stressTest && (
+                <span
+                  className="text-[0.6875rem] text-coral font-semibold ml-auto hidden sm:inline"
+                  style={{ fontFamily: "var(--font-jakarta)" }}
+                >
+                  Qualifying at {(results.qualifyingRate * 100).toFixed(2)}%
+                </span>
+              )}
+            </label>
+          </div>
 
           <SliderInput
             label="Monthly Debts"
@@ -369,6 +585,141 @@ export default function AffordabilityCalculator() {
             onChange={setMonthlyDebts}
             helperText="Monthly debt obligations like car payments, student loans, credit card minimums, and child or spousal support. Do not include rent (that goes away when you buy)."
           />
+
+          {/* Property Tax + Heat */}
+          <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] p-3">
+            <div className="flex items-center gap-1.5 mb-2">
+              <span
+                className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Property Tax + Heat
+              </span>
+              <InfoBubble text="Lenders include property tax and heat in your GDS calculation. Property tax is estimated at 1% of home price per year. Enter your own if you know it. Heat is fixed at the lender standard of $100/month." />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {/* Property Tax field */}
+              <div>
+                <div className="flex items-center gap-1.5 mb-1">
+                  <p
+                    className="text-[0.625rem] font-medium uppercase tracking-wide"
+                    style={{
+                      fontFamily: "var(--font-jakarta)",
+                      color: propTaxOverride !== null ? "#1E2D3D" : "#8A9BAA",
+                    }}
+                  >
+                    {propTaxOverride !== null ? "Property Tax" : "Property Tax (est.)"}
+                  </p>
+                  {propTaxOverride !== null && (
+                    <button
+                      onClick={() => setPropTaxOverride(null)}
+                      className="shrink-0 w-3.5 h-3.5 text-slate hover:text-coral transition-colors cursor-pointer"
+                      title="Reset to auto-estimate"
+                    >
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M1 1v5h5" />
+                        <path d="M3.51 10a5.5 5.5 0 1 0 1.12-5.95L1 7.5" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+                <div className="flex items-center gap-1 bg-white border border-[#E5E7EB] rounded-lg px-2.5 py-1.5">
+                  <span className="text-slate text-[0.8125rem]">$</span>
+                  <input
+                    type="number"
+                    value={propTaxOverride !== null ? propTaxOverride : Math.round(autoPropTax)}
+                    onChange={(e) => {
+                      const val = parseFloat(e.target.value);
+                      if (!isNaN(val)) setPropTaxOverride(val);
+                      else setPropTaxOverride(0);
+                    }}
+                    onFocus={() => {
+                      if (propTaxOverride === null) setPropTaxOverride(Math.round(autoPropTax));
+                    }}
+                    className={`w-full bg-transparent text-[0.9375rem] font-bold focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
+                      propTaxOverride !== null ? "text-navy" : "text-slate"
+                    }`}
+                    style={{ fontFamily: "var(--font-spectral)" }}
+                  />
+                  <span className="text-slate text-[0.6875rem] shrink-0">/mo</span>
+                </div>
+              </div>
+              {/* Heat (static) */}
+              <div>
+                <p
+                  className="text-[0.625rem] font-medium uppercase tracking-wide mb-1 text-slate"
+                  style={{ fontFamily: "var(--font-jakarta)" }}
+                >
+                  Heat
+                </p>
+                <div className="flex items-center gap-1 bg-[#F5F5F5] border border-[#E5E7EB] rounded-lg px-2.5 py-1.5">
+                  <span className="text-slate text-[0.8125rem]">$</span>
+                  <span
+                    className="text-[0.9375rem] font-bold text-slate"
+                    style={{ fontFamily: "var(--font-spectral)" }}
+                  >
+                    {DEFAULT_MONTHLY_HEAT}
+                  </span>
+                  <span className="text-slate text-[0.6875rem] shrink-0 ml-auto">/mo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Amortization selector */}
+          <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] px-3 py-2.5">
+            <div className="flex items-center gap-1.5 mb-2">
+              <span
+                className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Amortization
+              </span>
+              <InfoBubble text="The total length of your mortgage. 25 years is standard. 30 years is available for first-time buyers on insured mortgages (down payment less than 20%, home under $1.5M), reducing your monthly payment and increasing how much you qualify for." />
+            </div>
+            <div className="flex">
+              <button
+                onClick={() => setAmortYears(25)}
+                className={`flex-1 py-2 text-[0.8125rem] font-semibold rounded-l-lg border transition-all cursor-pointer ${
+                  amortYears === 25
+                    ? "bg-navy text-white border-navy"
+                    : "bg-white text-navy border-[#E5E7EB] hover:border-navy/30"
+                }`}
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                25 years
+              </button>
+              <button
+                onClick={() => {
+                  // Block 30yr if result would exceed $1.5M (need 25yr result to check)
+                  const test25 = solveMaxMortgageAndHomePrice(effectiveGross, downPayment, rate / 100, monthlyDebts, stressTest, DEFAULT_MONTHLY_HEAT, 25, propTaxOverride);
+                  if (test25.maxHomePrice > 1500000) return;
+                  setAmortYears(30);
+                }}
+                disabled={results.maxHomePrice > 1500000 && amortYears === 25}
+                className={`flex-1 py-2 text-[0.8125rem] font-semibold rounded-r-lg border border-l-0 transition-all ${
+                  results.maxHomePrice > 1500000 && amortYears !== 30
+                    ? "bg-[#F5F5F5] text-slate/50 border-[#E5E7EB] cursor-not-allowed"
+                    : amortYears === 30
+                      ? "bg-navy text-white border-navy cursor-pointer"
+                      : "bg-white text-navy border-[#E5E7EB] hover:border-navy/30 cursor-pointer"
+                }`}
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                30 years
+              </button>
+            </div>
+            {amortYears === 30 && (
+              <p className="text-[0.6875rem] text-coral font-medium mt-1.5" style={{ fontFamily: "var(--font-jakarta)" }}>
+                Available for first-time buyers on insured mortgages
+              </p>
+            )}
+            {results.maxHomePrice > 1500000 && amortYears === 25 && (
+              <p className="text-[0.6875rem] text-slate font-medium mt-1.5" style={{ fontFamily: "var(--font-jakarta)" }}>
+                30-year amortization is not available for homes over $1.5M
+              </p>
+            )}
+          </div>
         </div>
 
         {/* ── RIGHT: Results Panel ── */}
@@ -390,15 +741,24 @@ export default function AffordabilityCalculator() {
               </p>
             </div>
 
+            {/* Mortgage + DP breakdown */}
+            <div className="bg-sand rounded-lg px-3 py-2.5 mb-5 text-[0.8125rem]" style={{ fontFamily: "var(--font-jakarta)" }}>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-slate">Mortgage you qualify for</span>
+                <span className="text-navy font-bold">${fmtDollars(results.maxMortgage)}</span>
+              </div>
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-slate">Your down payment</span>
+                <span className="text-navy font-bold">+ ${fmtDollars(downPayment)}</span>
+              </div>
+              <div className="flex items-center justify-between pt-1.5 border-t border-navy/10">
+                <span className="text-navy font-semibold">Max home price</span>
+                <span className="text-coral font-bold">${fmtDollars(results.maxHomePrice)}</span>
+              </div>
+            </div>
+
             {/* Key figures */}
             <div className="space-y-2.5 text-[0.8125rem] mb-5 pb-5 border-b border-sand-2" style={{ fontFamily: "var(--font-jakarta)" }}>
-              <div className="flex items-center justify-between">
-                <span className="text-slate flex items-center gap-1.5">
-                  Mortgage Amount
-                  <InfoBubble text="The total amount you would borrow from the lender. This is the home price minus your down payment." />
-                </span>
-                <span className="text-navy font-semibold">${fmtDollars(results.maxMortgage)}</span>
-              </div>
               {results.insurancePremium > 0 && (
                 <div className="flex items-center justify-between">
                   <span className="text-slate flex items-center gap-1.5">
@@ -411,14 +771,28 @@ export default function AffordabilityCalculator() {
               <div className="flex items-center justify-between">
                 <span className="text-slate flex items-center gap-1.5">
                   Monthly Payment
-                  <InfoBubble text="Your estimated monthly mortgage payment (principal and interest) at the rate you entered, over a 25-year amortization." />
+                  <InfoBubble text={`Your estimated monthly mortgage payment (principal and interest) at your ${rate.toFixed(2)}% contract rate, over ${amortYears} years.${stressTest ? ` Qualification uses the stress test rate of ${(results.qualifyingRate * 100).toFixed(2)}%, but your actual payment is at your contract rate.` : ""}`} />
                 </span>
                 <span className="text-navy font-semibold">${fmt2(results.monthlyPayment)}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-slate flex items-center gap-1.5">
+                  {propTaxOverride !== null ? "Property Tax" : "Est. Property Tax"}
+                  <InfoBubble text={propTaxOverride !== null ? "Your manually entered monthly property tax." : "Estimated at 1% of home price per year. Your actual property tax depends on the municipality and assessed value."} />
+                </span>
+                <span className={`font-semibold ${propTaxOverride !== null ? "text-navy" : "text-slate"}`}>${fmtDollars(displayPropTax)}/mo</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-slate flex items-center gap-1.5">
+                  Heat
+                  <InfoBubble text="Industry-standard estimate of $100/month used by lenders when actual heating costs are unknown." />
+                </span>
+                <span className="font-semibold text-slate">${fmtDollars(results.estimatedHeat)}/mo</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-slate flex items-center gap-1.5">
                   LTV
-                  <InfoBubble text="Loan-to-Value ratio. The percentage of the home price covered by the mortgage. Below 80% means no mortgage insurance is required." />
+                  <InfoBubble text="Loan-to-value ratio. The percentage of the home price covered by the mortgage. Below 80% means no mortgage insurance is required." />
                 </span>
                 <span className="text-navy font-semibold">{(results.ltv * 100).toFixed(0)}%</span>
               </div>
@@ -427,36 +801,50 @@ export default function AffordabilityCalculator() {
             {/* GDS / TDS side by side */}
             <div className="flex gap-3 mb-5">
               <div className="flex-1 bg-[#FAFAFA] rounded-lg px-3 py-2 flex items-center justify-between">
-                <span className="text-slate text-[0.6875rem] font-semibold uppercase tracking-wide flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
+                <span className="text-slate text-[0.6875rem] font-semibold tracking-wide flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
                   GDS
-                  <InfoBubble text="Gross Debt Service ratio. The percentage of your gross income going to your mortgage payment. This calculator uses a 32% maximum." />
+                  <InfoBubble text="Gross debt service ratio. Includes mortgage payment, property tax, and heat as a percentage of gross income. This calculator uses a 39% maximum." />
                 </span>
-                <span className={`font-bold text-[0.9375rem] ${results.gds > 0.32 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
+                <span className={`font-bold text-[0.9375rem] ${results.gds > 0.39 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
                   {(results.gds * 100).toFixed(1)}%
-                  <span className="text-slate font-normal text-[0.625rem]"> / 32%</span>
+                  <span className="text-slate font-normal text-[0.625rem]"> / 39%</span>
                 </span>
               </div>
               <div className="flex-1 bg-[#FAFAFA] rounded-lg px-3 py-2 flex items-center justify-between">
-                <span className="text-slate text-[0.6875rem] font-semibold uppercase tracking-wide flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
+                <span className="text-slate text-[0.6875rem] font-semibold tracking-wide flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
                   TDS
-                  <InfoBubble text="Total Debt Service ratio. The percentage of your gross income going to mortgage payment plus all other monthly debts. This calculator uses a 40% maximum." />
+                  <InfoBubble text="Total debt service ratio. Includes mortgage payment, property tax, heat, plus all other monthly debts as a percentage of gross income. This calculator uses a 44% maximum." />
                 </span>
-                <span className={`font-bold text-[0.9375rem] ${results.tds > 0.40 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
+                <span className={`font-bold text-[0.9375rem] ${results.tds > 0.44 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
                   {(results.tds * 100).toFixed(1)}%
-                  <span className="text-slate font-normal text-[0.625rem]"> / 40%</span>
+                  <span className="text-slate font-normal text-[0.625rem]"> / 44%</span>
                 </span>
               </div>
             </div>
 
-            {/* Money left over */}
-            <div className="bg-[#FAFAFA] rounded-lg p-3 mb-5 flex items-center justify-between" style={{ fontFamily: "var(--font-jakarta)" }}>
-              <span className="text-slate text-[0.8125rem] flex items-center gap-1.5">
-                Money Left Over
-                <InfoBubble text="What remains from your gross monthly income after your mortgage payment and other debts. This is before income tax and other living expenses." />
-              </span>
-              <span className="text-navy font-bold text-[1.125rem]" style={{ fontFamily: "var(--font-spectral)" }}>
-                ${fmtDollars(results.cashLeftOver)}/mo
-              </span>
+            {/* Money left over (after-tax) */}
+            <div className="bg-[#FAFAFA] rounded-lg p-3 mb-5" style={{ fontFamily: "var(--font-jakarta)" }}>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-slate text-[0.8125rem] flex items-center gap-1.5">
+                  Money Left Over
+                  <InfoBubble
+                    text={
+                      isSplit
+                        ? "Your estimated monthly take-home pay after Ontario and federal income tax, CPP, and EI for each person individually, minus your mortgage payment, property tax, heat, and debts."
+                        : "Your estimated monthly take-home pay after Ontario and federal income tax, CPP, and EI, minus your mortgage payment, property tax, heat, and debts. Switch to Two Incomes for a more accurate calculation."
+                    }
+                  />
+                </span>
+                <span className={`font-bold text-[1.125rem] ${cashLeftOver < 0 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
+                  ${fmtDollars(cashLeftOver)}/mo
+                </span>
+              </div>
+              <p className="text-[0.6875rem] text-slate leading-snug">
+                After-tax income minus housing costs and debts
+                {isSplit && (
+                  <span className="text-coral font-semibold"> (tax calculated per person)</span>
+                )}
+              </p>
             </div>
 
             {/* Constraint note */}
@@ -469,12 +857,22 @@ export default function AffordabilityCalculator() {
               </div>
             )}
 
+            {/* Settings summary */}
+            <div className="bg-[#FAFAFA] rounded-lg px-3 py-2 mb-5 text-[0.6875rem] text-slate leading-relaxed" style={{ fontFamily: "var(--font-jakarta)" }}>
+              <span className="font-semibold text-navy">Settings: </span>
+              {stressTest ? `Stress test ${(results.qualifyingRate * 100).toFixed(2)}%` : `Contract rate ${rate.toFixed(2)}%`}
+              {" · "}
+              {propTaxOverride !== null ? "Custom property tax" : "Estimated housing costs"}
+              {" · "}
+              {amortYears}-year amortization
+            </div>
+
             {/* Disclaimer */}
             <p
               className="text-[0.6875rem] text-slate leading-relaxed mb-5"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
-              This is an estimate for illustration purposes only. Actual mortgage approval depends on your full application, credit history, and lender criteria. This is not a mortgage commitment or guarantee.
+              This is an estimate for illustration purposes only. Tax calculations are approximate and based on 2025 Ontario and federal rates. Property tax and heat are estimates. Actual mortgage approval depends on your full application, credit history, and lender criteria. This is not a mortgage commitment or guarantee.
             </p>
 
             {/* CTA */}

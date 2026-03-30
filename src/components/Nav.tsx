@@ -52,10 +52,13 @@ export default function Nav({ onBookingOpen }: NavProps) {
     timeoutRef.current = setTimeout(() => setServicesOpen(false), 150);
   };
 
-  const navLinks = [
+  const APPLY_URL = "https://app.scarlettnetwork.com/Jesse_Karkoukly/application/0/interview/purpose";
+
+  const navLinks: { label: string; href: string; external?: boolean }[] = [
     { label: "Rates", href: "/rates" },
     { label: "Calculators", href: "/calculators" },
     { label: "About", href: "/about" },
+    { label: "Apply", href: APPLY_URL, external: true },
     { label: "Blog", href: "/blog" },
   ];
 
@@ -127,16 +130,29 @@ export default function Nav({ onBookingOpen }: NavProps) {
             )}
           </div>
 
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-[1rem] font-semibold text-navy hover:text-coral transition-colors duration-150"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) =>
+            link.external ? (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[1rem] font-semibold text-navy hover:text-coral transition-colors duration-150"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-[1rem] font-semibold text-navy hover:text-coral transition-colors duration-150"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </nav>
 
         {/* Desktop right actions */}
@@ -228,17 +244,31 @@ export default function Nav({ onBookingOpen }: NavProps) {
               )}
             </div>
 
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="text-[1rem] font-semibold text-navy hover:text-coral transition-colors"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) =>
+              link.external ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMenuOpen(false)}
+                  className="text-[1rem] font-semibold text-navy hover:text-coral transition-colors"
+                  style={{ fontFamily: "var(--font-jakarta)" }}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-[1rem] font-semibold text-navy hover:text-coral transition-colors"
+                  style={{ fontFamily: "var(--font-jakarta)" }}
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
           </nav>
           <div className="flex flex-col gap-3">
             <a

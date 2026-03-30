@@ -57,6 +57,14 @@ export default function JesseFooter() {
           >
             jkarkoukly@sherwoodmortgagegroup.com
           </a>
+          <a
+            href="https://app.scarlettnetwork.com/Jesse_Karkoukly/application/0/interview/purpose"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-coral hover:text-coral-dark transition-colors"
+          >
+            Start Application
+          </a>
         </div>
 
         {/* Divider */}
