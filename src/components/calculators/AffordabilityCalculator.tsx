@@ -23,7 +23,7 @@ function InfoBubble({ text }: { text: string }) {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="w-[18px] h-[18px] rounded-full bg-coral text-white text-[0.6875rem] font-bold flex items-center justify-center cursor-pointer hover:bg-coral-dark transition-colors shrink-0 leading-none"
+        className="w-[14px] h-[14px] rounded-full bg-coral/20 text-coral/60 text-[0.5625rem] font-semibold flex items-center justify-center cursor-pointer hover:bg-coral/30 transition-colors shrink-0 leading-none"
         aria-label="More info"
       >
         ?
@@ -187,6 +187,7 @@ function solveMaxMortgageAndHomePrice(
   amortYears: number,
   propTaxOverride?: number | null
 ): {
+  maxMortgageFromIncome: number;
   maxHomePrice: number;
   maxMortgage: number;
   insuredMortgage: number;
@@ -199,6 +200,7 @@ function solveMaxMortgageAndHomePrice(
   tds: number;
   ltv: number;
   bindingConstraint: "gds" | "tds" | "downpayment";
+  dpNeededForFullQualification: number;
 } {
   const GDS_LIMIT = 0.39;
   const TDS_LIMIT = 0.44;
@@ -290,7 +292,21 @@ function solveMaxMortgageAndHomePrice(
   const gds = monthlyIncome > 0 ? qualifyingHousing / monthlyIncome : 0;
   const tds = monthlyIncome > 0 ? (qualifyingHousing + monthlyDebts) / monthlyIncome : 0;
 
+  // Calculate DP needed to use full income qualification
+  // Use income-based mortgage to find the home price, then calculate min DP for that price
+  // For homes > $1.5M, need 20%, so home = mortgage / 0.80
+  // For homes <= $1.5M, tiered rules apply - iterate to find stable point
+  let dpNeeded = 0;
+  if (maxMortgage > 0) {
+    // Try conventional (20% down): home = mortgage / 0.80
+    const conventionalHome = maxMortgage / 0.80;
+    const conventionalDP = minDownPayment(conventionalHome);
+    // Verify: mortgage + conventionalDP should ≈ conventionalHome
+    dpNeeded = conventionalDP;
+  }
+
   return {
+    maxMortgageFromIncome: maxMortgage,
     maxHomePrice: maxHP,
     maxMortgage: finalMortgage,
     insuredMortgage: finalInsuredMortgage,
@@ -303,6 +319,7 @@ function solveMaxMortgageAndHomePrice(
     tds,
     ltv: finalLTV,
     bindingConstraint,
+    dpNeededForFullQualification: dpNeeded,
   };
 }
 
@@ -741,11 +758,31 @@ export default function AffordabilityCalculator() {
               </p>
             </div>
 
+            {/* Constraint note - right under the headline */}
+            {results.bindingConstraint === "downpayment" && (
+              <div
+                className="bg-navy rounded-xl px-4 py-4 mb-5"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                <p className="text-coral font-semibold text-[0.8125rem] mb-2">Your down payment is the limiting factor</p>
+                <p className="text-white/80 text-[0.8125rem] leading-relaxed mb-3">
+                  Your income supports a <span className="font-bold text-white">${fmtDollars(results.maxMortgageFromIncome)}</span> mortgage. With more saved, you could access a higher home price.
+                </p>
+                <button
+                  onClick={() => setDownPayment(Math.ceil(results.dpNeededForFullQualification / 1000) * 1000)}
+                  className="w-full bg-white/10 hover:bg-white/20 rounded-lg px-3 py-2.5 flex items-center justify-between transition-colors cursor-pointer"
+                >
+                  <span className="text-sand/70 text-[0.75rem]">Adjust down payment to</span>
+                  <span className="text-white font-bold text-[0.9375rem]" style={{ fontFamily: "var(--font-spectral)" }}>${fmtDollars(Math.ceil(results.dpNeededForFullQualification / 1000) * 1000)}</span>
+                </button>
+              </div>
+            )}
+
             {/* Mortgage + DP breakdown */}
             <div className="bg-sand rounded-lg px-3 py-2.5 mb-5 text-[0.8125rem]" style={{ fontFamily: "var(--font-jakarta)" }}>
               <div className="flex items-center justify-between mb-1">
                 <span className="text-slate">Mortgage you qualify for</span>
-                <span className="text-navy font-bold">${fmtDollars(results.maxMortgage)}</span>
+                <span className="text-navy font-bold">${fmtDollars(results.maxMortgageFromIncome)}</span>
               </div>
               <div className="flex items-center justify-between mb-1.5">
                 <span className="text-slate">Your down payment</span>
@@ -785,7 +822,7 @@ export default function AffordabilityCalculator() {
               <div className="flex items-center justify-between">
                 <span className="text-slate flex items-center gap-1.5">
                   Heat
-                  <InfoBubble text="Industry-standard estimate of $100/month used by lenders when actual heating costs are unknown." />
+                  <InfoBubble text="Industry-standard estimate of $100/month used by lenders." />
                 </span>
                 <span className="font-semibold text-slate">${fmtDollars(results.estimatedHeat)}/mo</span>
               </div>
@@ -847,15 +884,7 @@ export default function AffordabilityCalculator() {
               </p>
             </div>
 
-            {/* Constraint note */}
-            {results.bindingConstraint === "downpayment" && (
-              <div
-                className="bg-coral/10 border border-coral/20 rounded-lg px-4 py-3 mb-5 text-[0.75rem] text-navy leading-relaxed"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                Your down payment is the limiting factor. With more saved, your income could support a higher price.
-              </div>
-            )}
+            {/* (constraint note moved above breakdown) */}
 
             {/* Settings summary */}
             <div className="bg-[#FAFAFA] rounded-lg px-3 py-2 mb-5 text-[0.6875rem] text-slate leading-relaxed" style={{ fontFamily: "var(--font-jakarta)" }}>

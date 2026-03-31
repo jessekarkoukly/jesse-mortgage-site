@@ -23,7 +23,7 @@ function InfoBubble({ text }: { text: string }) {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="w-[18px] h-[18px] rounded-full bg-coral text-white text-[0.6875rem] font-bold flex items-center justify-center cursor-pointer hover:bg-coral-dark transition-colors shrink-0 leading-none"
+        className="w-[14px] h-[14px] rounded-full bg-coral/20 text-coral/60 text-[0.5625rem] font-semibold flex items-center justify-center cursor-pointer hover:bg-coral/30 transition-colors shrink-0 leading-none"
         aria-label="More info"
       >
         ?
