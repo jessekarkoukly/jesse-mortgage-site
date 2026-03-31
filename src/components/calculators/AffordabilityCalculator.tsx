@@ -203,7 +203,7 @@ function solveMaxMortgageAndHomePrice(
   dpNeededForFullQualification: number;
 } {
   const GDS_LIMIT = 0.39;
-  const TDS_LIMIT = 0.44;
+  const TDS_LIMIT = 0.45;
   const monthlyIncome = grossAnnualIncome / 12;
 
   const qualifyingRate = useStressTest ? stressTestRate(contractRate) : contractRate;
@@ -850,11 +850,11 @@ export default function AffordabilityCalculator() {
               <div className="flex-1 bg-[#FAFAFA] rounded-lg px-3 py-2 flex items-center justify-between">
                 <span className="text-slate text-[0.6875rem] font-semibold tracking-wide flex items-center gap-1" style={{ fontFamily: "var(--font-jakarta)" }}>
                   TDS
-                  <InfoBubble text="Total debt service ratio. Includes mortgage payment, property tax, heat, plus all other monthly debts as a percentage of gross income. This calculator uses a 44% maximum." />
+                  <InfoBubble text="Total debt service ratio. Includes mortgage payment, property tax, heat, plus all other monthly debts as a percentage of gross income. This calculator uses a 45% maximum." />
                 </span>
-                <span className={`font-bold text-[0.9375rem] ${results.tds > 0.44 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
+                <span className={`font-bold text-[0.9375rem] ${results.tds > 0.45 ? "text-coral" : "text-navy"}`} style={{ fontFamily: "var(--font-spectral)" }}>
                   {(results.tds * 100).toFixed(1)}%
-                  <span className="text-slate font-normal text-[0.625rem]"> / 44%</span>
+                  <span className="text-slate font-normal text-[0.625rem]"> / 45%</span>
                 </span>
               </div>
             </div>
