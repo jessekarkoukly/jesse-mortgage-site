@@ -168,9 +168,9 @@ function stressTestRate(contractRate: number): number {
   return Math.max(contractRate + 0.02, BENCHMARK_RATE);
 }
 
-/* ── Estimate property tax (1% of home price / 12) ── */
+/* ── Estimate property tax (0.95% of home price / 12) ── */
 function estimateMonthlyPropertyTax(homePrice: number): number {
-  return (homePrice * 0.01) / 12;
+  return (homePrice * 0.0095) / 12;
 }
 
 /* ── Default monthly heat ── */
@@ -182,7 +182,6 @@ function solveMaxMortgageAndHomePrice(
   downPayment: number,
   contractRate: number,
   monthlyDebts: number,
-  useStressTest: boolean,
   monthlyHeat: number,
   amortYears: number,
   propTaxOverride?: number | null
@@ -206,7 +205,7 @@ function solveMaxMortgageAndHomePrice(
   const TDS_LIMIT = 0.45;
   const monthlyIncome = grossAnnualIncome / 12;
 
-  const qualifyingRate = useStressTest ? stressTestRate(contractRate) : contractRate;
+  const qualifyingRate = stressTestRate(contractRate); // B-20: always required
   const r = monthlyRate(qualifyingRate);
   const n = amortYears * 12;
 
@@ -431,11 +430,11 @@ export default function AffordabilityCalculator() {
   const [income1, setIncome1] = useState(70000);
   const [income2, setIncome2] = useState(30000);
   const [downPayment, setDownPayment] = useState(50000);
-  const [rate, setRate] = useState(4.90);
+  const [rate, setRate] = useState(3.25);
   const [monthlyDebts, setMonthlyDebts] = useState(0);
-  const [stressTest, setStressTest] = useState(true);
+  const stressTest = true; // B-20 stress test is always required
   const [propTaxOverride, setPropTaxOverride] = useState<number | null>(null);
-  const [amortYears, setAmortYears] = useState(25);
+  const amortYears = 25; // Standard amortization
 
   const effectiveGross = isSplit ? income1 + income2 : grossIncome;
 
@@ -450,21 +449,14 @@ export default function AffordabilityCalculator() {
   };
 
   const results = useMemo(
-    () => solveMaxMortgageAndHomePrice(effectiveGross, downPayment, rate / 100, monthlyDebts, stressTest, DEFAULT_MONTHLY_HEAT, amortYears, propTaxOverride),
-    [effectiveGross, downPayment, rate, monthlyDebts, stressTest, amortYears, propTaxOverride]
+    () => solveMaxMortgageAndHomePrice(effectiveGross, downPayment, rate / 100, monthlyDebts, DEFAULT_MONTHLY_HEAT, amortYears, propTaxOverride),
+    [effectiveGross, downPayment, rate, monthlyDebts, amortYears, propTaxOverride]
   );
 
   // Auto-calculated property tax based on result, unless user has overridden
   const autoPropTax = estimateMonthlyPropertyTax(results.maxHomePrice);
   const displayPropTax = propTaxOverride !== null ? propTaxOverride : autoPropTax;
 
-  // If 30yr is selected but home exceeds $1.5M, force back to 25yr
-  const effective30yrBlocked = results.maxHomePrice > 1500000 && amortYears === 30;
-  useEffect(() => {
-    if (effective30yrBlocked) {
-      setAmortYears(25);
-    }
-  }, [effective30yrBlocked]);
 
   const monthlyTakeHome = useMemo(
     () => calcMonthlyTakeHome(effectiveGross, isSplit, income1, income2),
@@ -566,33 +558,6 @@ export default function AffordabilityCalculator() {
             helperText="The mortgage interest rate you expect to receive. If stress test is on, qualification uses the higher of this rate + 2% or 5.25%."
           />
 
-          {/* Stress test checkbox */}
-          <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] px-3 py-2">
-            <label className="flex items-center gap-2 cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={stressTest}
-                onChange={(e) => setStressTest(e.target.checked)}
-                className="w-4 h-4 rounded border-[#D1D5DB] text-coral accent-coral cursor-pointer"
-              />
-              <span
-                className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                Stress Test
-              </span>
-              <InfoBubble text="Canadian lenders are required to qualify you at the higher of your contract rate + 2% or 5.25%. This ensures you can handle rate increases. Uncheck to see your maximum based on contract rate alone (broker pre-qualifier view)." />
-              {stressTest && (
-                <span
-                  className="text-[0.6875rem] text-coral font-semibold ml-auto hidden sm:inline"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  Qualifying at {(results.qualifyingRate * 100).toFixed(2)}%
-                </span>
-              )}
-            </label>
-          </div>
-
           <SliderInput
             label="Monthly Debts"
             value={monthlyDebts}
@@ -612,7 +577,7 @@ export default function AffordabilityCalculator() {
               >
                 Property Tax + Heat
               </span>
-              <InfoBubble text="Lenders include property tax and heat in your GDS calculation. Property tax is estimated at 1% of home price per year. Enter your own if you know it. Heat is fixed at the lender standard of $100/month." />
+              <InfoBubble text="Lenders include property tax and heat in your GDS calculation. Property tax is estimated at 0.95% of home price per year. Enter your own if you know it. Heat is fixed at the lender standard of $100/month." />
             </div>
             <div className="grid grid-cols-2 gap-3">
               {/* Property Tax field */}
@@ -683,60 +648,6 @@ export default function AffordabilityCalculator() {
             </div>
           </div>
 
-          {/* Amortization selector */}
-          <div className="border border-[#E5E7EB] rounded-xl bg-[#FAFAFA] px-3 py-2.5">
-            <div className="flex items-center gap-1.5 mb-2">
-              <span
-                className="text-[0.6875rem] font-semibold text-slate uppercase tracking-wide"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                Amortization
-              </span>
-              <InfoBubble text="The total length of your mortgage. 25 years is standard. 30 years is available for first-time buyers on insured mortgages (down payment less than 20%, home under $1.5M), reducing your monthly payment and increasing how much you qualify for." />
-            </div>
-            <div className="flex">
-              <button
-                onClick={() => setAmortYears(25)}
-                className={`flex-1 py-2 text-[0.8125rem] font-semibold rounded-l-lg border transition-all cursor-pointer ${
-                  amortYears === 25
-                    ? "bg-navy text-white border-navy"
-                    : "bg-white text-navy border-[#E5E7EB] hover:border-navy/30"
-                }`}
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                25 years
-              </button>
-              <button
-                onClick={() => {
-                  // Block 30yr if result would exceed $1.5M (need 25yr result to check)
-                  const test25 = solveMaxMortgageAndHomePrice(effectiveGross, downPayment, rate / 100, monthlyDebts, stressTest, DEFAULT_MONTHLY_HEAT, 25, propTaxOverride);
-                  if (test25.maxHomePrice > 1500000) return;
-                  setAmortYears(30);
-                }}
-                disabled={results.maxHomePrice > 1500000 && amortYears === 25}
-                className={`flex-1 py-2 text-[0.8125rem] font-semibold rounded-r-lg border border-l-0 transition-all ${
-                  results.maxHomePrice > 1500000 && amortYears !== 30
-                    ? "bg-[#F5F5F5] text-slate/50 border-[#E5E7EB] cursor-not-allowed"
-                    : amortYears === 30
-                      ? "bg-navy text-white border-navy cursor-pointer"
-                      : "bg-white text-navy border-[#E5E7EB] hover:border-navy/30 cursor-pointer"
-                }`}
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                30 years
-              </button>
-            </div>
-            {amortYears === 30 && (
-              <p className="text-[0.6875rem] text-coral font-medium mt-1.5" style={{ fontFamily: "var(--font-jakarta)" }}>
-                Available for first-time buyers on insured mortgages
-              </p>
-            )}
-            {results.maxHomePrice > 1500000 && amortYears === 25 && (
-              <p className="text-[0.6875rem] text-slate font-medium mt-1.5" style={{ fontFamily: "var(--font-jakarta)" }}>
-                30-year amortization is not available for homes over $1.5M
-              </p>
-            )}
-          </div>
         </div>
 
         {/* ── RIGHT: Results Panel ── */}
@@ -808,14 +719,14 @@ export default function AffordabilityCalculator() {
               <div className="flex items-center justify-between">
                 <span className="text-slate flex items-center gap-1.5">
                   Monthly Payment
-                  <InfoBubble text={`Your estimated monthly mortgage payment (principal and interest) at your ${rate.toFixed(2)}% contract rate, over ${amortYears} years.${stressTest ? ` Qualification uses the stress test rate of ${(results.qualifyingRate * 100).toFixed(2)}%, but your actual payment is at your contract rate.` : ""}`} />
+                  <InfoBubble text={`Your estimated monthly mortgage payment (principal and interest) at your ${rate.toFixed(2)}% contract rate, over ${amortYears} years. Qualification uses the stress test rate of ${(results.qualifyingRate * 100).toFixed(2)}%, but your actual payment is at your contract rate.`} />
                 </span>
                 <span className="text-navy font-semibold">${fmt2(results.monthlyPayment)}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-slate flex items-center gap-1.5">
                   {propTaxOverride !== null ? "Property Tax" : "Est. Property Tax"}
-                  <InfoBubble text={propTaxOverride !== null ? "Your manually entered monthly property tax." : "Estimated at 1% of home price per year. Your actual property tax depends on the municipality and assessed value."} />
+                  <InfoBubble text={propTaxOverride !== null ? "Your manually entered monthly property tax." : "Estimated at 0.95% of home price per year. Your actual property tax depends on the municipality and assessed value."} />
                 </span>
                 <span className={`font-semibold ${propTaxOverride !== null ? "text-navy" : "text-slate"}`}>${fmtDollars(displayPropTax)}/mo</span>
               </div>
@@ -889,11 +800,11 @@ export default function AffordabilityCalculator() {
             {/* Settings summary */}
             <div className="bg-[#FAFAFA] rounded-lg px-3 py-2 mb-5 text-[0.6875rem] text-slate leading-relaxed" style={{ fontFamily: "var(--font-jakarta)" }}>
               <span className="font-semibold text-navy">Settings: </span>
-              {stressTest ? `Stress test ${(results.qualifyingRate * 100).toFixed(2)}%` : `Contract rate ${rate.toFixed(2)}%`}
+              Stress test {(results.qualifyingRate * 100).toFixed(2)}%
               {" · "}
               {propTaxOverride !== null ? "Custom property tax" : "Estimated housing costs"}
               {" · "}
-              {amortYears}-year amortization
+              25-year amortization
             </div>
 
             {/* Disclaimer */}
