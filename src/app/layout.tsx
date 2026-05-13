@@ -73,8 +73,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-CA" className={`${spectral.variable} ${jakarta.variable}`}>
-      <body className="antialiased">
-        {children}
+      <body className="antialiased overflow-x-hidden">
+        <div className="w-full overflow-x-hidden">
+          {children}
+        </div>
       </body>
     </html>
   );

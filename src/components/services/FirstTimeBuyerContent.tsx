@@ -359,7 +359,7 @@ export default function FirstTimeBuyerContent() {
           </nav>
 
           {/* Main content */}
-          <div className="max-w-3xl">
+          <div className="max-w-3xl overflow-hidden">
             {/* ── HOW TO QUALIFY — FOUR PILLARS ── */}
             <div id="how-to-qualify" className="scroll-mt-24 mb-16 pb-16 border-b border-sand-2">
               <p

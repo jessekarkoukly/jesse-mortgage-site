@@ -176,7 +176,7 @@ export default function RenewalContent() {
           </nav>
 
           {/* Main content */}
-          <div className="max-w-3xl">
+          <div className="max-w-3xl overflow-hidden">
             {/* ── The Problem ── */}
             <div id="the-problem" className="scroll-mt-24 mb-16 pb-16 border-b border-sand-2">
               <p

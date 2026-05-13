@@ -448,7 +448,7 @@ export default function SelfEmployedContent() {
           </nav>
 
           {/* Main content */}
-          <div className="max-w-3xl">
+          <div className="max-w-3xl overflow-hidden">
             {/* ── THE CHALLENGE ── */}
             <div id="the-challenge" className="scroll-mt-24 mb-20">
               <p

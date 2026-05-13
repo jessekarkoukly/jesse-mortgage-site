@@ -55,7 +55,6 @@ export default function Nav({ onBookingOpen }: NavProps) {
   const APPLY_URL = "https://app.scarlettnetwork.com/Jesse_Karkoukly/application/0/interview/purpose";
 
   const navLinks: { label: string; href: string; external?: boolean }[] = [
-    { label: "Rates", href: "/rates" },
     { label: "Calculators", href: "/calculators" },
     { label: "About", href: "/about" },
     { label: "Apply", href: APPLY_URL, external: true },

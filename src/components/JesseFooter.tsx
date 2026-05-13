@@ -24,7 +24,6 @@ export default function JesseFooter() {
         <nav className="flex flex-wrap gap-x-6 gap-y-2">
           {[
             { label: "Services", href: "/#services" },
-            { label: "Rates", href: "/rates" },
             { label: "Neighbourhoods", href: "/neighbourhoods" },
             { label: "Calculators", href: "/calculators" },
             { label: "About", href: "/about" },

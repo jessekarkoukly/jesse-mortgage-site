@@ -433,7 +433,7 @@ export default function PreApprovalContent() {
           </nav>
 
           {/* Main content */}
-          <div className="max-w-3xl">
+          <div className="max-w-3xl overflow-hidden">
             {/* ── WHAT IT IS ── */}
             <div id="what-it-is" className="scroll-mt-24 mb-20">
               <p

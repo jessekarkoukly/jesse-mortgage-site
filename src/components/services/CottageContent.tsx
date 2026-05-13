@@ -233,7 +233,7 @@ export default function CottageContent() {
           </nav>
 
           {/* Main content */}
-          <div className="max-w-3xl">
+          <div className="max-w-3xl overflow-hidden">
             {/* ── HOW IT WORKS ── */}
             <div id="how-it-works" className="scroll-mt-24 mb-20">
               <p

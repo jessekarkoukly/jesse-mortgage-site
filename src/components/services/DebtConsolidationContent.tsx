@@ -358,7 +358,7 @@ export default function DebtConsolidationContent() {
           </nav>
 
           {/* Main content */}
-          <div className="max-w-3xl">
+          <div className="max-w-3xl overflow-hidden">
 
             {/* ═══════════════════════════════════════════════════
                 SECTION 01 — What is debt consolidation

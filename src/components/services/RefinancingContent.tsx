@@ -351,7 +351,7 @@ export default function RefinancingContent() {
           </nav>
 
           {/* Main content */}
-          <div className="max-w-3xl">
+          <div className="max-w-3xl overflow-hidden">
 
             {/* ── Why People Refinance ── */}
             <div id="why-refinance" className="scroll-mt-24 mb-16 pb-16 border-b border-sand-2">
