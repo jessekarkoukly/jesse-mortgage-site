@@ -82,7 +82,7 @@ export default function ProcessAccordion() {
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="w-full text-left p-5 sm:p-6 flex items-center gap-5 cursor-pointer group"
+                  className="w-full text-left p-4 sm:p-6 flex items-center gap-3 sm:gap-5 cursor-pointer group"
                   aria-expanded={isOpen}
                 >
                   {/* Number */}

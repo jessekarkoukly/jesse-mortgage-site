@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function AboutSection() {
   return (
     <section className="bg-sand py-24 sm:py-28 px-6">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
         {/* Photo */}
         <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] rounded-2xl overflow-hidden order-2 lg:order-1">
           <Image
@@ -44,7 +44,7 @@ export default function AboutSection() {
               your situation. Not what sounds good. What is good.
             </p>
             <p>
-              I live in The Annex with my family. I work with clients across Toronto and Ontario.
+              I work out of 390 Dupont St in Toronto and work with clients across Ontario.
             </p>
           </div>
 

@@ -135,7 +135,7 @@ export default function ContactPage() {
                   className="text-[1rem] font-bold text-navy"
                   style={{ fontFamily: "var(--font-jakarta)" }}
                 >
-                  The Annex, Toronto. Ontario-wide.
+                  390 Dupont St Ste 200, Toronto, ON M5R 1V9
                 </p>
               </div>
             </div>

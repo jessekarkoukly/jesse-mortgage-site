@@ -11,8 +11,10 @@ export default function HomeJsonLd() {
     image: "https://jessekarkoukly.com/og-image.jpg",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "390 Dupont St Ste 200",
       addressLocality: "Toronto",
       addressRegion: "ON",
+      postalCode: "M5R 1V9",
       addressCountry: "CA",
     },
     geo: {
@@ -52,8 +54,10 @@ export default function HomeJsonLd() {
     },
     address: {
       "@type": "PostalAddress",
+      streetAddress: "390 Dupont St Ste 200",
       addressLocality: "Toronto",
       addressRegion: "ON",
+      postalCode: "M5R 1V9",
       addressCountry: "CA",
     },
     sameAs: [

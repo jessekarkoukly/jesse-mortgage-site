@@ -76,7 +76,7 @@ const REVIEWS = [
 const STATS = [
   { value: "50+", label: "Lenders compared" },
   { value: "10+", label: "Years in tech before mortgages" },
-  { value: "The Annex", label: "Home base, Toronto" },
+  { value: "Toronto", label: "Home base" },
 ];
 
 export default function AboutPage() {
@@ -170,7 +170,7 @@ export default function AboutPage() {
               { label: "Brokerage Licence", value: "#12176" },
               { label: "Network", value: "Mortgage Architects" },
               { label: "Personal Licence", value: "M25003068" },
-              { label: "Location", value: "The Annex, Toronto" },
+              { label: "Location", value: "390 Dupont St Ste 200, Toronto" },
               { label: "Serves", value: "All of Ontario" },
             ].map((item) => (
               <div key={item.label} className="flex flex-col">

@@ -216,7 +216,7 @@ export default function FirstTimeBuyerContent() {
     <>
       {/* ── HERO ── */}
       <section className="bg-navy pt-28 pb-20 px-6 lg:pt-32 lg:pb-24">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_380px] gap-12 items-start">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_380px] gap-6 sm:gap-8 lg:gap-12 items-start">
           {/* Left */}
           <div className="pt-4">
             <span
@@ -329,7 +329,7 @@ export default function FirstTimeBuyerContent() {
 
       {/* ── TOC + CONTENT LAYOUT ── */}
       <section className="bg-white py-16 px-6">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-[220px_1fr] gap-12">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[220px_1fr] gap-6 lg:gap-12">
           {/* Sticky TOC (desktop) */}
           <nav className="hidden lg:block">
             <div className="sticky top-[84px] border-r border-sand-2 pr-6">
@@ -1055,10 +1055,10 @@ export default function FirstTimeBuyerContent() {
                         onClick={() =>
                           setOpenProgram(isOpen ? null : i)
                         }
-                        className="w-full text-left p-5 cursor-pointer"
+                        className="w-full text-left p-4 sm:p-5 cursor-pointer"
                         aria-expanded={isOpen}
                       >
-                        <div className="flex items-center justify-between gap-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                           <div className="flex items-center gap-3 min-w-0">
                             <span
                               className={`text-[0.625rem] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full shrink-0 ${
@@ -1071,13 +1071,13 @@ export default function FirstTimeBuyerContent() {
                               {prog.tag}
                             </span>
                             <p
-                              className="font-bold text-navy text-[0.9375rem]"
+                              className="font-bold text-navy text-[0.875rem] sm:text-[0.9375rem] min-w-0"
                               style={{ fontFamily: "var(--font-jakarta)" }}
                             >
                               {prog.title}
                             </p>
                           </div>
-                          <div className="flex items-center gap-3 shrink-0">
+                          <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 pl-0 sm:pl-0">
                             <span
                               className="text-[1rem] font-bold text-emerald-600"
                               style={{ fontFamily: "var(--font-spectral)" }}
@@ -1487,11 +1487,11 @@ export default function FirstTimeBuyerContent() {
                         onClick={() =>
                           setOpenFaq(isOpen ? null : i)
                         }
-                        className="w-full text-left p-5 cursor-pointer flex items-center justify-between gap-4"
+                        className="w-full text-left p-4 sm:p-5 cursor-pointer flex items-center justify-between gap-3 sm:gap-4"
                         aria-expanded={isOpen}
                       >
                         <p
-                          className="font-bold text-navy text-[0.9375rem]"
+                          className="flex-1 min-w-0 font-bold text-navy text-[0.9375rem]"
                           style={{ fontFamily: "var(--font-jakarta)" }}
                         >
                           {faq.q}

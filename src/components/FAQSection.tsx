@@ -58,7 +58,7 @@ export default function FAQSection() {
                   aria-expanded={isOpen}
                 >
                   <span
-                    className="font-semibold text-navy text-[1.0625rem] sm:text-[1.125rem] group-hover:text-coral transition-colors duration-150"
+                    className="flex-1 min-w-0 font-semibold text-navy text-[1.0625rem] sm:text-[1.125rem] group-hover:text-coral transition-colors duration-150"
                     style={{ fontFamily: "var(--font-jakarta)" }}
                   >
                     {item.q}

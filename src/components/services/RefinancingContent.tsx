@@ -321,7 +321,7 @@ export default function RefinancingContent() {
           SECTIONS 2–8 — Grid TOC + Content
       ═══════════════════════════════════════════════════ */}
       <section className="bg-white py-16 px-6">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-[220px_1fr] gap-12">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-[220px_1fr] gap-6 lg:gap-12">
           {/* Sticky TOC (desktop) */}
           <nav className="hidden lg:block">
             <div className="sticky top-[84px] border-r border-sand-2 pr-6">

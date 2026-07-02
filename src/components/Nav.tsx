@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface NavProps {
   onBookingOpen: () => void;
@@ -69,19 +70,15 @@ export default function Nav({ onBookingOpen }: NavProps) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex flex-col leading-none select-none shrink-0">
-          <span
-            className="text-[1.5rem] lg:text-[2.25rem] font-bold text-navy"
-            style={{ fontFamily: "var(--font-spectral)" }}
-          >
-            Jesse<span className="text-coral">.</span>
-          </span>
-          <span
-            className="text-[0.8rem] lg:text-[1.15rem] font-normal text-slate -mt-1"
-            style={{ fontFamily: "var(--font-spectral)" }}
-          >
-            Karkoukly
-          </span>
+        <Link href="/" className="shrink-0 select-none">
+          <Image
+            src="/jesse-logo.png"
+            alt="Jesse Karkoukly Mortgage Agent"
+            width={220}
+            height={40}
+            className="h-8 lg:h-10 w-auto"
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}
