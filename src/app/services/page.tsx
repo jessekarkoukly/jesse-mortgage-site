@@ -37,7 +37,7 @@ export default function ServicesIndexPage() {
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center gap-8">
           <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden shrink-0 border-2 border-sand-2">
             <Image
-              src="/jesse-about.jpg"
+              src="/jesse-headshot.png"
               alt="Jesse Karkoukly, Toronto Mortgage Agent"
               width={144}
               height={144}

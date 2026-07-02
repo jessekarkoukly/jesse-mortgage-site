@@ -74,6 +74,21 @@ export default function RootLayout({
   return (
     <html lang="en-CA" className={`${spectral.variable} ${jakarta.variable}`}>
       <body className="antialiased overflow-x-hidden">
+        <div
+          aria-hidden="true"
+          style={{
+            position: "fixed",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            backgroundImage: "url(/noise.svg)",
+            backgroundSize: "256px 256px",
+            backgroundRepeat: "repeat",
+            opacity: 0.06,
+            pointerEvents: "none",
+            zIndex: 100,
+          }}
+        />
         <div className="w-full overflow-x-hidden">
           {children}
         </div>

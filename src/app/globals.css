@@ -4,8 +4,8 @@
   /* Brand colours */
   --color-navy:       #1E2D3D;
   --color-navy-2:     #2E4255;
-  --color-sand:       #F7F3EE;
-  --color-sand-2:     #EDE7DC;
+  --color-sand:       #F4F4F2;
+  --color-sand-2:     #E9E9E7;
   --color-coral:      #E8705A;
   --color-coral-dark: #D05A45;
   --color-slate:      #8A9BAA;
@@ -41,7 +41,7 @@ main, section, header, footer {
 }
 
 body {
-  background-color: #F7F3EE;
+  background-color: #FFFFFF;
   color: #1E2D3D;
   font-family: var(--font-jakarta), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;

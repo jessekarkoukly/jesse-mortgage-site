@@ -6,20 +6,12 @@ interface HeroProps {
 
 export default function Hero({ onBookingOpen }: HeroProps) {
   return (
-    <section className="bg-sand pt-16 sm:pt-20 lg:pt-20">
-      {/* ── Desktop: two-column full-height ── */}
-      <div className="hidden lg:grid lg:grid-cols-2 min-h-[calc(100vh-5rem)]">
+    <section className="bg-white pt-16 sm:pt-20 lg:pt-20" style={{ background: "radial-gradient(ellipse at 15% 55%, rgba(232, 112, 90, 0.07) 0%, transparent 55%), #ffffff" }}>
+      {/* ── Desktop: asymmetric two-column ── */}
+      <div className="hidden lg:grid lg:grid-cols-2 items-end">
 
         {/* Left: copy */}
-        <div className="flex flex-col justify-center px-12 xl:px-20 py-20">
-          {/* Eyebrow in coral */}
-          <p
-            className="text-[0.75rem] font-bold text-coral tracking-[0.18em] uppercase mb-6"
-            style={{ fontFamily: "var(--font-jakarta)" }}
-          >
-            Toronto Mortgage Agent&nbsp;&middot;&nbsp;Sherwood Mortgage Group
-          </p>
-
+        <div className="relative z-10 flex flex-col justify-end px-12 xl:px-20 pt-24 pb-16">
           <h1
             className="text-[3rem] xl:text-[3.5rem] font-bold text-navy leading-[1.1] mb-7"
             style={{ fontFamily: "var(--font-spectral)" }}
@@ -72,22 +64,14 @@ export default function Hero({ onBookingOpen }: HeroProps) {
           </div>
         </div>
 
-        {/* Right: photo edge-to-edge */}
-        <div className="relative">
+        {/* Right: photo — square container matches 1:1 image, bleeds left */}
+        <div className="relative aspect-square -ml-16">
           <Image
-            src="/jesse-hero.jpg"
+            src="/jesse-headshot.png"
             alt="Jesse Karkoukly, Toronto Mortgage Agent"
             fill
-            className="object-cover"
-            style={{ objectPosition: "55% 30%" }}
+            className="object-contain"
             priority
-          />
-          {/* Subtle gradient on left edge to blend into sand */}
-          <div
-            className="absolute inset-y-0 left-0 w-20 pointer-events-none"
-            style={{
-              background: "linear-gradient(to right, #F7F3EE, transparent)",
-            }}
           />
         </div>
       </div>
@@ -153,14 +137,13 @@ export default function Hero({ onBookingOpen }: HeroProps) {
           </div>
         </div>
 
-        {/* Photo: proper aspect ratio, centred on Jesse's face */}
-        <div className="relative w-full" style={{ aspectRatio: "4/3" }}>
+        {/* Photo */}
+        <div className="relative w-full bg-white" style={{ aspectRatio: "4/3" }}>
           <Image
-            src="/jesse-hero.jpg"
+            src="/jesse-headshot.png"
             alt="Jesse Karkoukly, Toronto Mortgage Agent"
             fill
-            className="object-cover"
-            style={{ objectPosition: "55% 38%" }}
+            className="object-contain object-center"
             priority
           />
         </div>
