@@ -2,13 +2,12 @@
 
 import { useRef, useState } from "react";
 
-const SLIDES = [
-  { id: "hero" },
+const RATE_SLIDES = [
   { id: "td",   bank: "TD Bank",    rate: "3.65%", term: "3-Year Variable", logo: "/logos/TD-logo.webp" },
   { id: "scot", bank: "Scotiabank", rate: "3.89%", term: "5-Year Variable", logo: "/logos/Scotiabank.webp" },
-] as const;
+];
 
-const total = SLIDES.length;
+const total = 1 + RATE_SLIDES.length;
 
 export default function HeroCarousel() {
   const [slide, setSlide] = useState(0);
@@ -100,7 +99,7 @@ export default function HeroCarousel() {
         </div>
 
         {/* ── Slides 2 & 3: Rate cards ── */}
-        {SLIDES.slice(1).map(({ id, bank, rate, term, logo }) => (
+        {RATE_SLIDES.map(({ id, bank, rate, term, logo }) => (
           <div
             key={id}
             className="flex flex-col items-center justify-center px-6 pt-20 sm:pt-24 pb-6 bg-white"
