@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 const SLIDES = [
   { id: "hero" },
   { id: "td",   bank: "TD Bank",    rate: "3.65%", term: "3-Year Variable", logo: "/logos/TD-logo.webp" },
-  { id: "scot", bank: "Scotiabank", rate: "3.65%", term: "3-Year Variable", logo: "/logos/Scotiabank.webp" },
+  { id: "scot", bank: "Scotiabank", rate: "3.89%", term: "5-Year Variable", logo: "/logos/Scotiabank.webp" },
 ] as const;
 
 const total = SLIDES.length;
