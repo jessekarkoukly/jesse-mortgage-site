@@ -31,14 +31,14 @@ const LENDER_LOGOS = [
   { name: "Scotiabank",     logo: "/logos/Scotiabank.webp" },
   { name: "First National", logo: "/logos/First-National-Logo.webp" },
   { name: "MCAP",           logo: "/logos/MCAP-logo.webp" },
-  { name: "Merix",          logo: "/logos/Merix.webp" },
-  { name: "Equitable Bank", logo: "/logos/Equitable-logo.webp" },
-  { name: "RMG",            logo: "/logos/RMG-logo.webp" },
-  { name: "Home Trust",     logo: "/logos/Home-Trust-logo.webp" },
   { name: "Manulife",       logo: "/logos/ManuLife.webp" },
+  { name: "Equitable Bank", logo: "/logos/Equitable-logo.webp" },
+  { name: "Home Trust",     logo: "/logos/Home-Trust-logo.webp" },
+  { name: "Merix",          logo: "/logos/Merix.webp" },
+  { name: "RMG",            logo: "/logos/RMG-logo.webp" },
   { name: "CMLS",           logo: "/logos/CMLS-Logo.webp" },
-  { name: "Strive",         logo: "/logos/Strive-logo.webp" },
-  { name: "B2B Bank",       logo: "/logos/B2B-Logo.webp" },
+  { name: "Haventree",      logo: "/logos/HavenTree-Logo.webp" },
+  { name: "DUCA",           logo: "/logos/Duca-logo.webp" },
 ];
 
 const GET_POINTS = [
@@ -127,14 +127,14 @@ export default function OpenHousePage() {
         </section>
 
         {/* ── Lender Ribbon ── */}
-        <div className="bg-slate py-4 overflow-hidden">
+        <div className="bg-slate py-2 sm:py-3 overflow-hidden">
           <div className="marquee-track items-center">
             {[...LENDER_LOGOS, ...LENDER_LOGOS].map((l, i) => (
               <div key={i} className="flex items-center shrink-0 px-8">
                 <img
                   src={l.logo}
                   alt={l.name}
-                  className="h-8 w-auto object-contain brightness-0 invert opacity-70"
+                  className="h-20 sm:h-24 w-auto object-contain brightness-0 invert opacity-80"
                   loading="lazy"
                 />
               </div>

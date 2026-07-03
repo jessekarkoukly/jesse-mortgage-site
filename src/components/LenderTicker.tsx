@@ -1,34 +1,27 @@
 const LENDERS = [
-  { name: "Mortgage Architects", logo: "/logos/Mortgage-Architects.webp" },
-  { name: "Merix Financial", logo: "/logos/Merix.webp" },
-  { name: "First National", logo: "/logos/First-National-Logo.webp" },
-  { name: "MCAP", logo: "/logos/MCAP-logo.webp" },
-  { name: "RMG Mortgages", logo: "/logos/RMG-logo.webp" },
-  { name: "Strive", logo: "/logos/Strive-logo.webp" },
-  { name: "Equitable Bank", logo: "/logos/Equitable-logo.webp" },
-  { name: "HomeEquity Bank", logo: "/logos/HEB-CHIP-logo.webp" },
-  { name: "CWB Optimum", logo: "/logos/CWB-Optimum-logo.webp" },
-  { name: "Radius Financial", logo: "/logos/Radius-logo.webp" },
-  { name: "TD", logo: "/logos/TD-logo.webp" },
-  { name: "Scotiabank", logo: "/logos/Scotiabank.webp" },
-  { name: "CMLS Financial", logo: "/logos/CMLS-Logo.webp" },
-  { name: "Haventree Bank", logo: "/logos/HavenTree-Logo.webp" },
-  { name: "CMHC", logo: "/logos/CMHC-SCHL-Logo.webp" },
-  { name: "Home Trust", logo: "/logos/Home-Trust-logo.webp" },
-  { name: "B2B Bank", logo: "/logos/B2B-Logo.webp" },
-  { name: "DUCA", logo: "/logos/Duca-logo.webp" },
-  { name: "RFA", logo: "/logos/RFA.webp" },
-  { name: "Manulife", logo: "/logos/ManuLife.webp" },
-  { name: "Sagen", logo: "/logos/Sagen.webp" },
-  { name: "Canada Guaranty", logo: "/logos/Canada-Guaranty.webp" },
-  { name: "Blueprint", logo: "/logos/Blueprint-logo.webp" },
+  { name: "TD",                 logo: "/logos/TD-logo.webp" },
+  { name: "Scotiabank",         logo: "/logos/Scotiabank.webp" },
+  { name: "First National",     logo: "/logos/First-National-Logo.webp" },
+  { name: "MCAP",               logo: "/logos/MCAP-logo.webp" },
+  { name: "Manulife",           logo: "/logos/ManuLife.webp" },
+  { name: "Equitable Bank",     logo: "/logos/Equitable-logo.webp" },
+  { name: "Home Trust",         logo: "/logos/Home-Trust-logo.webp" },
+  { name: "Merix Financial",    logo: "/logos/Merix.webp" },
+  { name: "RMG Mortgages",      logo: "/logos/RMG-logo.webp" },
+  { name: "CMLS Financial",     logo: "/logos/CMLS-Logo.webp" },
+  { name: "Haventree Bank",     logo: "/logos/HavenTree-Logo.webp" },
+  { name: "DUCA",               logo: "/logos/Duca-logo.webp" },
+  { name: "CWB Optimum",        logo: "/logos/CWB-Optimum-logo.webp" },
+  { name: "Radius Financial",   logo: "/logos/Radius-logo.webp" },
+  { name: "B2B Bank",           logo: "/logos/B2B-Logo.webp" },
+  { name: "Mortgage Architects",logo: "/logos/Mortgage-Architects.webp" },
 ];
 
 export default function LenderTicker() {
   const doubled = [...LENDERS, ...LENDERS];
 
   return (
-    <div className="bg-navy py-6 sm:py-8 overflow-hidden">
+    <div className="bg-navy py-2 sm:py-3 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-4 sm:gap-8">
         {/* Fixed label */}
         <p
@@ -49,7 +42,7 @@ export default function LenderTicker() {
                 <img
                   src={lender.logo}
                   alt={lender.name}
-                  className="h-14 w-auto object-contain brightness-0 invert opacity-50 hover:opacity-90 hover:scale-110 transition-all duration-200"
+                  className="h-24 sm:h-28 w-auto object-contain brightness-0 invert opacity-75 hover:opacity-100 hover:scale-110 transition-all duration-200"
                   loading="lazy"
                 />
               </div>
