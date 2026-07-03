@@ -17,6 +17,7 @@ const SERVICE_LINKS = [
   { label: "Debt Consolidation", href: "/services/debt-consolidation" },
   { label: "Cottage & Vacation", href: "/services/cottage" },
   { label: "Specialty Programs", href: "/services/specialty" },
+  { label: "Open House", href: "/open-house" },
 ];
 
 export default function Nav({ onBookingOpen }: NavProps) {

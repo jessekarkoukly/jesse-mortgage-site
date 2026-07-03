@@ -174,23 +174,31 @@ function AccordionCard({
               {card.teaser}
             </p>
           </div>
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            className={`shrink-0 transition-transform duration-300 ${
-              isOpen ? "rotate-180" : ""
-            }`}
-          >
-            <path
-              d="M5 7.5L10 12.5L15 7.5"
-              stroke="#E8705A"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <div className="flex items-center gap-1.5 shrink-0">
+            {!isOpen && (
+              <span
+                className="text-[0.75rem] font-semibold text-coral uppercase tracking-wide"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Details
+              </span>
+            )}
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+            >
+              <path
+                d="M5 7.5L10 12.5L15 7.5"
+                stroke="#E8705A"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
         </div>
       </button>
 
@@ -265,7 +273,7 @@ export default function HowICanHelp({
 }: {
   onBookingOpen?: () => void;
 }) {
-  const [openIndex, setOpenIndex] = useState<string | null>(null);
+  const [openIndex, setOpenIndex] = useState<string | null>("First-Time Home Buyers");
 
   const handleToggle = (key: string) => {
     setOpenIndex(openIndex === key ? null : key);
