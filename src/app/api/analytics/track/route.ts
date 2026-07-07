@@ -1,11 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
-const rawUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").trim().replace(/\/rest\/v1\/?$/, "");
-const supabase = createClient(
-  rawUrl,
-  (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim()
-);
+const rawUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\s/g, "").replace(/\/rest\/v1\/?$/, "");
+const serviceKey = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").replace(/\s/g, "");
+const supabase = createClient(rawUrl, serviceKey);
 
 export async function POST(req: NextRequest) {
   try {
