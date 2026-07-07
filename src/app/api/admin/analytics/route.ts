@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
     await Promise.all([pvQuery, evQuery]);
 
   if (pvErr || evErr) {
-    return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to fetch data", pvErr, evErr }, { status: 500 });
   }
 
   return NextResponse.json({ pageviews: pageviews ?? [], events: events ?? [] });
