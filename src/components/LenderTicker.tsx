@@ -42,8 +42,9 @@ export default function LenderTicker() {
                 <img
                   src={lender.logo}
                   alt={lender.name}
-                  className="h-24 sm:h-28 w-auto object-contain brightness-0 invert opacity-75 hover:opacity-100 hover:scale-110 transition-all duration-200"
-                  loading="lazy"
+                  className="h-24 sm:h-28 w-auto object-contain opacity-75 hover:opacity-100 hover:scale-110 transition-all duration-200"
+                  style={{ filter: "grayscale(1) contrast(15) invert(1)" }}
+                  loading="eager"
                 />
               </div>
             ))}

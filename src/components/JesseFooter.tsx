@@ -1,23 +1,19 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function JesseFooter() {
   return (
     <footer className="bg-navy py-10 px-6">
       <div className="max-w-7xl mx-auto flex flex-col gap-6">
         {/* Logo */}
-        <Link href="/" className="flex flex-col leading-none select-none w-fit">
-          <span
-            className="text-[1.35rem] font-bold text-white"
-            style={{ fontFamily: "var(--font-spectral)" }}
-          >
-            Jesse<span className="text-coral">.</span>
-          </span>
-          <span
-            className="text-[0.75rem] font-normal text-slate -mt-0.5"
-            style={{ fontFamily: "var(--font-spectral)" }}
-          >
-            Karkoukly
-          </span>
+        <Link href="/" className="select-none w-fit">
+          <Image
+            src="/jesse-logo.png"
+            alt="Jesse Karkoukly Mortgage Agent"
+            width={180}
+            height={40}
+            className="h-8 w-auto brightness-0 invert"
+          />
         </Link>
 
         {/* Footer nav */}

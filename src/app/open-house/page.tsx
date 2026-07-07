@@ -134,8 +134,9 @@ export default function OpenHousePage() {
                 <img
                   src={l.logo}
                   alt={l.name}
-                  className="h-20 sm:h-24 w-auto object-contain brightness-0 invert opacity-80"
-                  loading="lazy"
+                  className="h-20 sm:h-24 w-auto object-contain opacity-80"
+                  style={{ filter: "grayscale(1) contrast(15) invert(1)" }}
+                  loading="eager"
                 />
               </div>
             ))}

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Spectral, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 
 const spectral = Spectral({
   variable: "--font-spectral",
@@ -89,6 +90,7 @@ export default function RootLayout({
             zIndex: 100,
           }}
         />
+        <AnalyticsTracker />
         <div className="w-full overflow-x-hidden">
           {children}
         </div>
