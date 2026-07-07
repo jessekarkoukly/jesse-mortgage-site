@@ -1,9 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
-const rawUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\s/g, "").replace(/\/rest\/v1\/?$/, "");
-const serviceKey = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").replace(/\s/g, "");
-const supabase = createClient(rawUrl, serviceKey);
+function getSupabase() {
+  const url = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/[\s\n\r]/g, "").replace(/\/rest\/v1\/?$/, "");
+  const key = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").replace(/[\s\n\r]/g, "");
+  return createClient(url, key);
+}
 
 function getRangeStart(range: string): string | null {
   const now = new Date();
@@ -14,6 +16,7 @@ function getRangeStart(range: string): string | null {
 }
 
 export async function GET(req: NextRequest) {
+  const supabase = getSupabase();
   const range = req.nextUrl.searchParams.get("range") ?? "30d";
   const rangeStart = getRangeStart(range);
 
