@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { posts } from "@/data/posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://jessekarkoukly.com";
@@ -74,5 +75,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ].map((page) => ({
     ...page,
     lastModified: now,
-  }));
+  })).concat(
+    posts.map((post) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+      lastModified: new Date(`${post.updated}T12:00:00-04:00`).toISOString(),
+    }))
+  );
 }
