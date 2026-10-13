@@ -5,6 +5,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Self-Employed Mortgages | Toronto Mortgage Agent",
+  alternates: { canonical: "/services/self-employed" },
   description:
     "Self-employed in Toronto and need a mortgage? Jesse Karkoukly explains how lenders assess non-traditional income, what documents you need, and how to present your file to get approved.",
   openGraph: {

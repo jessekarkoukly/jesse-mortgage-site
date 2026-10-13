@@ -28,9 +28,10 @@ Footer disclaimer — verbatim, no exceptions:
 
 > Jesse Karkoukly, Mortgage Agent Lic. M25003068. Brokerage: Sherwood Mortgage Group, Brokerage Lic. 12176. Part of the Mortgage Architects Network. This website does not constitute a mortgage approval, commitment, or rate guarantee. All rates and terms subject to lender approval.
 
-Sherwood logo (`public/sherwood-logo.png`):
+Sherwood logo (`public/sherwood-logo-lic.png`, official "Digital_Horiz_Lic-Full_Color" artwork from the Sherwood brand kit, licence number built in):
 - Full colour only. Never greyscale. Never resized below 80px wide.
 - Appears in the compliance footer on every page.
+- Use supplied logo files exactly as provided. Never recreate, recolour, crop, combine, or type licence text next to a logo.
 
 ---
 
@@ -56,7 +57,9 @@ Sherwood logo (`public/sherwood-logo.png`):
 |---|---|
 | `public/jesse-hero.jpg` | Homepage hero only |
 | `public/jesse-about.jpg` | Homepage about section + Annex neighbourhood page only |
-| `public/sherwood-logo.png` | Compliance footer, full colour, every page |
+| `public/sherwood-logo-lic.png` | Compliance footer, full colour, every page (official artwork with Brokerage Lic. 12176) |
+| `public/blog/jesse-face.jpg` | Blog byline avatar |
+| `public/blog/jesse-headshot.jpg` | Blog author box |
 
 ---
 
@@ -162,7 +165,8 @@ Every calculator result ends with: "Want Jesse to run your exact numbers? It tak
 | `/services/cottage` | Planned | — |
 | `/calculators` | Brief complete, not built | `briefs/Calculator Hub/` |
 | `/about` | Planned | — |
-| `/blog` | Planned | — |
+| `/blog` | Built. Index lists posts from `src/data/posts`, then external Medium/LinkedIn links | — |
+| `/blog/[slug]` | Built. One data file per post in `src/data/posts/`, register it in `src/data/posts/index.ts`. Sitemap, schema and OG image are generated from the data. | — |
 | `/neighbourhoods/the-annex` | Brief complete, not built | `briefs/neighbourhoods.md` |
 | `/neighbourhoods/leslieville` | Planned | `briefs/neighbourhoods.md` |
 | `/neighbourhoods/roncesvalles` | Planned | `briefs/neighbourhoods.md` |
@@ -256,6 +260,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 ## SESSION LOG
 
 Newest first.
+
+**2026-10-13 — Blog post system + first long-form article**
+Added `/blog/[slug]` with typed post data, BlogPosting/Person/FAQPage schema, per-post OG image, sitemap entries. First post: `/blog/self-employed-dividends-mortgage`. Compliance footer now uses the official Sherwood logo with licence. `/services/self-employed-mortgages` canonicalises to `/services/self-employed`; homepage services link now points to `/services/self-employed`. Article-only exceptions: a dated worked-example rate (4.74%, Oct 2026) is hardcoded as editorial content, and one Jesse-approved line uses "We".
 
 **2026-03-10 — CLAUDE.md replaces terminal prompt + SYSTEM.md for build sessions**
 Terminal suggested putting the source of truth in the project root as CLAUDE.md so it is read automatically every session. Done. SYSTEM.md in the Claude desktop folder remains as the strategy/copy reference for chat sessions. CLAUDE.md is the build reference for Terminal.

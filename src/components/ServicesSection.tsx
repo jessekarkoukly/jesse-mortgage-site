@@ -8,7 +8,7 @@ const BUYING = [
 const EXISTING = [
   { label: "Renewals and Refinancing", href: "/services/renewals-and-refinancing" },
   { label: "Debt Consolidation", href: "/services/debt-consolidation" },
-  { label: "Self-Employed Mortgages", href: "/services/self-employed-mortgages" },
+  { label: "Self-Employed Mortgages", href: "/services/self-employed" },
 ];
 
 function ServiceLink({ label, href }: { label: string; href: string }) {

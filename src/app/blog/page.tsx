@@ -3,6 +3,8 @@ import Image from "next/image";
 import PageShell from "@/components/PageShell";
 import EmailCapture from "@/components/EmailCapture";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import Link from "next/link";
+import { posts } from "@/data/posts";
 
 export const metadata: Metadata = {
   title: "Mortgage Blog | Jesse Karkoukly, Licensed Ontario Mortgage Agent",
@@ -101,6 +103,69 @@ export default function BlogPage() {
       <section className="bg-white py-16 px-6">
         <div className="max-w-3xl mx-auto">
           <div className="flex flex-col gap-6">
+            {posts.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="border border-sand-2 rounded-xl p-7 hover:border-coral/40 hover:shadow-md transition-all block"
+              >
+                <div className="flex gap-6 items-start">
+                  <div className="hidden sm:block shrink-0">
+                    <div className="w-32 h-24 rounded-lg overflow-hidden border border-sand-2">
+                      <Image
+                        src={post.image.src}
+                        alt={post.image.alt}
+                        width={128}
+                        height={96}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="inline-flex items-center gap-1.5 bg-sand-2 px-2.5 py-1 rounded-full">
+                        <span
+                          className="text-[0.6875rem] font-bold uppercase tracking-widest text-navy"
+                          style={{ fontFamily: "var(--font-jakarta)" }}
+                        >
+                          {post.category}
+                        </span>
+                      </span>
+                      <span className="text-[0.8125rem] text-slate" style={{ fontFamily: "var(--font-jakarta)" }}>
+                        {post.readMinutes} min read
+                      </span>
+                    </div>
+                    <h2
+                      className="text-[1.375rem] font-bold text-navy mb-3 leading-snug"
+                      style={{ fontFamily: "var(--font-spectral)" }}
+                    >
+                      {post.h1}
+                    </h2>
+                    <p
+                      className="text-[1.0625rem] text-navy-2 leading-relaxed mb-4"
+                      style={{ fontFamily: "var(--font-jakarta)" }}
+                    >
+                      {post.teaser}
+                    </p>
+                    <span
+                      className="inline-flex items-center gap-1.5 text-coral font-semibold text-[0.9375rem]"
+                      style={{ fontFamily: "var(--font-jakarta)" }}
+                    >
+                      Read article
+                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                        <path
+                          d="M3 8h10M9 4l4 4-4 4"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
             {ARTICLES.map((article) => (
               <a
                 key={article.title}
