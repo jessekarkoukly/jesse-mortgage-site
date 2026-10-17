@@ -5,9 +5,9 @@ export const midtown: NeighbourhoodData = {
   name: "Midtown Toronto",
 
   metaTitle:
-    "Buying in Midtown Toronto (Yonge & Eglinton) | Mortgage Agent Jesse Karkoukly",
+    "Buying in Midtown Toronto (Yonge and Eglinton)",
   metaDescription:
-    "Considering buying in Midtown Toronto near Yonge and Eglinton? Property types, transit updates, condo market insights, and mortgage guidance from a local agent.",
+    "Buying near Yonge and Eglinton? Property types, transit, condo market notes and mortgage guidance for Midtown Toronto from a local agent.",
   metaKeywords: [
     "Midtown Toronto",
     "Yonge and Eglinton",

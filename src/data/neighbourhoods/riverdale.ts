@@ -4,7 +4,7 @@ export const riverdale: NeighbourhoodData = {
   slug: "riverdale",
   name: "Riverdale",
 
-  metaTitle: "Buying in Riverdale, Toronto | Mortgage Agent Jesse Karkoukly",
+  metaTitle: "Buying in Riverdale, Toronto | Jesse Karkoukly",
   metaDescription:
     "Considering buying in Riverdale? Property types, top streets, pricing, and mortgage guidance for one of Toronto's most established east end neighbourhoods.",
   metaKeywords: [

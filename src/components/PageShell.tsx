@@ -1,5 +1,6 @@
 "use client";
 
+import { trackEvent } from "@/lib/analytics";
 import { useEffect } from "react";
 import Nav from "@/components/Nav";
 import SherwoodFooter from "@/components/SherwoodFooter";
@@ -10,6 +11,7 @@ import ScrollCTA from "@/components/ScrollCTA";
 const CALENDLY_URL = "https://calendly.com/working-with-jesse/30min";
 
 function openCalendly() {
+  trackEvent("book_call_click");
   window.open(CALENDLY_URL, "_blank", "noopener,noreferrer");
 }
 

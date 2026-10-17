@@ -4,9 +4,9 @@ import PageShell from "@/components/PageShell";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
-  title: "Investment Property Mortgages | Toronto Mortgage Agent",
+  title: "Investment Property Mortgages, Toronto | Jesse Karkoukly",
   description:
-    "Toronto mortgage agent Jesse Karkoukly explains the difference between primary purchase and investment property mortgages. Down payment rules, rental income treatment, and what to expect.",
+    "Buying a home or an investment property in Toronto? Down payment rules, how lenders treat rental income and what to expect, explained.",
   openGraph: {
     title: "Investment Property Mortgages | Toronto Mortgage Agent",
     description:
@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/services/purchases-and-investment" },
 };
 
 export default function PurchasesInvestmentPage() {

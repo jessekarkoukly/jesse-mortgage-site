@@ -11,19 +11,29 @@ export async function POST(req: NextRequest) {
     const { type } = body;
 
     if (type === "pageview") {
-      const { data, error } = await supabase
-        .from("analytics_pageviews")
-        .insert({
-          page: body.page,
-          referrer: body.referrer ?? null,
-          device: body.device ?? null,
-          session_id: body.session_id ?? null,
-        })
-        .select("id")
-        .single();
+      const base = {
+        page: body.page,
+        referrer: body.referrer ?? null,
+        device: body.device ?? null,
+        session_id: body.session_id ?? null,
+      };
+      const withSource = {
+        ...base,
+        utm_source: body.utm_source ?? null,
+        utm_medium: body.utm_medium ?? null,
+        utm_campaign: body.utm_campaign ?? null,
+        landing_page: body.landing_page ?? null,
+      };
 
-      if (error) throw error;
-      return NextResponse.json({ id: data.id });
+      // Try with the visit-source columns first. If they haven't been added
+      // to the table yet, fall back to the original columns so no visit is lost.
+      let result = await supabase.from("analytics_pageviews").insert(withSource).select("id").single();
+      if (result.error) {
+        result = await supabase.from("analytics_pageviews").insert(base).select("id").single();
+      }
+
+      if (result.error) throw result.error;
+      return NextResponse.json({ id: result.data.id });
     }
 
     if (type === "duration") {

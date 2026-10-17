@@ -6,9 +6,9 @@ import HowICanHelp from "@/components/HowICanHelp";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
-  title: "Services | Toronto Mortgage Agent Jesse Karkoukly",
+  title: "Mortgage Services in Toronto | Jesse Karkoukly",
   description:
-    "From pre-approvals and first-time buyers to renewals, debt consolidation, and specialty programs. See every mortgage service Jesse Karkoukly offers across Ontario.",
+    "Pre-approvals, first-time buyers, self-employed, renewals, refinancing and more. Every mortgage service Jesse Karkoukly offers across Ontario.",
   alternates: { canonical: "/services" },
   keywords: [
     "mortgage services Toronto",

@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Mortgage Calculator | Monthly Payment Calculator | Jesse Karkoukly",
+    "Mortgage Payment Calculator by Loan Amount",
   description:
-    "Calculate your mortgage payment with Canadian semi-annual compounding. Enter your mortgage amount, rate, and amortization to see principal, interest, and balance over your term.",
+    "Enter a mortgage amount, rate and amortization to see your payment, with Canadian semi-annual compounding and the balance over your term.",
   keywords: [
     "mortgage calculator",
     "mortgage payment calculator Canada",
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/calculators/mortgage-calculator" },
 };
 
 export default function MortgageCalculatorPage() {

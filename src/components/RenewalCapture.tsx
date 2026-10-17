@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { trackEvent } from "@/lib/analytics";
+
 import { useState } from "react";
 
 export default function RenewalCapture() {
@@ -19,6 +22,7 @@ export default function RenewalCapture() {
       });
       if (!res.ok) throw new Error();
       setStatus("success");
+      trackEvent("renewal_signup");
       setEmail("");
       setRenewalDate("");
     } catch {
@@ -87,6 +91,13 @@ export default function RenewalCapture() {
             >
               {status === "loading" ? "Saving..." : "Remind Me"}
             </button>
+            <p
+              className="text-[0.75rem] text-sand/50 mt-3"
+              style={{ fontFamily: "var(--font-jakarta)" }}
+            >
+              By signing up, you agree to receive emails from Jesse Karkoukly. You can unsubscribe at any time.{" "}
+              <Link href="/privacy" className="underline hover:no-underline">Privacy policy</Link>
+            </p>
           </form>
         )}
         {status === "error" && (

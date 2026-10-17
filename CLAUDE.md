@@ -261,6 +261,10 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 
 Newest first.
 
+**2026-10-17: Project Optimization, Release 1 (backend)**
+Every page now has its own title (under 60), description (under 155) and canonical. Layout title template is `"%s"` and the layout no longer sets a site-wide canonical. Homepage split into server `page.tsx` (canonical "/") and client `HomePage.tsx`. Duplicate routes removed with 301s in `next.config.ts`: `/services/self-employed-mortgages`, `/services/cottage-vacation`, `/services/renewals-and-refinancing`, `/process`. `/preview/*` is noindex. Office address is Ste 201. Schema: FinancialService, Person with FSRA licence credential, sameAs (add Google Business Profile link when ready). Sitemap uses a fixed `PAGES_UPDATED` date; bump it when content changes. Analytics: visit source (referrer, UTM, landing page) and clicks on call, email, book and apply, plus form signups (`email_signup`, `renewal_signup`, `calculator_report`). Dashboard data moved from `/api/admin/analytics` to `/admin/data` so the admin login protects it. Dashboard shows "Where visitors came from" and a "Notify Bing" button (IndexNow, key file in `/public`). New `/privacy` page, linked in the footer and under every email form with the consent line. Supabase SQL needed once for source columns:
+`ALTER TABLE analytics_pageviews ADD COLUMN utm_source text, ADD COLUMN utm_medium text, ADD COLUMN utm_campaign text, ADD COLUMN landing_page text;`
+
 **2026-10-13 — Blog post system + first long-form article**
 Added `/blog/[slug]` with typed post data, BlogPosting/Person/FAQPage schema, per-post OG image, sitemap entries. First post: `/blog/self-employed-dividends-mortgage`. Compliance footer now uses the official Sherwood logo with licence. `/services/self-employed-mortgages` canonicalises to `/services/self-employed`; homepage services link now points to `/services/self-employed`. Article-only exceptions: a dated worked-example rate (4.74%, Oct 2026) is hardcoded as editorial content, and one Jesse-approved line uses "We".
 

@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Mortgage Renewal in Toronto | Compare Before You Sign | Jesse Karkoukly",
+    "Mortgage Renewal, Toronto: Compare Before You Sign",
   description:
-    "Your lender's renewal offer is rarely their best. Jesse shops 50+ lenders to find out what you can actually get. Free, no obligation. Toronto mortgage broker.",
+    "Your lender's renewal offer isn't always their best. Compare options before you sign, hold a rate 120 days ahead and make a confident decision.",
   keywords: [
     "mortgage renewal Toronto",
     "mortgage renewal Ontario",
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/services/renewal" },
 };
 
 const faqSchema = {

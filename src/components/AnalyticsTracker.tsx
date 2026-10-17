@@ -2,25 +2,33 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { getSessionId, eventForHref, trackEvent } from "@/lib/analytics";
+
+// UTM tags and the first page of the visit, kept for the whole session.
+function getVisitSource() {
+  try {
+    let stored = sessionStorage.getItem("__src");
+    if (!stored) {
+      const params = new URLSearchParams(window.location.search);
+      stored = JSON.stringify({
+        utm_source: params.get("utm_source"),
+        utm_medium: params.get("utm_medium"),
+        utm_campaign: params.get("utm_campaign"),
+        landing_page: window.location.pathname,
+      });
+      sessionStorage.setItem("__src", stored);
+    }
+    return JSON.parse(stored);
+  } catch {
+    return {};
+  }
+}
 
 function getDevice(): "mobile" | "tablet" | "desktop" {
   const w = window.innerWidth;
   if (w < 768) return "mobile";
   if (w < 1024) return "tablet";
   return "desktop";
-}
-
-function getSessionId(): string {
-  try {
-    let id = sessionStorage.getItem("__sid");
-    if (!id) {
-      id = Math.random().toString(36).slice(2) + Date.now().toString(36);
-      sessionStorage.setItem("__sid", id);
-    }
-    return id;
-  } catch {
-    return "unknown";
-  }
 }
 
 export default function AnalyticsTracker() {
@@ -49,6 +57,7 @@ export default function AnalyticsTracker() {
         referrer: document.referrer || null,
         device: getDevice(),
         session_id,
+        ...getVisitSource(),
       }),
     })
       .then((r) => r.json())
@@ -86,6 +95,19 @@ export default function AnalyticsTracker() {
       window.removeEventListener("beforeunload", sendDuration);
     };
   }, [pathname]);
+
+  // Count clicks on call, email, booking and application links anywhere on the site.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const link = (e.target as HTMLElement | null)?.closest?.("a");
+      const href = link?.getAttribute("href");
+      if (!href) return;
+      const name = eventForHref(href);
+      if (name) trackEvent(name);
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, []);
 
   return null;
 }

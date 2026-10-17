@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Required Income Calculator | Jesse Karkoukly",
+    "Income Needed for a Mortgage | Ontario Calculator",
   description:
-    "Find out the minimum household income needed to qualify for a mortgage in Canada. Includes CMHC insurance, stress test, and GDS/TDS calculations. Toronto mortgage calculator.",
+    "Find the household income you need to qualify for a mortgage in Canada, with mortgage insurance and GDS and TDS limits built in.",
   keywords: [
     "required income calculator",
     "how much income to qualify for mortgage",
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/calculators/required-income" },
 };
 
 export default function RequiredIncomePage() {

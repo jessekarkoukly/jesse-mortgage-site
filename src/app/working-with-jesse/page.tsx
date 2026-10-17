@@ -5,7 +5,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Working with Jesse Karkoukly | What to Expect | Toronto Mortgage Agent",
+    "The Mortgage Process, Step by Step | Jesse Karkoukly",
   description:
     "The full mortgage process in nine steps, how Jesse operates, and what you can expect from first call through closing and beyond.",
   alternates: { canonical: "/working-with-jesse" },

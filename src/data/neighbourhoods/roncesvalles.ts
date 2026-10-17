@@ -5,9 +5,9 @@ export const roncesvalles: NeighbourhoodData = {
   name: "Roncesvalles",
 
   metaTitle:
-    "Buying in Roncesvalles, Toronto | Mortgage Agent Jesse Karkoukly",
+    "Buying in Roncesvalles, Toronto | Jesse Karkoukly",
   metaDescription:
-    "Considering buying in Roncesvalles? Property types, top streets, school info, and mortgage guidance for this west end village from a Toronto mortgage agent.",
+    "Buying in Roncesvalles? Property types, top streets, schools and mortgage guidance for this west end village from a Toronto mortgage agent.",
   metaKeywords: [
     "Roncesvalles Toronto",
     "buy home Roncesvalles Toronto",

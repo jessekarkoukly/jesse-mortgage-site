@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Prepayment Penalty Calculator | Break Your Mortgage | Jesse Karkoukly",
+    "Mortgage Penalty Calculator: Cost to Break Early",
   description:
-    "Calculate the estimated penalty for breaking your mortgage early. Covers fixed and variable rate penalties, IRD calculations, and big bank vs monoline differences.",
+    "Estimate the penalty to break your mortgage early, for fixed and variable rates, including IRD, and why banks and monolines differ.",
   keywords: [
     "mortgage prepayment penalty calculator",
     "break mortgage penalty Canada",
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/calculators/prepayment-penalty" },
 };
 
 export default function PrepaymentPenaltyPage() {

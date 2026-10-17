@@ -5,7 +5,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Closing Costs Calculator | Ontario & Toronto | Jesse Karkoukly",
+    "Closing Costs Calculator, Ontario and Toronto",
   description:
     "Estimate your closing costs for buying a home in Ontario or Toronto. Includes land transfer tax, CMHC insurance, legal fees, HST on new builds, and more.",
   keywords: [
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/calculators/closing-costs" },
 };
 
 export default function ClosingCostsPage() {

@@ -4,7 +4,7 @@ import CalculatorHub from "@/components/calculators/CalculatorHub";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
-  title: "Mortgage Calculators | Toronto Mortgage Agent Jesse Karkoukly",
+  title: "Mortgage Calculators for Ontario | Jesse Karkoukly",
   description:
     "Free mortgage calculators from Toronto mortgage agent Jesse Karkoukly. Payment, affordability, land transfer tax, closing costs, and more.",
   alternates: { canonical: "/calculators" },

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { posts } from "@/data/posts";
 
 export const metadata: Metadata = {
-  title: "Mortgage Blog | Jesse Karkoukly, Licensed Ontario Mortgage Agent",
+  title: "Mortgage Blog | Jesse Karkoukly, Toronto Mortgage Agent",
   description:
     "Mortgage insights, market context, and practical explanations from licensed Ontario mortgage agent Jesse Karkoukly.",
   alternates: { canonical: "/blog" },

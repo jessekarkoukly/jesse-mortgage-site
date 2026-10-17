@@ -7,7 +7,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "About Jesse Karkoukly | Toronto Mortgage Agent",
   description:
-    "Learn about Jesse Karkoukly, a Toronto mortgage agent with Sherwood Mortgage Group. Background in technology, now helping buyers, owners, and investors navigate the mortgage process clearly.",
+    "Jesse Karkoukly is a Toronto mortgage agent with Sherwood Mortgage Group. A decade in tech, now helping first-time and self-employed buyers.",
   alternates: { canonical: "/about" },
   keywords: [
     "Toronto mortgage agent",
@@ -170,7 +170,7 @@ export default function AboutPage() {
               { label: "Brokerage Licence", value: "#12176" },
               { label: "Network", value: "Mortgage Architects" },
               { label: "Personal Licence", value: "M25003068" },
-              { label: "Location", value: "390 Dupont St Ste 200, Toronto" },
+              { label: "Location", value: "390 Dupont St Ste 201, Toronto" },
               { label: "Serves", value: "All of Ontario" },
             ].map((item) => (
               <div key={item.label} className="flex flex-col">

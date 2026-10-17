@@ -4,7 +4,7 @@ import ServicePageLayout from "@/components/ServicePageLayout";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
-  title: "Specialty Mortgage Programs | Toronto Mortgage Agent Jesse Karkoukly",
+  title: "Specialty Mortgage Programs, Ontario | Jesse Karkoukly",
   description:
     "Not everyone fits a standard mortgage box. Specialized programs for medical professionals, high net worth clients, newcomers to Canada, retirees, and more.",
   alternates: { canonical: "/services/specialty" },

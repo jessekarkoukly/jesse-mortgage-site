@@ -6,7 +6,7 @@ const BUYING = [
 ];
 
 const EXISTING = [
-  { label: "Renewals and Refinancing", href: "/services/renewals-and-refinancing" },
+  { label: "Renewals and Refinancing", href: "/services/renewal" },
   { label: "Debt Consolidation", href: "/services/debt-consolidation" },
   { label: "Self-Employed Mortgages", href: "/services/self-employed" },
 ];

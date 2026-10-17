@@ -4,7 +4,7 @@ export const leslieville: NeighbourhoodData = {
   slug: "leslieville",
   name: "Leslieville",
 
-  metaTitle: "Buying in Leslieville, Toronto | Mortgage Agent Jesse Karkoukly",
+  metaTitle: "Buying in Leslieville, Toronto | Jesse Karkoukly",
   metaDescription:
     "Considering buying in Leslieville? Property types, top streets, school info, and mortgage guidance for Toronto's east end from a local mortgage agent.",
   metaKeywords: [

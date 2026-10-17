@@ -1,5 +1,7 @@
 'use client';
 
+import { trackEvent } from "@/lib/analytics";
+import Link from "next/link";
 import { useState } from 'react';
 
 /*
@@ -68,6 +70,7 @@ export default function ReportModal({
       });
 
       if (!res.ok) throw new Error('Failed to submit');
+      trackEvent('calculator_report');
 
       setSuccess(true);
       setTimeout(() => {
@@ -208,6 +211,13 @@ export default function ReportModal({
             >
               {submitting ? 'Sending...' : 'Get the report'}
             </button>
+            <p
+              className="text-[0.75rem] text-navy-2/70 mt-3 text-center"
+              style={{ fontFamily: 'var(--font-jakarta)' }}
+            >
+              By signing up, you agree to receive emails from Jesse Karkoukly. You can unsubscribe at any time.{" "}
+              <Link href="/privacy" className="underline hover:no-underline">Privacy policy</Link>
+            </p>
           </form>
         )}
       </div>
