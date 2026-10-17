@@ -3,6 +3,13 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      // Send www to the main address so Google sees one site, not two.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.jessekarkoukly.com" }],
+        destination: "https://jessekarkoukly.com/:path*",
+        permanent: true,
+      },
       { source: "/services/self-employed-mortgages", destination: "/services/self-employed", permanent: true },
       { source: "/services/cottage-vacation", destination: "/services/cottage", permanent: true },
       { source: "/services/renewals-and-refinancing", destination: "/services/renewal", permanent: true },
