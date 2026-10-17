@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Self-Employed Mortgages in Ontario | Jesse Karkoukly, Mortgage Agent Toronto",
+    "Self-Employed Mortgages in Ontario | Jesse Karkoukly",
   description:
-    "Self-employed, incorporated, or commission-based? Your income looks different on paper. Jesse works with lenders who assess business income properly and offer stated income programs across Ontario.",
+    "Self-employed, incorporated or paid in dividends? How lenders read your income, which documents you need, and what options you have.",
   keywords: [
     "self-employed mortgage Toronto",
     "self-employed mortgage Ontario",
@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/services/self-employed" },
 };
 
 const faqSchema = {

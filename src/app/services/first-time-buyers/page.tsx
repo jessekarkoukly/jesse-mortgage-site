@@ -4,9 +4,9 @@ import FirstTimeBuyerContent from "@/components/services/FirstTimeBuyerContent";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
-  title: "First-Time Home Buyer Toronto | Jesse Karkoukly Mortgage Agent",
+  title: "First-Time Home Buyer Mortgages, Toronto | Jesse Karkoukly",
   description:
-    "First-time home buyer guide for Toronto and Ontario. FHSA, HBP, LTT rebates, stress test explained. 50+ lenders. Free strategy session with Jesse Karkoukly.",
+    "First-time buyer guide for Toronto: FHSA, Home Buyers' Plan, land transfer tax rebates and what you qualify for.",
   keywords: [
     "first time home buyer Toronto",
     "first time home buyer Ontario",
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/services/first-time-buyers" },
 };
 
 const faqSchema = {

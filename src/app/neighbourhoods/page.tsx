@@ -4,7 +4,7 @@ import PageShell from "@/components/PageShell";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
-  title: "Toronto Neighbourhood Guides | Mortgage Agent Jesse Karkoukly",
+  title: "Toronto Neighbourhood Guides for Buyers | Jesse Karkoukly",
   description:
     "Neighbourhood-by-neighbourhood mortgage guidance for Toronto. Market data, property types, top streets, and what to know before buying in each area.",
   keywords: [

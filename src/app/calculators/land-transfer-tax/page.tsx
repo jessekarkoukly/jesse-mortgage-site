@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Land Transfer Tax Calculator | Ontario & Toronto LTT | Jesse Karkoukly",
+    "Land Transfer Tax Calculator, Ontario and Toronto",
   description:
-    "Calculate your Ontario and Toronto land transfer tax. See bracket-by-bracket breakdowns, first-time buyer rebates, and total LTT owing on your home purchase.",
+    "Calculate Ontario and Toronto land transfer tax with a bracket-by-bracket breakdown and first-time buyer rebates.",
   keywords: [
     "land transfer tax calculator",
     "Ontario land transfer tax",
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/calculators/land-transfer-tax" },
 };
 
 export default function LandTransferTaxPage() {

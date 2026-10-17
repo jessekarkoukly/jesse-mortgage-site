@@ -5,7 +5,7 @@ export const theDanforth: NeighbourhoodData = {
   name: "The Danforth",
 
   metaTitle:
-    "Buying on The Danforth (Greektown), Toronto | Mortgage Agent Jesse Karkoukly",
+    "Buying on The Danforth, Toronto | Jesse Karkoukly",
   metaDescription:
     "Considering buying on The Danforth in Toronto? Property types, pricing, transit access, and mortgage guidance for Greektown from a local mortgage agent.",
   metaKeywords: [

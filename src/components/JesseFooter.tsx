@@ -26,6 +26,7 @@ export default function JesseFooter() {
             { label: "Blog", href: "/blog" },
             { label: "Contact", href: "/contact" },
             { label: "FAQ", href: "/#faq" },
+            { label: "Privacy", href: "/privacy" },
           ].map((link) => (
             <Link
               key={link.href}

@@ -4,7 +4,7 @@ export const kingWest: NeighbourhoodData = {
   slug: "king-west",
   name: "King West",
 
-  metaTitle: "Buying in King West, Toronto | Mortgage Agent Jesse Karkoukly",
+  metaTitle: "Buying in King West, Toronto | Jesse Karkoukly",
   metaDescription:
     "Considering buying in King West? Condo market insights, loft considerations, and mortgage guidance from a Toronto mortgage agent.",
   metaKeywords: [

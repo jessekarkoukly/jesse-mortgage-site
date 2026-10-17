@@ -5,7 +5,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "How Much Can I Afford? | Mortgage Affordability Calculator | Jesse Karkoukly",
+    "How Much Home Can I Afford? Ontario Calculator",
   description:
     "Enter your income, down payment, and debts to see how much mortgage you can afford. Canadian stress test applied. GDS and TDS ratios calculated instantly.",
   keywords: [
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/calculators/affordability" },
 };
 
 export default function AffordabilityPage() {

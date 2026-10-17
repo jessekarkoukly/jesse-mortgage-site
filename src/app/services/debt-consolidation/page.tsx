@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Debt Consolidation Mortgage in Toronto | Roll High-Interest Debt Into Your Mortgage | Jesse Karkoukly",
+    "Debt Consolidation Mortgage, Toronto | Jesse Karkoukly",
   description:
-    "Toronto mortgage agent Jesse Karkoukly helps Ontario homeowners consolidate credit card, car loan, and personal debt into a single lower-rate mortgage payment. Calculator included.",
+    "Roll credit card, car loan and personal debt into one mortgage payment. See if consolidating makes sense, with a calculator to check the math.",
   keywords: [
     "debt consolidation mortgage Toronto",
     "debt consolidation Ontario",
@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/services/debt-consolidation" },
 };
 
 const faqSchema = {

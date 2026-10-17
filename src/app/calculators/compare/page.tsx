@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Compare Mortgage Scenarios | Side by Side Calculator | Jesse Karkoukly",
+    "Compare Two Mortgages Side by Side | Calculator",
   description:
-    "Compare two mortgage scenarios side by side. See monthly payments, interest costs, and balance remaining over the term. Canadian semi-annual compounding. Toronto mortgage calculator.",
+    "Compare two mortgage scenarios side by side: monthly payment, interest paid and balance left at the end of the term, with Canadian compounding.",
   keywords: [
     "compare mortgage rates",
     "side by side mortgage calculator",
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/calculators/compare" },
 };
 
 export default function ComparePage() {

@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { trackEvent } from "@/lib/analytics";
+
 import { useState } from "react";
 
 interface EmailCaptureProps {
@@ -43,6 +46,7 @@ export default function EmailCapture({ variant = "sand", heading }: EmailCapture
       });
       if (!res.ok) throw new Error();
       setStatus("success");
+      trackEvent("email_signup");
       setEmail("");
     } catch {
       setStatus("error");
@@ -76,6 +80,7 @@ export default function EmailCapture({ variant = "sand", heading }: EmailCapture
               You are on the list. Talk soon.
             </p>
           ) : (
+            <div>
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
               <input
                 type="email"
@@ -95,6 +100,14 @@ export default function EmailCapture({ variant = "sand", heading }: EmailCapture
                 {status === "loading" ? "Subscribing..." : "Subscribe"}
               </button>
             </form>
+            <p
+              className={`text-[0.75rem] mt-3 ${isNavy ? "text-slate" : "text-navy-2/70"}`}
+              style={{ fontFamily: "var(--font-jakarta)" }}
+            >
+              By signing up, you agree to receive emails from Jesse Karkoukly. You can unsubscribe at any time.{" "}
+              <Link href="/privacy" className="underline hover:no-underline">Privacy policy</Link>
+            </p>
+            </div>
           )}
           {status === "error" && (
             <p

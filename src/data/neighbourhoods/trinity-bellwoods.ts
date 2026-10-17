@@ -4,7 +4,7 @@ export const trinityBellwoods: NeighbourhoodData = {
   slug: "trinity-bellwoods",
   name: "Trinity Bellwoods",
 
-  metaTitle: "Buying in Trinity Bellwoods, Toronto | Mortgage Agent Jesse Karkoukly",
+  metaTitle: "Buying in Trinity Bellwoods, Toronto | Jesse Karkoukly",
   metaDescription:
     "Considering buying in Trinity Bellwoods? Market insights, property types, top streets, and mortgage guidance from a Toronto mortgage agent.",
   metaKeywords: [

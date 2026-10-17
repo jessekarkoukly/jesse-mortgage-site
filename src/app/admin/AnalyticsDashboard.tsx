@@ -9,13 +9,19 @@ type Pageview = {
   duration_seconds: number | null;
   device: string | null;
   created_at: string;
+  referrer?: string | null;
+  utm_source?: string | null;
+  landing_page?: string | null;
 };
 
 type AnalyticsEvent = {
   page: string;
   event_name: string;
   created_at: string;
+  session_id?: string | null;
 };
+
+type SourceStat = { channel: string; visitors: number; actions: number; booked: number };
 
 type PageStat = {
   page: string;
@@ -54,7 +60,6 @@ const PAGE_LABELS: Record<string, string> = {
   "/calculators/prepayment-penalty": "Prepayment Penalty",
   "/calculators/required-income": "Required Income",
   "/calculators/compare": "Compare Scenarios",
-  "/process": "Working With Jesse",
   "/working-with-jesse": "Working With Jesse",
   "/blog": "Blog",
   "/open-house": "Open House",
@@ -87,6 +92,30 @@ function formatDate(iso: string): string {
   if (diff < 86400 * 7) return `${Math.floor(diff / 86400)}d ago`;
   return d.toLocaleDateString("en-CA", { month: "short", day: "numeric" });
 }
+
+/* ── Where visitors came from ── */
+const CHANNELS = ["AI assistants", "Google", "Bing", "Social", "Direct", "Other"] as const;
+
+function channelFor(referrer: string | null | undefined, utm: string | null | undefined): string {
+  const r = `${utm ?? ""} ${referrer ?? ""}`.toLowerCase();
+  if (/chatgpt|openai|perplexity|claude|anthropic|gemini|copilot/.test(r)) return "AI assistants";
+  if (/google\./.test(r) || /\bgoogle\b/.test(r)) return "Google";
+  if (/bing\.|\bbing\b|duckduckgo|yahoo/.test(r)) return "Bing";
+  if (/instagram|facebook|linkedin|lnkd\.in|t\.co\b|twitter|x\.com|tiktok|youtube|reddit|medium/.test(r)) return "Social";
+  if (!referrer && !utm) return "Direct";
+  if (referrer && /jessekarkoukly\.com/.test(referrer)) return "Direct";
+  return "Other";
+}
+
+const ACTION_EVENTS = new Set([
+  "book_call_click",
+  "call_click",
+  "email_click",
+  "start_application_click",
+  "email_signup",
+  "renewal_signup",
+  "calculator_report",
+]);
 
 /* ── Data processing ── */
 function processData(pageviews: Pageview[], events: AnalyticsEvent[]) {
@@ -143,7 +172,29 @@ function processData(pageviews: Pageview[], events: AnalyticsEvent[]) {
     : null;
   const topPage = pageStats[0] ?? null;
 
-  return { pageStats, eventStats, totalVisits, uniqueVisitors, avgTime, topPage };
+  // Sources: a session's channel is set by its earliest pageview
+  const sessionChannel = new Map<string, { at: string; channel: string }>();
+  const hasSourceData = pageviews.some((p) => p.referrer !== undefined);
+  for (const pv of pageviews) {
+    if (!pv.session_id) continue;
+    const ch = channelFor(pv.referrer, pv.utm_source);
+    const cur = sessionChannel.get(pv.session_id);
+    if (!cur || pv.created_at < cur.at) sessionChannel.set(pv.session_id, { at: pv.created_at, channel: ch });
+  }
+  const srcMap = new Map<string, SourceStat>(
+    CHANNELS.map((c) => [c, { channel: c, visitors: 0, actions: 0, booked: 0 }])
+  );
+  for (const { channel } of sessionChannel.values()) srcMap.get(channel)!.visitors++;
+  for (const ev of events) {
+    if (!ACTION_EVENTS.has(ev.event_name)) continue;
+    const ch = ev.session_id ? sessionChannel.get(ev.session_id)?.channel ?? "Other" : "Other";
+    const st = srcMap.get(ch)!;
+    st.actions++;
+    if (ev.event_name === "book_call_click") st.booked++;
+  }
+  const sourceStats = Array.from(srcMap.values()).filter((s) => s.visitors > 0 || s.actions > 0);
+
+  return { pageStats, eventStats, totalVisits, uniqueVisitors, avgTime, topPage, sourceStats, hasSourceData };
 }
 
 /* ── Range label ── */
@@ -160,12 +211,24 @@ export default function AnalyticsDashboard() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<ReturnType<typeof processData> | null>(null);
   const [error, setError] = useState(false);
+  const [bingStatus, setBingStatus] = useState<string | null>(null);
+
+  const notifyBing = useCallback(async () => {
+    setBingStatus("Sending...");
+    try {
+      const res = await fetch("/admin/indexnow", { method: "POST" });
+      const body = await res.json();
+      setBingStatus(res.ok ? `Sent ${body.count} pages to Bing` : `Failed: ${body.error ?? res.status}`);
+    } catch {
+      setBingStatus("Failed to reach the server");
+    }
+  }, []);
 
   const fetchData = useCallback(async (r: Range) => {
     setLoading(true);
     setError(false);
     try {
-      const res = await fetch(`/api/admin/analytics?range=${r}`);
+      const res = await fetch(`/admin/data?range=${r}`);
       if (!res.ok) throw new Error();
       const { pageviews, events } = await res.json();
       setData(processData(pageviews, events));
@@ -329,6 +392,42 @@ export default function AnalyticsDashboard() {
               )}
             </div>
 
+            {/* ── Sources ── */}
+            <div className="bg-white rounded-2xl shadow-sm mb-6 overflow-hidden">
+              <div className="px-6 py-4 border-b border-[#F4F4F2]">
+                <h2 className="text-[0.9375rem] font-bold text-[#1E2D3D]">
+                  Where visitors came from
+                  <span className="ml-2 text-[0.8125rem] font-normal text-[#8A9BAA]">
+                    {RANGE_LABELS[range]}
+                  </span>
+                </h2>
+              </div>
+              {!data.hasSourceData ? (
+                <div className="px-6 py-8 text-center text-[#8A9BAA] text-[0.875rem]">
+                  Source tracking needs the new Supabase columns. Run the SQL in CLAUDE.md, then visits start showing here.
+                </div>
+              ) : data.sourceStats.length === 0 ? (
+                <div className="px-6 py-8 text-center text-[#8A9BAA] text-[0.875rem]">No visits yet in this range.</div>
+              ) : (
+                <div className="divide-y divide-[#F4F4F2]">
+                  <div className="px-6 py-2.5 flex items-center gap-4 text-[0.65rem] text-[#8A9BAA] uppercase tracking-wide">
+                    <p className="flex-1">Channel</p>
+                    <p className="w-20 text-right">Visitors</p>
+                    <p className="w-20 text-right">Actions</p>
+                    <p className="w-20 text-right">Book clicks</p>
+                  </div>
+                  {data.sourceStats.map((s) => (
+                    <div key={s.channel} className="px-6 py-3.5 flex items-center gap-4">
+                      <p className="flex-1 text-[0.875rem] font-semibold text-[#1E2D3D]">{s.channel}</p>
+                      <p className="w-20 text-right text-[0.9375rem] font-bold text-[#1E2D3D]">{s.visitors}</p>
+                      <p className="w-20 text-right text-[0.9375rem] text-[#1E2D3D]">{s.actions}</p>
+                      <p className="w-20 text-right text-[0.9375rem] text-[#E8705A] font-bold">{s.booked}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* ── Top clicks ── */}
             {data.eventStats.length > 0 && (
               <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
@@ -363,9 +462,18 @@ export default function AnalyticsDashboard() {
             )}
 
             {/* ── Footer note ── */}
-            <p className="text-center text-[0.75rem] text-[#8A9BAA] mt-8">
-              Tracking started from deployment. Data is live from Supabase.
-            </p>
+            <div className="flex flex-col items-center gap-2 mt-8">
+              <button
+                onClick={notifyBing}
+                className="px-4 py-2 rounded-lg bg-[#1E2D3D] text-white text-[0.8125rem] font-semibold cursor-pointer hover:opacity-90"
+              >
+                Notify Bing of site updates
+              </button>
+              {bingStatus && <p className="text-[0.75rem] text-[#8A9BAA]">{bingStatus}</p>}
+              <p className="text-center text-[0.75rem] text-[#8A9BAA]">
+                Press after you publish new or changed pages. Data is live from Supabase.
+              </p>
+            </div>
           </>
         )}
       </div>

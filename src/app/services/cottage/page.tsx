@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Cottage & Vacation Property Mortgages in Ontario | Jesse Karkoukly, Mortgage Agent Toronto",
+    "Cottage and Second Home Mortgages in Ontario",
   description:
-    "Financing a cottage or vacation property in Ontario? Lenders treat recreational properties differently. Get matched to the right lender for seasonal or year-round properties across Ontario cottage country.",
+    "Financing a cottage or second home in Ontario? Lenders treat recreational properties differently. Here's how seasonal and year-round options work.",
   alternates: { canonical: "/services/cottage" },
   keywords: [
     "cottage mortgage Ontario",

@@ -112,7 +112,7 @@ const CARDS: [ServiceCard, ServiceCard][] = [
         "Understanding how rental income can support qualification",
         "Lender options that most brokers don't know about",
       ],
-      link: "/services/cottage-vacation",
+      link: "/services/cottage",
     },
     {
       title: "Debt Consolidation",

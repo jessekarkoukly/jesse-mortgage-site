@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "GDS TDS Calculator | Debt Service Ratio | Jesse Karkoukly Toronto Mortgage Agent",
+    "GDS and TDS Calculator | Debt Service Ratios",
   description:
-    "Calculate your Gross Debt Service (GDS) and Total Debt Service (TDS) ratios. See if you qualify under Canadian lending thresholds with stress test. Toronto mortgage calculator.",
+    "Check your GDS and TDS ratios and see whether you fit Canadian lending limits. A quick way to test if a mortgage payment is affordable.",
   keywords: [
     "GDS calculator",
     "TDS calculator",
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/calculators/debt-service" },
 };
 
 export default function DebtServicePage() {

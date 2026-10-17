@@ -5,7 +5,7 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Restructure & Equity Take Out | Toronto Mortgage Agent Jesse Karkoukly",
+    "Home Equity Takeout, Toronto | Jesse Karkoukly",
   description:
     "Access the equity in your home for renovations, investments, or life events. Understand your options and the true cost before making any changes.",
   alternates: { canonical: "/services/equity-takeout" },

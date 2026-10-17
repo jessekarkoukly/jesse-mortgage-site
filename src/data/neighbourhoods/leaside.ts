@@ -4,7 +4,7 @@ export const leaside: NeighbourhoodData = {
   slug: "leaside",
   name: "Leaside",
 
-  metaTitle: "Buying in Leaside, Toronto | Mortgage Agent Jesse Karkoukly",
+  metaTitle: "Buying in Leaside, Toronto | Jesse Karkoukly",
   metaDescription:
     "Considering buying in Leaside? Family-friendly market insights, property types, and mortgage guidance from a Toronto mortgage agent.",
   metaKeywords: [

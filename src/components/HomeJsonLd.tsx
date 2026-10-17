@@ -1,17 +1,26 @@
+// Profiles that confirm this is one person. Add the Google Business Profile
+// share link here once Jesse sends it.
+const SAME_AS = [
+  "https://www.linkedin.com/in/jessekarkoukly",
+  "https://www.instagram.com/jkarkoukly/",
+  "https://www.mortgagearchitects.ca/jessekarkoukly",
+  "https://medium.com/@jessekarkoukly",
+];
+
 export default function HomeJsonLd() {
   const localBusiness = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "FinancialService",
     name: "Jesse Karkoukly, Mortgage Agent",
     description:
       "Licensed Ontario mortgage agent with Sherwood Mortgage Group. Compare 50+ lenders and get a clear plan for your mortgage.",
     url: "https://jessekarkoukly.com",
     telephone: "+1-416-276-2666",
     email: "jkarkoukly@sherwoodmortgagegroup.com",
-    image: "https://jessekarkoukly.com/og-image.jpg",
+    image: "https://jessekarkoukly.com/opengraph-image",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "390 Dupont St Ste 200",
+      streetAddress: "390 Dupont St Ste 201",
       addressLocality: "Toronto",
       addressRegion: "ON",
       postalCode: "M5R 1V9",
@@ -28,10 +37,7 @@ export default function HomeJsonLd() {
       sameAs: "https://en.wikipedia.org/wiki/Ontario",
     },
     priceRange: "Free consultation",
-    sameAs: [
-      "https://www.linkedin.com/in/jessekarkoukly",
-      "https://medium.com/@jessekarkoukly",
-    ],
+    sameAs: SAME_AS,
   };
 
   const person = {
@@ -39,14 +45,35 @@ export default function HomeJsonLd() {
     "@type": "Person",
     name: "Jesse Karkoukly",
     jobTitle: "Mortgage Agent",
+    description:
+      "Licensed Ontario mortgage agent (Lic. M25003068) with Sherwood Mortgage Group, Brokerage Lic. 12176. Works mostly with first-time buyers and self-employed borrowers in Toronto.",
+    hasCredential: {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "license",
+      name: "Mortgage Agent Level 1, Lic. M25003068",
+      recognizedBy: {
+        "@type": "Organization",
+        name: "Financial Services Regulatory Authority of Ontario",
+        url: "https://www.fsrao.ca",
+      },
+    },
+    knowsAbout: [
+      "First-time home buyer mortgages",
+      "Self-employed mortgages",
+      "Mortgage pre-approval",
+      "Mortgage renewal and refinancing",
+      "Toronto real estate",
+    ],
+    areaServed: { "@type": "City", name: "Toronto" },
     url: "https://jessekarkoukly.com",
     telephone: "+1-416-276-2666",
     email: "jkarkoukly@sherwoodmortgagegroup.com",
-    image: "https://jessekarkoukly.com/og-image.jpg",
+    image: "https://jessekarkoukly.com/opengraph-image",
     worksFor: {
       "@type": "Organization",
       name: "Sherwood Mortgage Group",
       url: "https://sherwoodmortgagegroup.com",
+      identifier: "Brokerage Lic. 12176",
     },
     memberOf: {
       "@type": "Organization",
@@ -54,16 +81,13 @@ export default function HomeJsonLd() {
     },
     address: {
       "@type": "PostalAddress",
-      streetAddress: "390 Dupont St Ste 200",
+      streetAddress: "390 Dupont St Ste 201",
       addressLocality: "Toronto",
       addressRegion: "ON",
       postalCode: "M5R 1V9",
       addressCountry: "CA",
     },
-    sameAs: [
-      "https://www.linkedin.com/in/jessekarkoukly",
-      "https://medium.com/@jessekarkoukly",
-    ],
+    sameAs: SAME_AS,
   };
 
   const website = {

@@ -4,9 +4,9 @@ export const highPark: NeighbourhoodData = {
   slug: "high-park",
   name: "High Park / Bloor West Village",
 
-  metaTitle: "Buying in High Park & Bloor West Village, Toronto | Mortgage Agent Jesse Karkoukly",
+  metaTitle: "Buying in High Park and Bloor West | Jesse Karkoukly",
   metaDescription:
-    "Considering buying in High Park or Bloor West Village? Property types, top streets, market considerations, and mortgage guidance from a Toronto mortgage agent.",
+    "Buying in High Park or Bloor West Village? Property types, top streets, market notes and mortgage guidance from a Toronto mortgage agent.",
   metaKeywords: [
     "High Park Toronto",
     "Bloor West Village Toronto",

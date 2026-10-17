@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Mortgage Refinancing in Toronto | Is Breaking Worth It? | Jesse Karkoukly",
+    "Mortgage Refinancing, Toronto | Jesse Karkoukly",
   description:
-    "Find out if breaking your mortgage early makes financial sense. Jesse calculates your penalty, compares 50+ lenders, and tells you honestly whether refinancing is worth it. Toronto and Ontario.",
+    "Is breaking your mortgage early worth it? See the penalty, compare options and get a clear answer on whether refinancing makes sense.",
   keywords: [
     "mortgage refinancing Toronto",
     "mortgage refinancing Ontario",
@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/services/refinancing" },
 };
 
 const faqSchema = {

@@ -4,7 +4,7 @@ export const theAnnex: NeighbourhoodData = {
   slug: "the-annex",
   name: "The Annex",
 
-  metaTitle: "Buying in The Annex, Toronto | Mortgage Agent Jesse Karkoukly",
+  metaTitle: "Buying in The Annex, Toronto | Jesse Karkoukly",
   metaDescription:
     "Thinking about buying in The Annex? Market data, property types, top streets, and mortgage guidance from a local agent who lives in the neighbourhood.",
   metaKeywords: [

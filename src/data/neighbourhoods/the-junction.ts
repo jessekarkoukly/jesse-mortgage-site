@@ -5,9 +5,9 @@ export const theJunction: NeighbourhoodData = {
   name: "The Junction",
 
   metaTitle:
-    "Buying in The Junction, Toronto | Mortgage Agent Jesse Karkoukly",
+    "Buying in The Junction, Toronto | Jesse Karkoukly",
   metaDescription:
-    "Considering buying in The Junction? Property types, pricing, top streets, and mortgage guidance for this west end neighbourhood from a Toronto mortgage agent.",
+    "Buying in The Junction? Property types, pricing, top streets and mortgage guidance for this west end neighbourhood from a Toronto agent.",
   metaKeywords: [
     "The Junction Toronto",
     "buy home Junction Toronto",

@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "What Will I Pay Monthly? | Mortgage Payment Calculator | Jesse Karkoukly",
+    "Monthly Payment Calculator by Home Price",
   description:
-    "Calculate your monthly mortgage payment with Canadian semi-annual compounding. See principal, interest, and balance over your term. Toronto mortgage calculator.",
+    "Enter a home price and down payment to see your monthly mortgage payment, with Canadian semi-annual compounding.",
   keywords: [
     "mortgage payment calculator",
     "mortgage calculator Canada",
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/calculators/mortgage-payment" },
 };
 
 export default function MortgagePaymentPage() {

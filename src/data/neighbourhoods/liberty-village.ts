@@ -4,7 +4,7 @@ export const libertyVillage: NeighbourhoodData = {
   slug: "liberty-village",
   name: "Liberty Village",
 
-  metaTitle: "Buying in Liberty Village, Toronto | Mortgage Agent Jesse Karkoukly",
+  metaTitle: "Buying in Liberty Village, Toronto | Jesse Karkoukly",
   metaDescription:
     "Considering buying in Liberty Village? First-time buyer insights, condo market details, and mortgage guidance from a Toronto mortgage agent.",
   metaKeywords: [

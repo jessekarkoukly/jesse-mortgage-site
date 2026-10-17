@@ -4,7 +4,7 @@ export const cabbagetown: NeighbourhoodData = {
   slug: "cabbagetown",
   name: "Cabbagetown",
 
-  metaTitle: "Buying in Cabbagetown, Toronto | Mortgage Agent Jesse Karkoukly",
+  metaTitle: "Buying in Cabbagetown, Toronto | Jesse Karkoukly",
   metaDescription:
     "Thinking about buying in Cabbagetown? Victorian row homes, heritage streetscapes, and mortgage guidance from a Toronto mortgage agent who knows the area.",
   metaKeywords: [

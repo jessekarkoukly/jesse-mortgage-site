@@ -1,18 +1,22 @@
 import type { MetadataRoute } from "next";
 import { posts } from "@/data/posts";
 
+const PAGES_UPDATED = "2026-10-17";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://jessekarkoukly.com";
-  const now = new Date().toISOString();
+  // Date the pages last changed. Update it when page content changes,
+  // so search engines get a real freshness signal instead of the deploy date.
+  const now = new Date(`${PAGES_UPDATED}T12:00:00-04:00`).toISOString();
 
   const mainPages = [
     { url: baseUrl, changeFrequency: "weekly" as const, priority: 1.0 },
     { url: `${baseUrl}/about`, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${baseUrl}/contact`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${baseUrl}/blog`, changeFrequency: "weekly" as const, priority: 0.8 },
-{ url: `${baseUrl}/process`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${baseUrl}/working-with-jesse`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${baseUrl}/calculators`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${baseUrl}/privacy`, changeFrequency: "yearly" as const, priority: 0.2 },
   ];
 
   const servicePages = [

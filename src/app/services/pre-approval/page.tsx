@@ -5,9 +5,9 @@ import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title:
-    "Mortgage Pre-Approval in Ontario | Jesse Karkoukly, Mortgage Agent Toronto",
+    "Mortgage Pre-Approval in Ontario | Jesse Karkoukly",
   description:
-    "Get pre-approved for a mortgage in Ontario with a broker who shops 50+ lenders on your behalf. Know your number, lock your rate, and make a stronger offer. No cost, no obligation.",
+    "Get pre-approved in Ontario. Map your home buying plan, know your max price and down payment, and hold a rate for up to 120 days while you shop.",
   keywords: [
     "mortgage pre-approval Ontario",
     "mortgage pre-approval Toronto",
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     siteName: "Jesse Karkoukly, Mortgage Agent",
     type: "website",
   },
+  alternates: { canonical: "/services/pre-approval" },
 };
 
 const faqSchema = {
