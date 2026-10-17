@@ -5,6 +5,7 @@ const SAME_AS = [
   "https://www.instagram.com/jkarkoukly/",
   "https://www.mortgagearchitects.ca/jessekarkoukly",
   "https://medium.com/@jessekarkoukly",
+  "https://share.google/Fcmn2Z6gDyew1RIso",
 ];
 
 export default function HomeJsonLd() {
