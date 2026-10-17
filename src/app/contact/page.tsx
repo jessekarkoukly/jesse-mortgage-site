@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
@@ -14,14 +15,7 @@ export const metadata: Metadata = {
     "Jesse Karkoukly contact",
     "Toronto mortgage call",
   ],
-  openGraph: {
-    title: "Contact Jesse Karkoukly | Toronto Mortgage Agent",
-    description:
-      "Reach Toronto mortgage agent Jesse Karkoukly by phone or email. Book an intro call today.",
-    url: "https://jessekarkoukly.com/contact",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Contact Jesse Karkoukly | Toronto Mortgage Agent", "Get in touch with Jesse Karkoukly, Toronto mortgage agent. Call, email, or book an intro call.", "/contact"),
 };
 
 export default function ContactPage() {

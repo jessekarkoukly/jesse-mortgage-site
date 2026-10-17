@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import WorkingWithJesseContent from "@/components/services/WorkingWithJesseContent";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -16,15 +17,7 @@ export const metadata: Metadata = {
     "mortgage consultation Toronto",
     "Jesse Karkoukly mortgage process",
   ],
-  openGraph: {
-    title:
-      "Working with Jesse Karkoukly | What to Expect | Toronto Mortgage Agent",
-    description:
-      "The full mortgage process in nine steps, how Jesse operates, and what you can expect from first call through closing and beyond.",
-    url: "https://jessekarkoukly.com/working-with-jesse",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("The Mortgage Process, Step by Step | Jesse Karkoukly", "The full mortgage process in nine steps, how Jesse operates, and what you can expect from first call through closing and beyond.", "/working-with-jesse"),
 };
 
 export default function WorkingWithJessePage() {

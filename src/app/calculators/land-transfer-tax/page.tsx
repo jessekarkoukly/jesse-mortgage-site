@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import LandTransferTaxCalculator from "@/components/calculators/LandTransferTaxCalculator";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -16,15 +17,7 @@ export const metadata: Metadata = {
     "first-time buyer rebate Ontario",
     "LTT Ontario Toronto",
   ],
-  openGraph: {
-    title:
-      "Land Transfer Tax Calculator | Ontario & Toronto LTT | Jesse Karkoukly",
-    description:
-      "Calculate your Ontario and Toronto land transfer tax with bracket breakdowns and first-time buyer rebates.",
-    url: "https://jessekarkoukly.com/calculators/land-transfer-tax",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Land Transfer Tax Calculator, Ontario and Toronto", "Calculate Ontario and Toronto land transfer tax with a bracket-by-bracket breakdown and first-time buyer rebates.", "/calculators/land-transfer-tax"),
   alternates: { canonical: "/calculators/land-transfer-tax" },
 };
 

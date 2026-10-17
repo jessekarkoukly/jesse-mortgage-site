@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -7,14 +8,7 @@ export const metadata: Metadata = {
   title: "Investment Property Mortgages, Toronto | Jesse Karkoukly",
   description:
     "Buying a home or an investment property in Toronto? Down payment rules, how lenders treat rental income and what to expect, explained.",
-  openGraph: {
-    title: "Investment Property Mortgages | Toronto Mortgage Agent",
-    description:
-      "Primary residence and investment property mortgages operate under different rules. Jesse Karkoukly helps Toronto buyers and investors understand what applies to their situation.",
-    url: "https://jessekarkoukly.com/services/purchases-and-investment",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Investment Property Mortgages, Toronto | Jesse Karkoukly", "Buying a home or an investment property in Toronto? Down payment rules, how lenders treat rental income and what to expect, explained.", "/services/purchases-and-investment"),
   alternates: { canonical: "/services/purchases-and-investment" },
 };
 

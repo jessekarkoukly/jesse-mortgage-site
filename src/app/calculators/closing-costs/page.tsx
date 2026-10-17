@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import ClosingCostsCalculator from "@/components/calculators/ClosingCostsCalculator";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -17,14 +18,7 @@ export const metadata: Metadata = {
     "CMHC insurance calculator",
     "home buying costs Ontario",
   ],
-  openGraph: {
-    title: "Closing Costs Calculator | Ontario & Toronto | Jesse Karkoukly",
-    description:
-      "Estimate your total closing costs for buying in Ontario or Toronto. Land transfer tax, CMHC, legal fees, and more.",
-    url: "https://jessekarkoukly.com/calculators/closing-costs",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Closing Costs Calculator, Ontario and Toronto", "Estimate your closing costs for buying a home in Ontario or Toronto. Includes land transfer tax, CMHC insurance, legal fees, HST on new builds, and more.", "/calculators/closing-costs"),
   alternates: { canonical: "/calculators/closing-costs" },
 };
 

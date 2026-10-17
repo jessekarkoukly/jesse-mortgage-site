@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import Image from "next/image";
 import PageShell from "@/components/PageShell";
 import EmailCapture from "@/components/EmailCapture";
@@ -19,14 +20,7 @@ export const metadata: Metadata = {
     "Canadian mortgage guide",
     "mortgage insights Toronto",
   ],
-  openGraph: {
-    title: "Mortgage Blog | Jesse Karkoukly, Licensed Ontario Mortgage Agent",
-    description:
-      "Practical mortgage insights for Ontario buyers, homeowners, and investors from agent Jesse Karkoukly.",
-    url: "https://jessekarkoukly.com/blog",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Mortgage Blog | Jesse Karkoukly, Toronto Mortgage Agent", "Mortgage insights, market context, and practical explanations from licensed Ontario mortgage agent Jesse Karkoukly.", "/blog"),
 };
 
 const ARTICLES = [

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import ServicePageLayout from "@/components/ServicePageLayout";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -17,14 +18,7 @@ export const metadata: Metadata = {
     "construction loan Toronto",
     "high net worth mortgage",
   ],
-  openGraph: {
-    title: "Specialty Mortgage Programs | Jesse Karkoukly",
-    description:
-      "Not everyone fits a standard mortgage box. That's where this comes in.",
-    url: "https://jessekarkoukly.com/services/specialty",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Specialty Mortgage Programs, Ontario | Jesse Karkoukly", "Not everyone fits a standard mortgage box. Specialized programs for medical professionals, high net worth clients, newcomers to Canada, retirees, and more.", "/services/specialty"),
 };
 
 export default function SpecialtyPage() {

@@ -12,7 +12,10 @@ export default function Hero({ onBookingOpen }: HeroProps) {
 
         {/* Left: copy */}
         <div className="relative z-10 flex flex-col justify-end px-12 xl:px-20 pt-24 pb-16">
-          <h1
+          {/* Desktop copy of the heading. The mobile version below is the page's single <h1>, which Google indexes mobile-first. */}
+          <p
+            role="heading"
+            aria-level={1}
             className="text-[3rem] xl:text-[3.5rem] font-bold text-navy leading-[1.1] mb-7"
             style={{ fontFamily: "var(--font-spectral)" }}
           >
@@ -20,7 +23,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
             Getting a mortgage in Ontario?{" "}
             <span className="block">Let&rsquo;s figure out</span>
             <span className="block">where you stand.</span>
-          </h1>
+          </p>
 
           <p
             className="text-[1.1875rem] text-navy-2 leading-relaxed mb-10 max-w-lg"

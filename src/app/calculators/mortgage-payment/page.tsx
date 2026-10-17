@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import PurchaseCalculatorWrapper from "@/components/calculators/PurchaseCalculatorWrapper";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -16,15 +17,7 @@ export const metadata: Metadata = {
     "Canadian mortgage calculator",
     "Toronto mortgage calculator",
   ],
-  openGraph: {
-    title:
-      "What Will I Pay Monthly? | Mortgage Payment Calculator | Jesse Karkoukly",
-    description:
-      "Calculate your monthly mortgage payment with Canadian semi-annual compounding. See principal, interest, and balance over your term.",
-    url: "https://jessekarkoukly.com/calculators/mortgage-payment",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Monthly Payment Calculator by Home Price", "Enter a home price and down payment to see your monthly mortgage payment, with Canadian semi-annual compounding.", "/calculators/mortgage-payment"),
   alternates: { canonical: "/calculators/mortgage-payment" },
 };
 

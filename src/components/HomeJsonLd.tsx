@@ -12,6 +12,7 @@ export default function HomeJsonLd() {
   const localBusiness = {
     "@context": "https://schema.org",
     "@type": "FinancialService",
+    "@id": "https://jessekarkoukly.com/#business",
     name: "Jesse Karkoukly, Mortgage Agent",
     description:
       "Licensed Ontario mortgage agent with Sherwood Mortgage Group. Compare 50+ lenders and get a clear plan for your mortgage.",
@@ -44,6 +45,7 @@ export default function HomeJsonLd() {
   const person = {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": "https://jessekarkoukly.com/#jesse",
     name: "Jesse Karkoukly",
     jobTitle: "Mortgage Agent",
     description:

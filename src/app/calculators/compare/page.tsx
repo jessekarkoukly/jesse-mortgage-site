@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import CompareSideBySide from "@/components/calculators/CompareSideBySide";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -15,15 +16,7 @@ export const metadata: Metadata = {
     "mortgage comparison tool Canada",
     "Toronto mortgage calculator",
   ],
-  openGraph: {
-    title:
-      "Compare Mortgage Scenarios | Side by Side Calculator | Jesse Karkoukly",
-    description:
-      "Compare two mortgage scenarios side by side. See monthly payments, interest costs, and balance remaining over the term.",
-    url: "https://jessekarkoukly.com/calculators/compare",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Compare Two Mortgages Side by Side | Calculator", "Compare two mortgage scenarios side by side: monthly payment, interest paid and balance left at the end of the term, with Canadian compounding.", "/calculators/compare"),
   alternates: { canonical: "/calculators/compare" },
 };
 

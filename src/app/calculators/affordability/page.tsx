@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import AffordabilityCalculator from "@/components/calculators/AffordabilityCalculator";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -16,14 +17,7 @@ export const metadata: Metadata = {
     "stress test calculator",
     "Toronto mortgage affordability",
   ],
-  openGraph: {
-    title: "How Much Can I Afford? | Mortgage Affordability Calculator | Jesse Karkoukly",
-    description:
-      "Enter your income, down payment, and debts to see how much mortgage you can afford. Canadian stress test and CMHC insurance calculated instantly.",
-    url: "https://jessekarkoukly.com/calculators/affordability",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("How Much Home Can I Afford? Ontario Calculator", "Enter your income, down payment, and debts to see how much mortgage you can afford. Canadian stress test applied. GDS and TDS ratios calculated instantly.", "/calculators/affordability"),
   alternates: { canonical: "/calculators/affordability" },
 };
 

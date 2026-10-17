@@ -47,9 +47,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jesse Karkoukly | Toronto Mortgage Agent",
+    title: "Jesse Karkoukly | Toronto Mortgage Agent | Sherwood Mortgage Group",
     description:
-      "Compare 50+ lenders with a Toronto mortgage agent who gives you a clear plan in plain language.",
+      "Jesse Karkoukly is a Toronto mortgage agent with Sherwood Mortgage Group, helping first-time and self-employed buyers make confident mortgage decisions.",
   },
   robots: {
     index: true,
