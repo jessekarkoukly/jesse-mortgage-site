@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
@@ -18,14 +19,7 @@ export const metadata: Metadata = {
     "mortgage agent The Annex",
     "Mortgage Architects Network",
   ],
-  openGraph: {
-    title: "About Jesse Karkoukly | Toronto Mortgage Agent",
-    description:
-      "Jesse Karkoukly is a Toronto mortgage agent with Sherwood Mortgage Group. He works with first-time buyers, self-employed borrowers, and investors across the GTA.",
-    url: "https://jessekarkoukly.com/about",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("About Jesse Karkoukly | Toronto Mortgage Agent", "Jesse Karkoukly is a Toronto mortgage agent with Sherwood Mortgage Group. A decade in tech, now helping first-time and self-employed buyers.", "/about"),
 };
 
 const VALUES = [

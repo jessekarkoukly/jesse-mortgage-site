@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import NeighbourhoodPageLayout from "@/components/neighbourhoods/NeighbourhoodPageLayout";
@@ -9,13 +10,7 @@ export const metadata: Metadata = {
   description: trinityBellwoods.metaDescription,
   keywords: trinityBellwoods.metaKeywords,
   alternates: { canonical: `/neighbourhoods/${trinityBellwoods.slug}` },
-  openGraph: {
-    title: trinityBellwoods.metaTitle,
-    description: trinityBellwoods.ogDescription,
-    url: `https://jessekarkoukly.com/neighbourhoods/${trinityBellwoods.slug}`,
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social(trinityBellwoods.metaTitle, trinityBellwoods.metaDescription, "/neighbourhoods/trinity-bellwoods"),
 };
 
 const faqSchema = {

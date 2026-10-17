@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import NeighbourhoodPageLayout from "@/components/neighbourhoods/NeighbourhoodPageLayout";
@@ -9,13 +10,7 @@ export const metadata: Metadata = {
   description: theJunction.metaDescription,
   keywords: theJunction.metaKeywords,
   alternates: { canonical: `/neighbourhoods/${theJunction.slug}` },
-  openGraph: {
-    title: theJunction.metaTitle,
-    description: theJunction.ogDescription,
-    url: `https://jessekarkoukly.com/neighbourhoods/${theJunction.slug}`,
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social(theJunction.metaTitle, theJunction.metaDescription, "/neighbourhoods/the-junction"),
 };
 
 const faqSchema = {

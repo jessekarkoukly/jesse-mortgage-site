@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 import NeighbourhoodPageLayout from "@/components/neighbourhoods/NeighbourhoodPageLayout";
@@ -9,13 +10,7 @@ export const metadata: Metadata = {
   description: leslieville.metaDescription,
   keywords: leslieville.metaKeywords,
   alternates: { canonical: `/neighbourhoods/${leslieville.slug}` },
-  openGraph: {
-    title: leslieville.metaTitle,
-    description: leslieville.ogDescription,
-    url: `https://jessekarkoukly.com/neighbourhoods/${leslieville.slug}`,
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social(leslieville.metaTitle, leslieville.metaDescription, "/neighbourhoods/leslieville"),
 };
 
 const faqSchema = {

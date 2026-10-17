@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -15,14 +16,7 @@ export const metadata: Metadata = {
     "mortgage agent Toronto neighbourhoods",
   ],
   alternates: { canonical: "/neighbourhoods" },
-  openGraph: {
-    title: "Toronto Neighbourhood Guides | Jesse Karkoukly",
-    description:
-      "Market data, property types, and mortgage guidance for Toronto neighbourhoods from a local mortgage agent.",
-    url: "https://jessekarkoukly.com/neighbourhoods",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Toronto Neighbourhood Guides for Buyers | Jesse Karkoukly", "Neighbourhood-by-neighbourhood mortgage guidance for Toronto. Market data, property types, top streets, and what to know before buying in each area.", "/neighbourhoods"),
 };
 
 const NEIGHBOURHOODS = [

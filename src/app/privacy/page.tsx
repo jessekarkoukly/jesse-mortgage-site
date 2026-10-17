@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 
 export const metadata: Metadata = {
@@ -6,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "How Jesse Karkoukly collects, uses and protects your personal information on jessekarkoukly.com, in line with Canadian privacy law (PIPEDA).",
   alternates: { canonical: "/privacy" },
+  ...social("Privacy Policy | Jesse Karkoukly", "How Jesse Karkoukly collects, uses and protects your personal information on jessekarkoukly.com, in line with Canadian privacy law (PIPEDA).", "/privacy"),
 };
 
 const UPDATED = "October 17, 2026";

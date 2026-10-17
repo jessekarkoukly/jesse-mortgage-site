@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import DebtServiceCalculator from "@/components/calculators/DebtServiceCalculator";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -16,14 +17,7 @@ export const metadata: Metadata = {
     "stress test calculator mortgage",
     "GDS TDS mortgage Canada",
   ],
-  openGraph: {
-    title: "GDS TDS Calculator | Debt Service Ratio | Jesse Karkoukly",
-    description:
-      "Calculate your GDS and TDS ratios. See if you qualify under Canadian lending thresholds with the stress test applied.",
-    url: "https://jessekarkoukly.com/calculators/debt-service",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("GDS and TDS Calculator | Debt Service Ratios", "Check your GDS and TDS ratios and see whether you fit Canadian lending limits. A quick way to test if a mortgage payment is affordable.", "/calculators/debt-service"),
   alternates: { canonical: "/calculators/debt-service" },
 };
 

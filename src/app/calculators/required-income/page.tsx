@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import RequiredIncomeCalculator from "@/components/calculators/RequiredIncomeCalculator";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -16,14 +17,7 @@ export const metadata: Metadata = {
     "stress test income calculator",
     "GDS TDS income requirement",
   ],
-  openGraph: {
-    title: "Required Income Calculator | Jesse Karkoukly",
-    description:
-      "Calculate the minimum household income needed to qualify for a mortgage in Canada. Includes CMHC insurance and stress test.",
-    url: "https://jessekarkoukly.com/calculators/required-income",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Income Needed for a Mortgage | Ontario Calculator", "Find the household income you need to qualify for a mortgage in Canada, with mortgage insurance and GDS and TDS limits built in.", "/calculators/required-income"),
   alternates: { canonical: "/calculators/required-income" },
 };
 

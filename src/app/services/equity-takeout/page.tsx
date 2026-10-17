@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import ServicePageLayout from "@/components/ServicePageLayout";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -17,14 +18,7 @@ export const metadata: Metadata = {
     "mortgage restructure Toronto",
     "cash out refinance Canada",
   ],
-  openGraph: {
-    title: "Restructure & Equity Take Out | Jesse Karkoukly",
-    description:
-      "Your home equity is an asset. Let's talk about how to use it wisely.",
-    url: "https://jessekarkoukly.com/services/equity-takeout",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Home Equity Takeout, Toronto | Jesse Karkoukly", "Access the equity in your home for renovations, investments, or life events. Understand your options and the true cost before making any changes.", "/services/equity-takeout"),
 };
 
 export default function EquityTakeoutPage() {

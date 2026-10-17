@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/blog`, changeFrequency: "weekly" as const, priority: 0.8 },
     { url: `${baseUrl}/working-with-jesse`, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${baseUrl}/calculators`, changeFrequency: "monthly" as const, priority: 0.7 },
+    { url: `${baseUrl}/services`, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${baseUrl}/privacy`, changeFrequency: "yearly" as const, priority: 0.2 },
   ];
 
@@ -29,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "cottage",
     "specialty",
     "equity-takeout",
+    "purchases-and-investment",
   ].map((slug) => ({
     url: `${baseUrl}/services/${slug}`,
     changeFrequency: "monthly" as const,
@@ -37,6 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const calculatorPages = [
     "mortgage-payment",
+    "mortgage-calculator",
     "affordability",
     "closing-costs",
     "land-transfer-tax",

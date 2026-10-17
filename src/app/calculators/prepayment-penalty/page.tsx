@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import PrepaymentPenaltyCalculator from "@/components/calculators/PrepaymentPenaltyCalculator";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -16,14 +17,7 @@ export const metadata: Metadata = {
     "3 months interest penalty",
     "interest rate differential calculator",
   ],
-  openGraph: {
-    title: "Prepayment Penalty Calculator | Jesse Karkoukly",
-    description:
-      "Estimate the penalty for breaking your mortgage early. Fixed and variable rate penalties calculated instantly.",
-    url: "https://jessekarkoukly.com/calculators/prepayment-penalty",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Mortgage Penalty Calculator: Cost to Break Early", "Estimate the penalty to break your mortgage early, for fixed and variable rates, including IRD, and why banks and monolines differ.", "/calculators/prepayment-penalty"),
   alternates: { canonical: "/calculators/prepayment-penalty" },
 };
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { social } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
@@ -18,14 +19,7 @@ export const metadata: Metadata = {
     "mortgage renewal Ontario",
     "debt consolidation mortgage",
   ],
-  openGraph: {
-    title: "Services | Toronto Mortgage Agent Jesse Karkoukly",
-    description:
-      "From pre-approvals and first-time buyers to renewals, debt consolidation, and specialty programs.",
-    url: "https://jessekarkoukly.com/services",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Mortgage Services in Toronto | Jesse Karkoukly", "Pre-approvals, first-time buyers, self-employed, renewals, refinancing and more. Every mortgage service Jesse Karkoukly offers across Ontario.", "/services"),
 };
 
 export default function ServicesIndexPage() {

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { RENEWAL_FAQ } from "@/data/faqs/renewal";
+import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import RenewalContent from "@/components/services/RenewalContent";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
@@ -14,63 +16,18 @@ export const metadata: Metadata = {
     "mortgage renewal broker Toronto",
     "mortgage renewal 2026 Ontario",
   ],
-  openGraph: {
-    title:
-      "Mortgage Renewal in Toronto | Compare Before You Sign | Jesse Karkoukly",
-    description:
-      "Your lender's renewal offer is rarely their best. Jesse shops 50+ lenders to find out what you can actually get. Free, no obligation.",
-    url: "https://jessekarkoukly.com/services/renewal",
-    siteName: "Jesse Karkoukly, Mortgage Agent",
-    type: "website",
-  },
+  ...social("Mortgage Renewal, Toronto: Compare Before You Sign", "Your lender's renewal offer isn't always their best. Compare options before you sign, hold a rate 120 days ahead and make a confident decision.", "/services/renewal"),
   alternates: { canonical: "/services/renewal" },
 };
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "When should I start the renewal process?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "4 to 6 months before your renewal date. That is when lenders compete for your business and when you have the most room to negotiate with your existing lender. Inside 30 days, your options narrow significantly.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Do I have to qualify again if I switch lenders at renewal?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "For insured mortgages: no stress test on a straight switch at renewal. For uninsured mortgages where you are changing terms or extending amortization, you will need to re-qualify. Jesse tells you upfront which category you are in.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What if I just want to stay with my current lender?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Completely reasonable. Jesse can tell you whether their offer is fair before you sign back. If it is, sign it. If it is not, you now have a number to negotiate with. Either way you are better off knowing.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Can a mortgage broker help with renewal, or is that just for new purchases?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Renewal is one of the most common reasons people work with Jesse. There is no cost to you. Jesse is paid by the lender if you switch, and charges nothing for the review if you stay. Either way you get a clear picture of where you stand.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Fixed or variable at renewal?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Depends on your situation, your plans for the home, and your risk tolerance. Jesse runs both scenarios for every client and gives a direct recommendation. Most people in 2026 are leaning toward shorter fixed terms, but the right answer varies.",
-      },
-    },
-  ],
+  mainEntity: RENEWAL_FAQ.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
 };
 
 const localBusinessSchema = {
