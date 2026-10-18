@@ -108,7 +108,7 @@ function AffordabilityCalculator({
           className="text-[0.625rem] font-bold text-coral bg-coral/10 px-3 py-1 rounded-full uppercase tracking-widest"
           style={{ fontFamily: "var(--font-jakarta)" }}
         >
-          Ontario 2025 Rules
+          Ontario 2026 Rules
         </span>
       </div>
 

@@ -63,16 +63,16 @@ function calcMonthlyPayment(principal: number, annualRate: number, amortYears: n
 }
 
 /* ══════════════════════════════════════════════
- *  Ontario + Federal Tax Calculation (2025 approx)
+ *  Ontario + Federal Tax Calculation (2026, CRA T4032 Jan 2026)
  * ══════════════════════════════════════════════ */
 
 function calcFederalTax(taxableIncome: number): number {
-  const BPA = 16129;
+  const BPA = 16452;
   const brackets = [
-    { limit: 57375, rate: 0.15 },
-    { limit: 114750, rate: 0.205 },
-    { limit: 158468, rate: 0.26 },
-    { limit: 225414, rate: 0.29 },
+    { limit: 58523, rate: 0.14 },
+    { limit: 117045, rate: 0.205 },
+    { limit: 181440, rate: 0.26 },
+    { limit: 258482, rate: 0.29 },
     { limit: Infinity, rate: 0.33 },
   ];
   let tax = 0, prev = 0;
@@ -81,14 +81,14 @@ function calcFederalTax(taxableIncome: number): number {
     tax += (Math.min(taxableIncome, b.limit) - prev) * b.rate;
     prev = b.limit;
   }
-  return Math.max(0, tax - BPA * 0.15);
+  return Math.max(0, tax - BPA * 0.14);
 }
 
 function calcOntarioTax(taxableIncome: number): number {
-  const BPA = 11865;
+  const BPA = 12989;
   const brackets = [
-    { limit: 52886, rate: 0.0505 },
-    { limit: 105775, rate: 0.0915 },
+    { limit: 53891, rate: 0.0505 },
+    { limit: 107785, rate: 0.0915 },
     { limit: 150000, rate: 0.1116 },
     { limit: 220000, rate: 0.1216 },
     { limit: Infinity, rate: 0.1316 },
@@ -102,22 +102,22 @@ function calcOntarioTax(taxableIncome: number): number {
   tax = Math.max(0, tax - BPA * 0.0505);
   const surtaxBase = tax;
   let surtax = 0;
-  if (surtaxBase > 4991) surtax += (surtaxBase - 4991) * 0.20;
-  if (surtaxBase > 6387) surtax += (surtaxBase - 6387) * 0.36;
+  if (surtaxBase > 5818) surtax += (surtaxBase - 5818) * 0.20;
+  if (surtaxBase > 7446) surtax += (surtaxBase - 7446) * 0.36;
   return tax + surtax;
 }
 
 function calcCPP(income: number): number {
-  const pensionable = Math.min(income, 71300) - 3500;
+  const pensionable = Math.min(income, 74600) - 3500;
   if (pensionable <= 0) return 0;
   const cpp1 = pensionable * 0.0595;
-  const cpp2Earnings = Math.min(income, 81200) - 71300;
+  const cpp2Earnings = Math.min(income, 85000) - 74600;
   const cpp2 = cpp2Earnings > 0 ? cpp2Earnings * 0.04 : 0;
   return cpp1 + cpp2;
 }
 
 function calcEI(income: number): number {
-  return Math.min(income, 65700) * 0.0164;
+  return Math.min(income, 68900) * 0.0163;
 }
 
 function calcAnnualDeductions(grossIncome: number): number {
@@ -812,7 +812,7 @@ export default function AffordabilityCalculator() {
               className="text-[0.6875rem] text-slate leading-relaxed mb-5"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
-              This is an estimate for illustration purposes only. Tax calculations are approximate and based on 2025 Ontario and federal rates. Property tax and heat are estimates. Actual mortgage approval depends on your full application, credit history, and lender criteria. This is not a mortgage commitment or guarantee.
+              This is an estimate for illustration purposes only. Tax calculations are approximate and based on 2026 Ontario and federal rates. Property tax and heat are estimates. Actual mortgage approval depends on your full application, credit history, and lender criteria. This is not a mortgage commitment or guarantee.
             </p>
 
             {/* CTA */}
