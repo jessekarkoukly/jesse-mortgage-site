@@ -202,21 +202,11 @@ Nav → Hero → Two-Track → LenderTicker → Rates → HowICanHelp → Proces
 
 ---
 
-## APPROVED REVIEWS — VERBATIM, THESE 4 ONLY
+## REVIEWS ON THE HOMEPAGE
 
-No stars displayed. No fabricated quotes. No other reviews.
+Featured (October 2026, Jesse's pick, newest first, static grid, no rotation): Rebecca Marshello, Daniella Guzzi, Syed Aklakur Rahman, Daniel Goldhar. All 5-star on Google. The text shown is the opening of each review word for word, taken from Google's review notification emails, ending in "…" with a link to the full review on Google. Never extend or paraphrase a review. No stars displayed. To feature a different review, copy its text exactly from Google.
 
-**Norah Schulman:**
-"His industry expertise and understanding of the broader economic landscape ensured we received excellent guidance when our mortgage came due. Consistently responsive, knowledgeable, and easy to work with. We felt confident every step of the way."
-
-**Yoni Rahamim:**
-"I always appreciated how clearly he explained important details. He communicates well, knows his stuff, and is someone I would confidently recommend."
-
-**Nicole Boyle:**
-"Consistently delivered thoughtful, high-quality guidance and handled every situation with professionalism and care. Working with him always left us in a stronger position."
-
-**Rafaela Khalimov:**
-"Consistently impressed by how responsive and detail-oriented he is."
+Earlier approved reviews (still fine to use elsewhere, verbatim): Norah Schulman, Yoni Rahamim, Nicole Boyle, Rafaela Khalimov.
 
 DO NOT USE: Emily Ascroft, Josh G — colleague references, not client testimonials.
 
@@ -269,6 +259,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 ## SESSION LOG
 
 Newest first.
+
+**2026-10-20: Polish round**
+Homepage: What brings you here moved above reviews on a white band (separates it from the hero); reviews are a static grid of four featured Google reviews; broker deck starts with "A personalized experience", the swipe demo plays once, dots centred between the arrows; How it works steps open a pop-up explanation (Jesse's wording from Working with Jesse); lender ticker back after How it works (Mortgage Architects logo removed); blog cards pull site posts and external articles, newest first, with date and tag. Larger "Mortgage Agent" in the logo, logo bigger in nav and footer. App-level favicon (`src/app/favicon.ico`, `icon.svg`, `apple-icon.png`) now the P4 door. All FAQs across the site (homepage, service pages, neighbourhoods, blog) start fully expanded. Accent colours now follow the nearest background through CSS variables in `globals.css` (`--jk-accent`, `--jk-muted`, `--jk-body2`, `--jk-btn-bg`), so no brown-on-brown or faint-on-light text; a contrast audit of 21 pages came back with zero failures.
 
 **2026-10-20: Brand refresh and homepage rebuild**
 New palette, Newsreader headlines, P4 logo and favicon applied site-wide through the theme tokens in `globals.css` (hardcoded old hex values swapped too). Spaced-caps labels render as Newsreader italic via a global rule. Homepage rebuilt from the approved design (sections in `src/components/home/`): hero, What brings you here, rolling Google reviews (4 approved, no stars, links to the Google profile and review link), broker vs bank swipe deck, About, How it works (6 steps, Keys in hand highlighted), Common questions, Blog, Everything I help with, Mortgage questions, and the "Every door, walked through together." band. Lender ticker, rates teaser and newsletter block are off the homepage. Google Business Profile link updated in `sameAs`. Mortgage Architects line removed from the footers. The story form (`/api/story`) emails Jesse through Resend (needs `RESEND_API_KEY`) and saves a row in `leads` with source `homepage_story_form`; it succeeds if either works.

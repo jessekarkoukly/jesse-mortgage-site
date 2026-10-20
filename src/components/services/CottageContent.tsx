@@ -90,7 +90,15 @@ const FUNDING_OPTIONS = [
 
 export default function CottageContent() {
   const [activeSection, setActiveSection] = useState("how-it-works");
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [closedFaq, setClosedFaq] = useState<Set<number>>(() => new Set());
+  // FAQs start fully expanded so every answer is visible to readers, search engines and AI tools.
+  const toggleFaq = (i: number) =>
+    setClosedFaq((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   /* Scroll spy for TOC */
@@ -732,7 +740,7 @@ export default function CottageContent() {
 
               <div className="space-y-3">
                 {FAQ_ITEMS.map((faq, i) => {
-                  const isOpen = openFaq === i;
+                  const isOpen = !closedFaq.has(i);
                   return (
                     <div
                       key={i}
@@ -743,7 +751,7 @@ export default function CottageContent() {
                       }`}
                     >
                       <button
-                        onClick={() => setOpenFaq(isOpen ? null : i)}
+                        onClick={() => toggleFaq(i)}
                         className="w-full flex items-center justify-between p-5 text-left cursor-pointer"
                       >
                         <span

@@ -75,9 +75,9 @@ export default function Nav({ onBookingOpen }: NavProps) {
           <Image
             src="/jesse-logo.png"
             alt="Jesse Karkoukly Mortgage Agent"
-            width={187}
-            height={40}
-            className="h-8 lg:h-10 w-auto"
+            width={224}
+            height={48}
+            className="h-10 lg:h-12 w-auto"
             priority
           />
         </Link>

@@ -146,7 +146,15 @@ const FAQ_ITEMS = FIRST_TIME_BUYERS_FAQ;
 export default function FirstTimeBuyerContent() {
   const [activeSection, setActiveSection] = useState("how-to-qualify");
   const [openProgram, setOpenProgram] = useState<number | null>(null);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [closedFaq, setClosedFaq] = useState<Set<number>>(() => new Set());
+  // FAQs start fully expanded so every answer is visible to readers, search engines and AI tools.
+  const toggleFaq = (i: number) =>
+    setClosedFaq((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
   const [stressTestOpen, setStressTestOpen] = useState(false);
   const [creditOpen, setCreditOpen] = useState(false);
   const [homePrice, setHomePrice] = useState(800000);
@@ -1445,7 +1453,7 @@ export default function FirstTimeBuyerContent() {
               </h2>
               <div className="space-y-3">
                 {FAQ_ITEMS.map((faq, i) => {
-                  const isOpen = openFaq === i;
+                  const isOpen = !closedFaq.has(i);
                   return (
                     <div
                       key={i}
@@ -1453,7 +1461,7 @@ export default function FirstTimeBuyerContent() {
                     >
                       <button
                         onClick={() =>
-                          setOpenFaq(isOpen ? null : i)
+                          toggleFaq(i)
                         }
                         className="w-full text-left p-4 sm:p-5 cursor-pointer flex items-center justify-between gap-3 sm:gap-4"
                         aria-expanded={isOpen}

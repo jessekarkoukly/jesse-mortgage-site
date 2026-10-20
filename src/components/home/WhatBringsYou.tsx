@@ -17,7 +17,7 @@ const QUESTIONS = [
 
 export default function WhatBringsYou() {
   return (
-    <section className="px-5 sm:px-6 py-16 lg:py-20" style={{ background: B.linen }}>
+    <section className="px-5 sm:px-6 py-16 lg:py-20 bg-white border-t border-[#E3D9CD]">
       <div className="max-w-6xl mx-auto flex flex-col gap-7">
         <h2 className="m-0 text-[2.125rem] sm:text-[2.75rem] leading-[1.1]" style={{ ...serif, color: B.espresso, fontWeight: 400 }}>
           What brings you here?
@@ -27,7 +27,7 @@ export default function WhatBringsYou() {
             <Link
               key={c.title}
               href={c.href}
-              className="group flex flex-col gap-2.5 rounded-[18px] p-6 bg-white border-[1.5px] border-white hover:border-[#4F6B7A] transition-colors duration-150"
+              className="group flex flex-col gap-2.5 rounded-[18px] p-6 bg-[#F5EFE8] border-[1.5px] border-[#F5EFE8] hover:border-[#4F6B7A] transition-colors duration-150"
             >
               <span className="text-[1.1875rem] font-bold leading-snug" style={{ ...sans, color: B.espresso }}>{c.title}</span>
               <span className="text-[0.9375rem] leading-relaxed" style={{ ...sans, color: B.body }}>{c.body}</span>

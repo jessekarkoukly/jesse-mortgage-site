@@ -587,7 +587,7 @@ export default function AffordabilityCalculator() {
                     className="text-[0.625rem] font-medium uppercase tracking-wide"
                     style={{
                       fontFamily: "var(--font-jakarta)",
-                      color: propTaxOverride !== null ? "#352B26" : "#7F9BAA",
+                      color: propTaxOverride !== null ? "#352B26" : "#4F6B7A",
                     }}
                   >
                     {propTaxOverride !== null ? "Property Tax" : "Property Tax (est.)"}

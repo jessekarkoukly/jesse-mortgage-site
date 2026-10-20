@@ -114,7 +114,15 @@ const TOC_SECTIONS = [
 /* ══════════════════════════════════════════════════════════════ */
 
 export default function DebtConsolidationContent() {
-  const [openFaq, setOpenFaq] = useState<number>(0);
+  const [closedFaq, setClosedFaq] = useState<Set<number>>(() => new Set());
+  // FAQs start fully expanded so every answer is visible to readers, search engines and AI tools.
+  const toggleFaq = (i: number) =>
+    setClosedFaq((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
   const [activeId, setActiveId] = useState<string>(TOC_SECTIONS[0].id);
   const sectionRefs = useRef<Map<string, IntersectionObserverEntry>>(new Map());
 
@@ -1319,11 +1327,11 @@ export default function DebtConsolidationContent() {
 
               <div className="space-y-3">
                 {FAQ_ITEMS.map((item, i) => {
-                  const isOpen = openFaq === i;
+                  const isOpen = !closedFaq.has(i);
                   return (
                     <div key={i} className="bg-sand rounded-lg overflow-hidden">
                       <button
-                        onClick={() => setOpenFaq(isOpen ? -1 : i)}
+                        onClick={() => toggleFaq(i)}
                         className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"
                       >
                         <span

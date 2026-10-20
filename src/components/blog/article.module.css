@@ -1,13 +1,13 @@
 /* Long-form blog article styles. Scoped under .article; inner classes are plain names via :global so post bodies stay readable. */
 
 .article {
-  --ink: #1e2d3d;
-  --muted: #56657a;
+  --ink: #352B26;
+  --muted: #5A4C44;
   --rule: var(--color-sand-2);
   --tint: var(--color-sand);
-  --coral: #e8705a;
-  --coral-ink: #c2543c;
-  --coral-wash: #fdf1ee;
+  --coral: #7E6352;
+  --coral-ink: #6B5141;
+  --coral-wash: #F5EFE8;
   max-width: 680px;
   margin: 0 auto;
   padding: 7rem 1.25rem 1rem;
@@ -843,4 +843,19 @@
     width: 72px;
     height: 72px;
   }
+}
+
+/* Brand refresh, October 2026: labels are Newsreader italic, never spaced caps,
+   and accents inside the dark answer bubble use light clay. */
+.article :global(.kicker),
+.article :global(.bubble) :global(.from) {
+  font-family: var(--font-spectral), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 17px;
+}
+.article :global(.bubble-a) :global(.from) {
+  color: #D2B8A6;
 }

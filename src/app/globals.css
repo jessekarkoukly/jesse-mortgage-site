@@ -191,3 +191,43 @@ input[type="range"].calc-slider::-moz-range-progress {
 button, a {
   touch-action: manipulation;
 }
+
+/* Homepage "How it works" step bubble */
+@keyframes jk-pop {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [style*="jk-pop"] { animation: none !important; }
+}
+
+/* ── Accent colours follow the nearest background ──
+   Brand rule: never brown on brown, never faint on light. Each surface sets the
+   colours its children use, so a light card inside a dark section (or the reverse)
+   always gets the right pair. Values checked for contrast. */
+:root,
+:is(.bg-white, .bg-sand, .bg-sand-2, [class*="bg-[#F"], [class*="bg-[#f"]) {
+  --jk-accent: #6B5141;   /* clay deep, darkened for small text */
+  --jk-muted: #4F6B7A;    /* sky deep */
+  --jk-body2: #5A4C44;
+  --jk-btn-bg: #7E6352;
+  --jk-btn-fg: #FFFFFF;
+  --jk-line: #C9B6A5;
+}
+:is(.bg-navy, .bg-navy-2, .bg-coral, [class*="bg-[#352B26]"], [class*="bg-[#4A3E37]"], [class*="bg-[#2"]) {
+  --jk-accent: #D2B8A6;   /* light clay */
+  --jk-muted: #C9BDB3;
+  --jk-body2: #D8CCC0;
+  --jk-btn-bg: #C4A592;
+  --jk-btn-fg: #352B26;
+  --jk-line: rgba(210, 184, 166, 0.55);
+}
+.bg-navy-2 { background-color: #4A3E37; }
+:is(.text-coral, .text-coral-dark) { color: var(--jk-accent); }
+.text-coral\/60, .text-coral\/80 { color: var(--jk-accent); opacity: 0.85; }
+.text-slate { color: var(--jk-muted); }
+.text-navy-2 { color: var(--jk-body2); }
+:is(.border-coral, .border-coral\/20, .border-coral\/30, .border-coral\/40) { border-color: var(--jk-line); }
+.bg-coral { background-color: var(--jk-btn-bg); color: var(--jk-btn-fg); }
+.bg-coral.text-white, .bg-coral .text-white { color: var(--jk-btn-fg); }
+:is(.bg-navy, .bg-navy-2) :is(.bg-coral:hover, .hover\:bg-coral-dark:hover) { background-color: #9DB6C3; color: #352B26; }

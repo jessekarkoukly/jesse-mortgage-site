@@ -73,7 +73,7 @@ export default function StoryForm({ open, onClose }: Props) {
           <div className="px-6 sm:px-9 py-10 flex flex-col gap-4">
             <h2 id="story-title" className="m-0 text-[2rem] leading-[1.15]" style={{ ...serif, fontWeight: 500 }}>Thanks, {name.trim().split(" ")[0]}.</h2>
             <p className="m-0 text-[1.0625rem] leading-relaxed" style={{ ...sans, color: B.onDark }}>Your note is on its way. I’ll reply personally to find a time to talk.</p>
-            <button type="button" onClick={onClose} className="self-start mt-2 cursor-pointer rounded-full px-6 py-3 min-h-[48px] font-semibold bg-[#A88A78] text-[#352B26] hover:bg-[#9DB6C3]" style={sans}>Close</button>
+            <button type="button" onClick={onClose} className="self-start mt-2 cursor-pointer rounded-full px-6 py-3 min-h-[48px] font-semibold bg-[#C4A592] text-[#352B26] hover:bg-[#9DB6C3]" style={sans}>Close</button>
           </div>
         ) : (
           <form onSubmit={submit} className="px-6 sm:px-9 pt-7 pb-8 flex flex-col gap-6">
@@ -119,7 +119,7 @@ export default function StoryForm({ open, onClose }: Props) {
               <button
                 type="submit"
                 disabled={!valid || status === "sending"}
-                className="cursor-pointer disabled:cursor-not-allowed rounded-full px-7 py-4 min-h-[52px] flex items-center gap-3 text-[1rem] font-semibold transition-colors duration-150 bg-[#A88A78] text-[#352B26] hover:bg-[#9DB6C3] disabled:bg-[#6B5B52] disabled:text-[#C9BDB3]"
+                className="cursor-pointer disabled:cursor-not-allowed rounded-full px-7 py-4 min-h-[52px] flex items-center gap-3 text-[1rem] font-semibold transition-colors duration-150 bg-[#C4A592] text-[#352B26] hover:bg-[#9DB6C3] disabled:bg-[#6B5B52] disabled:text-[#C9BDB3]"
                 style={sans}
               >
                 {status === "sending" ? "Sending…" : "Send my story"} <span aria-hidden="true">→</span>

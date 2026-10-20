@@ -747,8 +747,8 @@ export default function PurchaseCalculator({ onDownloadReport }: PurchaseCalcula
                 <div className="mt-4">
                   <ResponsiveContainer width="100%" height={240}>
                     <LineChart data={chartData}>
-                      <XAxis dataKey="year" tick={{ fontSize: 11, fill: '#7F9BAA' }} label={{ value: 'Years', position: 'insideBottom', offset: -2, fontSize: 11, fill: '#7F9BAA' }} />
-                      <YAxis tick={{ fontSize: 11, fill: '#7F9BAA' }} tickFormatter={(v: number) => `$${(v / 1000).toFixed(0)}k`} />
+                      <XAxis dataKey="year" tick={{ fontSize: 11, fill: '#4F6B7A' }} label={{ value: 'Years', position: 'insideBottom', offset: -2, fontSize: 11, fill: '#4F6B7A' }} />
+                      <YAxis tick={{ fontSize: 11, fill: '#4F6B7A' }} tickFormatter={(v: number) => `$${(v / 1000).toFixed(0)}k`} />
                       <Tooltip formatter={(value) => fmtDollar(Number(value))} labelFormatter={(label) => `Year ${label}`} contentStyle={{ fontSize: 12, fontFamily: 'var(--font-jakarta)' }} />
                       <Legend wrapperStyle={{ fontSize: 11, fontFamily: 'var(--font-jakarta)' }} />
                       <Line type="monotone" dataKey="Balance" stroke="#7E6352" strokeWidth={2} dot={{ r: 3, fill: '#7E6352' }} />

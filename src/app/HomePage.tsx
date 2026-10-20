@@ -9,6 +9,7 @@ import ReviewsStrip from "@/components/home/ReviewsStrip";
 import BrokerDeck from "@/components/home/BrokerDeck";
 import AboutJesse from "@/components/home/AboutJesse";
 import HowItWorks from "@/components/home/HowItWorks";
+import LenderTicker from "@/components/LenderTicker";
 import FAQSection from "@/components/FAQSection";
 import BlogPreview from "@/components/BlogPreview";
 import HelpList from "@/components/home/HelpList";
@@ -43,6 +44,7 @@ export default function HomePage() {
         <BrokerDeck />
         <AboutJesse />
         <HowItWorks />
+        <LenderTicker />
         <FAQSection />
         <BlogPreview />
         <HelpList />

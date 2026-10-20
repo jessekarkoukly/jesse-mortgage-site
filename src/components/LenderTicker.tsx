@@ -14,7 +14,6 @@ const LENDERS = [
   { name: "CWB Optimum",        logo: "/logos/CWB-Optimum-logo.webp" },
   { name: "Radius Financial",   logo: "/logos/Radius-logo.webp" },
   { name: "B2B Bank",           logo: "/logos/B2B-Logo.webp" },
-  { name: "Mortgage Architects",logo: "/logos/Mortgage-Architects.webp" },
 ];
 
 export default function LenderTicker() {

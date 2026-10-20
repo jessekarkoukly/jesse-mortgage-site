@@ -54,7 +54,15 @@ const faqSchema = {
 };
 
 export default function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [closed, setClosed] = useState<Set<number>>(() => new Set());
+  // Fully expanded by default so every answer is visible to readers, search engines and AI tools.
+  const toggle = (i: number) =>
+    setClosed((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
 
   return (
     <section id="faq" className="bg-white py-24 sm:py-28 px-6 scroll-mt-20">
@@ -76,11 +84,11 @@ export default function FAQSection() {
         {/* Accordion items */}
         <div className="flex flex-col divide-y divide-sand-2">
           {FAQS.map((item, i) => {
-            const isOpen = openIndex === i;
+            const isOpen = !closed.has(i);
             return (
               <div key={i}>
                 <button
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  onClick={() => toggle(i)}
                   className="w-full flex items-center justify-between gap-4 py-6 min-h-[48px] text-left cursor-pointer group"
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${i}`}

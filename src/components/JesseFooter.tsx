@@ -10,9 +10,9 @@ export default function JesseFooter() {
           <Image
             src="/jesse-logo.png"
             alt="Jesse Karkoukly Mortgage Agent"
-            width={187}
-            height={40}
-            className="h-8 w-auto brightness-0 invert"
+            width={224}
+            height={48}
+            className="h-10 w-auto brightness-0 invert"
           />
         </Link>
 

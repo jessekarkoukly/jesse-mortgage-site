@@ -86,9 +86,9 @@ function PathToDoor() {
 
 const REASONS: { title: string; body: string; art: ReactNode }[] = [
   {
-    title: "More than one lender",
-    body: "Your bank can show you the best mortgage options they offer. I can show you the mortgage options across many lenders. This gives you more optionality and a higher likelihood of finding the best current deal for your situation.",
-    art: <Doors />,
+    title: "A personalized experience",
+    body: "No two mortgages I’ve worked on have been the same, and you deserve a personalized experience. I am transparent, strategic and understanding. I like to explain each step as we go, to empower you in making confident mortgage decisions.",
+    art: <PathToDoor />,
   },
   {
     title: "Only one credit check",
@@ -101,9 +101,9 @@ const REASONS: { title: string; body: string; art: ReactNode }[] = [
     art: <Compete />,
   },
   {
-    title: "A personalized experience",
-    body: "No two mortgages I’ve worked on have been the same, and you deserve a personalized experience. I am transparent, strategic and understanding. I like to explain each step as we go, to empower you in making confident mortgage decisions.",
-    art: <PathToDoor />,
+    title: "More than one lender",
+    body: "Your bank can show you the best mortgage options they offer. I can show you the mortgage options across many lenders. This gives you more optionality and a higher likelihood of finding the best current deal for your situation.",
+    art: <Doors />,
   },
 ];
 
@@ -134,7 +134,6 @@ export default function BrokerDeck() {
       later(() => { if (!touchedRef.current) { setDemo(2); setDx(-80); } }, 350);
       later(() => { if (!touchedRef.current) { setDemo(3); setDx(0); } }, 1350);
       later(() => { if (!touchedRef.current) setDemo(0); }, 1750);
-      later(cycle, 3400);
     };
     const io = new IntersectionObserver((entries) => {
       if (!started && entries.some((e) => e.isIntersecting)) { started = true; later(cycle, 700); }
@@ -250,18 +249,21 @@ export default function BrokerDeck() {
             })}
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2" aria-hidden="true">
+          <div className="flex items-center justify-center gap-5">
+            <button type="button" aria-label="Previous reason" onClick={() => { stopDemo(); setIdx((i) => (i + N - 1) % N); setDx(0); setOut(0); }}
+              className="cursor-pointer w-12 h-12 rounded-full border-[1.5px] border-[#D8CCC0] bg-white text-[#352B26] text-lg hover:border-[#4F6B7A] hover:text-[#4F6B7A] transition-colors duration-150">←</button>
+            <div className="flex items-center gap-2">
               {REASONS.map((r, i) => (
-                <span key={r.title} className="block h-2.5 rounded-full" style={{ width: i === idx ? 34 : 10, background: i === idx ? B.clay : "#D8CCC0", transition: "width 0.4s ease, background 0.4s ease" }} />
+                <button key={r.title} type="button" aria-label={`Reason ${i + 1} of ${N}`} aria-current={i === idx}
+                  onClick={() => { stopDemo(); setIdx(i); setDx(0); setOut(0); }}
+                  className="cursor-pointer p-1.5 -m-1.5"
+                >
+                  <span className="block h-2.5 rounded-full" style={{ width: i === idx ? 34 : 10, background: i === idx ? B.clay : "#D8CCC0", transition: "width 0.4s ease, background 0.4s ease" }} />
+                </button>
               ))}
             </div>
-            <div className="ml-auto flex gap-1.5">
-              <button type="button" aria-label="Previous reason" onClick={() => { stopDemo(); setIdx((i) => (i + N - 1) % N); setDx(0); setOut(0); }}
-                className="cursor-pointer w-12 h-12 rounded-full border-[1.5px] border-[#D8CCC0] bg-white text-[#352B26] text-lg hover:border-[#4F6B7A] hover:text-[#4F6B7A] transition-colors duration-150">←</button>
-              <button type="button" aria-label="Next reason" onClick={() => { stopDemo(); fly(-1); }}
-                className="cursor-pointer w-12 h-12 rounded-full border-[1.5px] border-[#D8CCC0] bg-white text-[#352B26] text-lg hover:border-[#4F6B7A] hover:text-[#4F6B7A] transition-colors duration-150">→</button>
-            </div>
+            <button type="button" aria-label="Next reason" onClick={() => { stopDemo(); fly(-1); }}
+              className="cursor-pointer w-12 h-12 rounded-full border-[1.5px] border-[#D8CCC0] bg-white text-[#352B26] text-lg hover:border-[#4F6B7A] hover:text-[#4F6B7A] transition-colors duration-150">→</button>
           </div>
         </div>
       </div>
