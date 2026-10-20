@@ -244,13 +244,13 @@ export default function AnalyticsDashboard() {
   const maxVisits = data?.pageStats[0]?.visits ?? 1;
 
   return (
-    <div className="min-h-screen bg-[#F4F4F2]" style={{ fontFamily: "var(--font-jakarta)" }}>
+    <div className="min-h-screen bg-[#F5EFE8]" style={{ fontFamily: "var(--font-jakarta)" }}>
 
       {/* Header */}
-      <div className="bg-[#1E2D3D] px-6 py-5">
+      <div className="bg-[#352B26] px-6 py-5">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <p className="text-[0.7rem] font-bold text-[#E8705A] tracking-[0.18em] uppercase mb-0.5">
+            <p className="text-[0.7rem] font-bold text-[#7E6352] tracking-[0.18em] uppercase mb-0.5">
               jessekarkoukly.com
             </p>
             <h1 className="text-[1.25rem] font-bold text-white" style={{ fontFamily: "var(--font-spectral)" }}>
@@ -266,7 +266,7 @@ export default function AnalyticsDashboard() {
                 onClick={() => setRange(r)}
                 className={`px-3 py-1.5 rounded-md text-[0.8125rem] font-semibold transition-all cursor-pointer ${
                   range === r
-                    ? "bg-[#E8705A] text-white"
+                    ? "bg-[#7E6352] text-white"
                     : "text-white/60 hover:text-white"
                 }`}
               >
@@ -280,13 +280,13 @@ export default function AnalyticsDashboard() {
       <div className="max-w-6xl mx-auto px-6 py-8">
 
         {loading && (
-          <div className="flex items-center justify-center py-24 text-[#8A9BAA] text-[0.9375rem]">
+          <div className="flex items-center justify-center py-24 text-[#7F9BAA] text-[0.9375rem]">
             Loading...
           </div>
         )}
 
         {error && (
-          <div className="flex items-center justify-center py-24 text-[#E8705A] text-[0.9375rem]">
+          <div className="flex items-center justify-center py-24 text-[#7E6352] text-[0.9375rem]">
             Could not load data. Check your Supabase connection.
           </div>
         )}
@@ -302,10 +302,10 @@ export default function AnalyticsDashboard() {
                 { label: "Avg Time on Site", value: formatDuration(data.avgTime) },
               ].map(({ label, value }) => (
                 <div key={label} className="bg-white rounded-2xl px-5 py-5 shadow-sm">
-                  <p className="text-[0.7rem] font-bold text-[#8A9BAA] tracking-[0.16em] uppercase mb-2">
+                  <p className="text-[0.7rem] font-bold text-[#7F9BAA] tracking-[0.16em] uppercase mb-2">
                     {label}
                   </p>
-                  <p className="text-[1.5rem] font-bold text-[#1E2D3D] leading-tight truncate"
+                  <p className="text-[1.5rem] font-bold text-[#352B26] leading-tight truncate"
                      style={{ fontFamily: "var(--font-spectral)" }}>
                     {value}
                   </p>
@@ -315,42 +315,42 @@ export default function AnalyticsDashboard() {
 
             {/* ── Page breakdown ── */}
             <div className="bg-white rounded-2xl shadow-sm mb-6 overflow-hidden">
-              <div className="px-6 py-4 border-b border-[#F4F4F2]">
-                <h2 className="text-[0.9375rem] font-bold text-[#1E2D3D]">
+              <div className="px-6 py-4 border-b border-[#F5EFE8]">
+                <h2 className="text-[0.9375rem] font-bold text-[#352B26]">
                   Pages — ranked by traffic
-                  <span className="ml-2 text-[0.8125rem] font-normal text-[#8A9BAA]">
+                  <span className="ml-2 text-[0.8125rem] font-normal text-[#7F9BAA]">
                     {RANGE_LABELS[range]}
                   </span>
                 </h2>
               </div>
 
               {data.pageStats.length === 0 ? (
-                <div className="px-6 py-12 text-center text-[#8A9BAA] text-[0.9375rem]">
+                <div className="px-6 py-12 text-center text-[#7F9BAA] text-[0.9375rem]">
                   No data yet — tracking starts now.
                 </div>
               ) : (
-                <div className="divide-y divide-[#F4F4F2]">
+                <div className="divide-y divide-[#F5EFE8]">
                   {data.pageStats.map((page) => {
                     const barWidth = Math.max(2, Math.round((page.visits / maxVisits) * 100));
                     const isDead = page.visits <= 2;
                     return (
-                      <div key={page.page} className="px-6 py-4 flex items-center gap-4 hover:bg-[#F4F4F2]/60 transition-colors">
+                      <div key={page.page} className="px-6 py-4 flex items-center gap-4 hover:bg-[#F5EFE8]/60 transition-colors">
 
                         {/* Page name */}
                         <div className="w-44 shrink-0">
-                          <p className={`text-[0.875rem] font-semibold truncate ${isDead ? "text-[#8A9BAA]" : "text-[#1E2D3D]"}`}>
+                          <p className={`text-[0.875rem] font-semibold truncate ${isDead ? "text-[#7F9BAA]" : "text-[#352B26]"}`}>
                             {page.label}
                           </p>
-                          <p className="text-[0.7rem] text-[#8A9BAA] truncate">{page.page}</p>
+                          <p className="text-[0.7rem] text-[#7F9BAA] truncate">{page.page}</p>
                         </div>
 
                         {/* Bar */}
-                        <div className="flex-1 h-2 bg-[#F4F4F2] rounded-full overflow-hidden">
+                        <div className="flex-1 h-2 bg-[#F5EFE8] rounded-full overflow-hidden">
                           <div
                             className="h-full rounded-full transition-all duration-500"
                             style={{
                               width: `${barWidth}%`,
-                              backgroundColor: isDead ? "#E9E9E7" : "#E8705A",
+                              backgroundColor: isDead ? "#E3D9CD" : "#7E6352",
                             }}
                           />
                         </div>
@@ -358,28 +358,28 @@ export default function AnalyticsDashboard() {
                         {/* Stats */}
                         <div className="flex items-center gap-5 shrink-0 text-right">
                           <div className="w-12">
-                            <p className="text-[0.9375rem] font-bold text-[#1E2D3D]">{page.visits}</p>
-                            <p className="text-[0.65rem] text-[#8A9BAA] uppercase tracking-wide">visits</p>
+                            <p className="text-[0.9375rem] font-bold text-[#352B26]">{page.visits}</p>
+                            <p className="text-[0.65rem] text-[#7F9BAA] uppercase tracking-wide">visits</p>
                           </div>
                           <div className="hidden sm:block w-14">
-                            <p className="text-[0.875rem] font-medium text-[#1E2D3D]">{formatDuration(page.avgDuration)}</p>
-                            <p className="text-[0.65rem] text-[#8A9BAA] uppercase tracking-wide">avg time</p>
+                            <p className="text-[0.875rem] font-medium text-[#352B26]">{formatDuration(page.avgDuration)}</p>
+                            <p className="text-[0.65rem] text-[#7F9BAA] uppercase tracking-wide">avg time</p>
                           </div>
                           <div className="hidden md:block w-14">
-                            <p className="text-[0.875rem] font-medium text-[#1E2D3D]">{page.mobilePercent}%</p>
-                            <p className="text-[0.65rem] text-[#8A9BAA] uppercase tracking-wide">mobile</p>
+                            <p className="text-[0.875rem] font-medium text-[#352B26]">{page.mobilePercent}%</p>
+                            <p className="text-[0.65rem] text-[#7F9BAA] uppercase tracking-wide">mobile</p>
                           </div>
                           <div className="hidden lg:block w-20 text-left">
-                            <p className="text-[0.8125rem] text-[#8A9BAA]">{formatDate(page.lastSeen)}</p>
+                            <p className="text-[0.8125rem] text-[#7F9BAA]">{formatDate(page.lastSeen)}</p>
                           </div>
                           {/* Status badge */}
                           <div className="w-16 text-right">
                             {isDead ? (
-                              <span className="inline-block text-[0.65rem] font-bold text-[#8A9BAA] bg-[#F4F4F2] px-2 py-0.5 rounded-full uppercase tracking-wide">
+                              <span className="inline-block text-[0.65rem] font-bold text-[#7F9BAA] bg-[#F5EFE8] px-2 py-0.5 rounded-full uppercase tracking-wide">
                                 Quiet
                               </span>
                             ) : (
-                              <span className="inline-block text-[0.65rem] font-bold text-[#E8705A] bg-[#E8705A]/10 px-2 py-0.5 rounded-full uppercase tracking-wide">
+                              <span className="inline-block text-[0.65rem] font-bold text-[#7E6352] bg-[#7E6352]/10 px-2 py-0.5 rounded-full uppercase tracking-wide">
                                 Active
                               </span>
                             )}
@@ -394,23 +394,23 @@ export default function AnalyticsDashboard() {
 
             {/* ── Sources ── */}
             <div className="bg-white rounded-2xl shadow-sm mb-6 overflow-hidden">
-              <div className="px-6 py-4 border-b border-[#F4F4F2]">
-                <h2 className="text-[0.9375rem] font-bold text-[#1E2D3D]">
+              <div className="px-6 py-4 border-b border-[#F5EFE8]">
+                <h2 className="text-[0.9375rem] font-bold text-[#352B26]">
                   Where visitors came from
-                  <span className="ml-2 text-[0.8125rem] font-normal text-[#8A9BAA]">
+                  <span className="ml-2 text-[0.8125rem] font-normal text-[#7F9BAA]">
                     {RANGE_LABELS[range]}
                   </span>
                 </h2>
               </div>
               {!data.hasSourceData ? (
-                <div className="px-6 py-8 text-center text-[#8A9BAA] text-[0.875rem]">
+                <div className="px-6 py-8 text-center text-[#7F9BAA] text-[0.875rem]">
                   Source tracking needs the new Supabase columns. Run the SQL in CLAUDE.md, then visits start showing here.
                 </div>
               ) : data.sourceStats.length === 0 ? (
-                <div className="px-6 py-8 text-center text-[#8A9BAA] text-[0.875rem]">No visits yet in this range.</div>
+                <div className="px-6 py-8 text-center text-[#7F9BAA] text-[0.875rem]">No visits yet in this range.</div>
               ) : (
-                <div className="divide-y divide-[#F4F4F2]">
-                  <div className="px-6 py-2.5 flex items-center gap-4 text-[0.65rem] text-[#8A9BAA] uppercase tracking-wide">
+                <div className="divide-y divide-[#F5EFE8]">
+                  <div className="px-6 py-2.5 flex items-center gap-4 text-[0.65rem] text-[#7F9BAA] uppercase tracking-wide">
                     <p className="flex-1">Channel</p>
                     <p className="w-20 text-right">Visitors</p>
                     <p className="w-20 text-right">Actions</p>
@@ -418,10 +418,10 @@ export default function AnalyticsDashboard() {
                   </div>
                   {data.sourceStats.map((s) => (
                     <div key={s.channel} className="px-6 py-3.5 flex items-center gap-4">
-                      <p className="flex-1 text-[0.875rem] font-semibold text-[#1E2D3D]">{s.channel}</p>
-                      <p className="w-20 text-right text-[0.9375rem] font-bold text-[#1E2D3D]">{s.visitors}</p>
-                      <p className="w-20 text-right text-[0.9375rem] text-[#1E2D3D]">{s.actions}</p>
-                      <p className="w-20 text-right text-[0.9375rem] text-[#E8705A] font-bold">{s.booked}</p>
+                      <p className="flex-1 text-[0.875rem] font-semibold text-[#352B26]">{s.channel}</p>
+                      <p className="w-20 text-right text-[0.9375rem] font-bold text-[#352B26]">{s.visitors}</p>
+                      <p className="w-20 text-right text-[0.9375rem] text-[#352B26]">{s.actions}</p>
+                      <p className="w-20 text-right text-[0.9375rem] text-[#7E6352] font-bold">{s.booked}</p>
                     </div>
                   ))}
                 </div>
@@ -431,29 +431,29 @@ export default function AnalyticsDashboard() {
             {/* ── Top clicks ── */}
             {data.eventStats.length > 0 && (
               <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-                <div className="px-6 py-4 border-b border-[#F4F4F2]">
-                  <h2 className="text-[0.9375rem] font-bold text-[#1E2D3D]">
+                <div className="px-6 py-4 border-b border-[#F5EFE8]">
+                  <h2 className="text-[0.9375rem] font-bold text-[#352B26]">
                     Top Clicks
-                    <span className="ml-2 text-[0.8125rem] font-normal text-[#8A9BAA]">
+                    <span className="ml-2 text-[0.8125rem] font-normal text-[#7F9BAA]">
                       {RANGE_LABELS[range]}
                     </span>
                   </h2>
                 </div>
-                <div className="divide-y divide-[#F4F4F2]">
+                <div className="divide-y divide-[#F5EFE8]">
                   {data.eventStats.slice(0, 10).map((ev) => {
                     const barWidth = Math.max(2, Math.round((ev.count / data.eventStats[0].count) * 100));
                     return (
                       <div key={ev.name} className="px-6 py-3.5 flex items-center gap-4">
-                        <p className="w-52 text-[0.875rem] font-semibold text-[#1E2D3D] truncate">
+                        <p className="w-52 text-[0.875rem] font-semibold text-[#352B26] truncate">
                           {ev.name.replace(/_/g, " ")}
                         </p>
-                        <div className="flex-1 h-2 bg-[#F4F4F2] rounded-full overflow-hidden">
+                        <div className="flex-1 h-2 bg-[#F5EFE8] rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-[#1E2D3D] rounded-full"
+                            className="h-full bg-[#352B26] rounded-full"
                             style={{ width: `${barWidth}%` }}
                           />
                         </div>
-                        <p className="w-10 text-right text-[0.9375rem] font-bold text-[#1E2D3D]">{ev.count}</p>
+                        <p className="w-10 text-right text-[0.9375rem] font-bold text-[#352B26]">{ev.count}</p>
                       </div>
                     );
                   })}
@@ -465,12 +465,12 @@ export default function AnalyticsDashboard() {
             <div className="flex flex-col items-center gap-2 mt-8">
               <button
                 onClick={notifyBing}
-                className="px-4 py-2 rounded-lg bg-[#1E2D3D] text-white text-[0.8125rem] font-semibold cursor-pointer hover:opacity-90"
+                className="px-4 py-2 rounded-lg bg-[#352B26] text-white text-[0.8125rem] font-semibold cursor-pointer hover:opacity-90"
               >
                 Notify Bing of site updates
               </button>
-              {bingStatus && <p className="text-[0.75rem] text-[#8A9BAA]">{bingStatus}</p>}
-              <p className="text-center text-[0.75rem] text-[#8A9BAA]">
+              {bingStatus && <p className="text-[0.75rem] text-[#7F9BAA]">{bingStatus}</p>}
+              <p className="text-center text-[0.75rem] text-[#7F9BAA]">
                 Press after you publish new or changed pages. Data is live from Supabase.
               </p>
             </div>

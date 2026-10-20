@@ -791,7 +791,7 @@ export default function SelfEmployedContent() {
                   <div key={i} className="bg-sand rounded-xl p-5 flex gap-3">
                     <span className="w-6 h-6 rounded-full bg-coral/15 flex items-center justify-center shrink-0 mt-0.5">
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M2.5 6.5L5 9l4.5-6" stroke="#E8705A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M2.5 6.5L5 9l4.5-6" stroke="#7E6352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </span>
                     <div>

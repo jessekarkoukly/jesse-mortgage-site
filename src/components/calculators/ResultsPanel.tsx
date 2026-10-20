@@ -98,7 +98,7 @@ export default function ResultsPanel({
               className="absolute top-4 right-4 p-2 rounded-full hover:bg-sand transition-colors"
               aria-label="Settings"
             >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#1E2D3D" strokeWidth="1.5">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#352B26" strokeWidth="1.5">
                 <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
                 <path d="M16.2 12.2a1.4 1.4 0 00.28 1.54l.05.05a1.7 1.7 0 01-1.2 2.9 1.7 1.7 0 01-1.2-.5l-.05-.05a1.4 1.4 0 00-1.54-.28 1.4 1.4 0 00-.84 1.28v.14a1.7 1.7 0 01-3.4 0v-.07a1.4 1.4 0 00-.91-1.28 1.4 1.4 0 00-1.54.28l-.05.05a1.7 1.7 0 01-2.4-2.4l.05-.05a1.4 1.4 0 00.28-1.54 1.4 1.4 0 00-1.28-.84H2.3a1.7 1.7 0 010-3.4h.07a1.4 1.4 0 001.28-.91 1.4 1.4 0 00-.28-1.54l-.05-.05a1.7 1.7 0 012.4-2.4l.05.05a1.4 1.4 0 001.54.28h.07a1.4 1.4 0 00.84-1.28V2.3a1.7 1.7 0 013.4 0v.07a1.4 1.4 0 00.84 1.28 1.4 1.4 0 001.54-.28l.05-.05a1.7 1.7 0 012.4 2.4l-.05.05a1.4 1.4 0 00-.28 1.54v.07a1.4 1.4 0 001.28.84h.14a1.7 1.7 0 010 3.4h-.07a1.4 1.4 0 00-1.28.84z" />
               </svg>
@@ -118,7 +118,7 @@ export default function ResultsPanel({
                     onClick={() => setSettingsOpen(false)}
                     className="p-1 hover:bg-sand rounded"
                   >
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#1E2D3D" strokeWidth="1.5">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#352B26" strokeWidth="1.5">
                       <path d="M12 4L4 12M4 4l8 8" />
                     </svg>
                   </button>

@@ -2,13 +2,25 @@
 
 @theme {
   /* Brand colours */
-  --color-navy:       #1E2D3D;
-  --color-navy-2:     #2E4255;
-  --color-sand:       #F4F4F2;
-  --color-sand-2:     #E9E9E7;
-  --color-coral:      #E8705A;
-  --color-coral-dark: #D05A45;
-  --color-slate:      #8A9BAA;
+  /* Brand refresh, October 2026 (see brand book). Token names kept so every page picks up the new palette.
+     navy  = espresso (dark text, dark sections)
+     sand  = linen (light sections)
+     coral = clay deep (accents and page-level buttons)
+     coral-dark = sky deep (hover colour)
+     slate = sky */
+  --color-navy:       #352B26;
+  --color-navy-2:     #5A4C44;
+  --color-sand:       #F5EFE8;
+  --color-sand-2:     #E3D9CD;
+  --color-coral:      #7E6352;
+  --color-coral-dark: #4F6B7A;
+  --color-slate:      #7F9BAA;
+  --color-espresso:   #352B26;
+  --color-linen:      #F5EFE8;
+  --color-clay:       #A88A78;
+  --color-clay-deep:  #7E6352;
+  --color-sky:        #7F9BAA;
+  --color-sky-deep:   #4F6B7A;
 
   /* Semantic aliases */
   --color-background: var(--color-sand);
@@ -42,19 +54,37 @@ main, section, header, footer {
 
 body {
   background-color: #FFFFFF;
-  color: #1E2D3D;
+  color: #352B26;
   font-family: var(--font-jakarta), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: #E8705A;
+  background-color: #7E6352;
   color: #fff;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-spectral), Georgia, serif;
+  /* Newsreader reads best at 400 to 500. Unlayered, so this wins over Tailwind's font-bold on headings. */
+  font-weight: 500;
+}
+
+/* Brand: no small spaced capitals above headlines. Any uppercase + letter-spaced label becomes Newsreader italic. */
+[class*="uppercase"][class*="tracking-"] {
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--font-spectral), Georgia, serif !important;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.125rem;
+}
+
+/* Brand: links rest in espresso and turn sky deep; focus ring is sky deep. Motion is a colour change only. */
+:focus-visible {
+  outline: 2px solid #4F6B7A;
+  outline-offset: 2px;
 }
 
 /* ── Marquee animation ── */
@@ -73,6 +103,10 @@ h1, h2, h3, h4, h5, h6 {
   animation-play-state: paused;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
 /* ── Utilities ── */
 .coral-dot::before {
   content: '';
@@ -80,7 +114,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #E8705A;
+  background-color: #7E6352;
   margin-right: 8px;
   vertical-align: middle;
 }
@@ -96,7 +130,7 @@ input[type="range"].calc-slider {
   outline: none;
   cursor: pointer;
   /* Fallback if no inline style */
-  background: linear-gradient(to right, #1E2D3D, #E8705A);
+  background: linear-gradient(to right, #352B26, #7E6352);
 }
 
 input[type="range"].calc-slider::-webkit-slider-thumb {
@@ -105,7 +139,7 @@ input[type="range"].calc-slider::-webkit-slider-thumb {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #E8705A;
+  background: #7E6352;
   cursor: pointer;
   border: 3px solid white;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.18);
@@ -113,14 +147,14 @@ input[type="range"].calc-slider::-webkit-slider-thumb {
 }
 
 input[type="range"].calc-slider::-webkit-slider-thumb:hover {
-  box-shadow: 0 2px 8px rgba(232, 112, 90, 0.4);
+  box-shadow: 0 2px 8px rgba(126, 99, 82, 0.4);
 }
 
 input[type="range"].calc-slider::-moz-range-thumb {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #E8705A;
+  background: #7E6352;
   cursor: pointer;
   border: 3px solid white;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.18);
@@ -136,7 +170,7 @@ input[type="range"].calc-slider::-moz-range-track {
 input[type="range"].calc-slider::-moz-range-progress {
   height: 6px;
   border-radius: 3px;
-  background: linear-gradient(to right, #1E2D3D, #E8705A);
+  background: linear-gradient(to right, #352B26, #7E6352);
 }
 
 /* ── Touch device optimizations ── */

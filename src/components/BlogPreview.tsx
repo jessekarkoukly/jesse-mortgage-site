@@ -36,17 +36,11 @@ export default function BlogPreview() {
   return (
     <section className="bg-white py-24 sm:py-28 px-6">
       <div className="max-w-5xl mx-auto">
-        <p
-          className="text-[0.8125rem] font-semibold text-coral tracking-[0.2em] uppercase mb-3 text-center"
-          style={{ fontFamily: "var(--font-jakarta)" }}
-        >
-          From Jesse
-        </p>
         <h2
           className="text-[2rem] sm:text-[2.5rem] font-bold text-navy leading-tight mb-12 text-center"
           style={{ fontFamily: "var(--font-spectral)" }}
         >
-          Recent writing<span className="text-coral">.</span>
+          Blog
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

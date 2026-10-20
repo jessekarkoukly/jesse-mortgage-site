@@ -69,7 +69,7 @@ export default function FAQSection() {
             className="text-[2.25rem] sm:text-[2.75rem] font-bold text-navy leading-tight"
             style={{ fontFamily: "var(--font-spectral)" }}
           >
-            Questions people actually ask.
+            Common questions
           </h2>
         </div>
 

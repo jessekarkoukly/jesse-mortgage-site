@@ -192,7 +192,7 @@ function AccordionCard({
             >
               <path
                 d="M5 7.5L10 12.5L15 7.5"
-                stroke="#E8705A"
+                stroke="#7E6352"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"

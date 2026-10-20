@@ -1,21 +1,23 @@
 "use client";
 
+import { useCallback, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
 import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import LenderTicker from "@/components/LenderTicker";
-import HowICanHelp from "@/components/HowICanHelp";
-import ProcessAccordion from "@/components/ProcessAccordion";
-import AboutSection from "@/components/AboutSection";
-import BrokerVsBank from "@/components/BrokerVsBank";
-import BlogPreview from "@/components/BlogPreview";
+import HomeHero from "@/components/home/HomeHero";
+import WhatBringsYou from "@/components/home/WhatBringsYou";
+import ReviewsStrip from "@/components/home/ReviewsStrip";
+import BrokerDeck from "@/components/home/BrokerDeck";
+import AboutJesse from "@/components/home/AboutJesse";
+import HowItWorks from "@/components/home/HowItWorks";
 import FAQSection from "@/components/FAQSection";
-import EmailCapture from "@/components/EmailCapture";
+import BlogPreview from "@/components/BlogPreview";
+import HelpList from "@/components/home/HelpList";
+import MortgageQuestions from "@/components/home/MortgageQuestions";
+import StoryForm from "@/components/home/StoryForm";
 import SherwoodFooter from "@/components/SherwoodFooter";
 import JesseFooter from "@/components/JesseFooter";
 import HomeJsonLd from "@/components/HomeJsonLd";
-
-const CALENDLY_URL = "https://calendly.com/working-with-jesse/30min";
+import { CALENDLY_URL } from "@/components/home/brand";
 
 function openCalendly() {
   trackEvent("book_call_click");
@@ -23,23 +25,32 @@ function openCalendly() {
 }
 
 export default function HomePage() {
+  const [storyOpen, setStoryOpen] = useState(false);
+  const openStory = useCallback(() => {
+    trackEvent("email_me_click");
+    setStoryOpen(true);
+  }, []);
+  const closeStory = useCallback(() => setStoryOpen(false), []);
+
   return (
     <>
       <HomeJsonLd />
       <Nav onBookingOpen={openCalendly} />
       <main>
-        <Hero onBookingOpen={openCalendly} />
-        <LenderTicker />
-        <HowICanHelp onBookingOpen={openCalendly} />
-        <AboutSection />
-        <BrokerVsBank />
-        <ProcessAccordion />
+        <HomeHero onSchedule={openCalendly} onEmail={openStory} />
+        <WhatBringsYou />
+        <ReviewsStrip />
+        <BrokerDeck />
+        <AboutJesse />
+        <HowItWorks />
         <FAQSection />
         <BlogPreview />
-        <EmailCapture variant="navy" />
+        <HelpList />
+        <MortgageQuestions onSchedule={openCalendly} onEmail={openStory} />
       </main>
       <SherwoodFooter />
       <JesseFooter />
+      <StoryForm open={storyOpen} onClose={closeStory} />
     </>
   );
 }

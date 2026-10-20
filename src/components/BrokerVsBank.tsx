@@ -47,7 +47,7 @@ function CheckIcon() {
   return (
     <span className="w-6 h-6 rounded-full bg-coral/15 flex items-center justify-center shrink-0">
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-        <path d="M2.5 6.5L5 9l4.5-6" stroke="#E8705A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M2.5 6.5L5 9l4.5-6" stroke="#7E6352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </span>
   );
@@ -76,9 +76,9 @@ export default function BrokerVsBank() {
             <div className="flex items-center gap-3 mb-6 pb-5 border-b border-white/10">
               <span className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                  <path d="M10 2L2 7h16L10 2z" stroke="#8A9BAA" strokeWidth="1.5" strokeLinejoin="round" />
-                  <path d="M4 7v8M8 7v8M12 7v8M16 7v8" stroke="#8A9BAA" strokeWidth="1.5" strokeLinecap="round" />
-                  <path d="M2 15h16M3 17h14" stroke="#8A9BAA" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M10 2L2 7h16L10 2z" stroke="#7F9BAA" strokeWidth="1.5" strokeLinejoin="round" />
+                  <path d="M4 7v8M8 7v8M12 7v8M16 7v8" stroke="#7F9BAA" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M2 15h16M3 17h14" stroke="#7F9BAA" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </span>
               <h3
@@ -116,7 +116,7 @@ export default function BrokerVsBank() {
             <div className="flex items-center gap-3 mb-6 pb-5 border-b border-sand-2">
               <span className="w-10 h-10 rounded-xl bg-coral/15 flex items-center justify-center">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                  <path d="M10 2l2.5 5 5.5.8-4 3.9.9 5.3L10 14.5 5.1 17l.9-5.3-4-3.9 5.5-.8L10 2z" stroke="#E8705A" strokeWidth="1.5" strokeLinejoin="round" />
+                  <path d="M10 2l2.5 5 5.5.8-4 3.9.9 5.3L10 14.5 5.1 17l.9-5.3-4-3.9 5.5-.8L10 2z" stroke="#7E6352" strokeWidth="1.5" strokeLinejoin="round" />
                 </svg>
               </span>
               <h3

@@ -55,7 +55,7 @@ export default function HeroCarousel() {
           style={{
             width: `${100 / total}%`,
             background:
-              "radial-gradient(ellipse at 65% 45%, rgba(232,112,90,0.07) 0%, transparent 55%), #ffffff",
+              "radial-gradient(ellipse at 65% 45%, rgba(126,99,82,0.07) 0%, transparent 55%), #ffffff",
           }}
         >
           <h1

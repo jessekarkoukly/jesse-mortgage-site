@@ -6,7 +6,7 @@ interface HeroProps {
 
 export default function Hero({ onBookingOpen }: HeroProps) {
   return (
-    <section className="bg-white pt-16 sm:pt-20 lg:pt-20" style={{ background: "radial-gradient(ellipse at 15% 55%, rgba(232, 112, 90, 0.07) 0%, transparent 55%), #ffffff" }}>
+    <section className="bg-white pt-16 sm:pt-20 lg:pt-20" style={{ background: "radial-gradient(ellipse at 15% 55%, rgba(126, 99, 82, 0.07) 0%, transparent 55%), #ffffff" }}>
       {/* ── Desktop: asymmetric two-column ── */}
       <div className="hidden lg:grid lg:grid-cols-2 items-end">
 

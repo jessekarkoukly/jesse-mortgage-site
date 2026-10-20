@@ -10,7 +10,7 @@ export default function JesseFooter() {
           <Image
             src="/jesse-logo.png"
             alt="Jesse Karkoukly Mortgage Agent"
-            width={180}
+            width={187}
             height={40}
             className="h-8 w-auto brightness-0 invert"
           />
@@ -72,7 +72,7 @@ export default function JesseFooter() {
           style={{ fontFamily: "var(--font-jakarta)" }}
         >
           Jesse Karkoukly, Mortgage Agent Lic. M25003068. Brokerage: Sherwood Mortgage Group,
-          Brokerage Lic. 12176. Part of the Mortgage Architects Network. This website does not
+          Brokerage Lic. 12176. This website does not
           constitute a mortgage approval, commitment, or rate guarantee. All rates and terms
           subject to lender approval.
         </p>

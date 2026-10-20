@@ -69,7 +69,7 @@ function parseDollar(s: string): number {
 function sliderGradientStyle(value: number, min: number, max: number): React.CSSProperties {
   const pct = max === min ? 0 : ((value - min) / (max - min)) * 100;
   return {
-    background: `linear-gradient(to right, #1E2D3D 0%, #E8705A ${pct}%, #E0DDD8 ${pct}%)`,
+    background: `linear-gradient(to right, #352B26 0%, #7E6352 ${pct}%, #E0DDD8 ${pct}%)`,
   };
 }
 
@@ -747,12 +747,12 @@ export default function PurchaseCalculator({ onDownloadReport }: PurchaseCalcula
                 <div className="mt-4">
                   <ResponsiveContainer width="100%" height={240}>
                     <LineChart data={chartData}>
-                      <XAxis dataKey="year" tick={{ fontSize: 11, fill: '#8A9BAA' }} label={{ value: 'Years', position: 'insideBottom', offset: -2, fontSize: 11, fill: '#8A9BAA' }} />
-                      <YAxis tick={{ fontSize: 11, fill: '#8A9BAA' }} tickFormatter={(v: number) => `$${(v / 1000).toFixed(0)}k`} />
+                      <XAxis dataKey="year" tick={{ fontSize: 11, fill: '#7F9BAA' }} label={{ value: 'Years', position: 'insideBottom', offset: -2, fontSize: 11, fill: '#7F9BAA' }} />
+                      <YAxis tick={{ fontSize: 11, fill: '#7F9BAA' }} tickFormatter={(v: number) => `$${(v / 1000).toFixed(0)}k`} />
                       <Tooltip formatter={(value) => fmtDollar(Number(value))} labelFormatter={(label) => `Year ${label}`} contentStyle={{ fontSize: 12, fontFamily: 'var(--font-jakarta)' }} />
                       <Legend wrapperStyle={{ fontSize: 11, fontFamily: 'var(--font-jakarta)' }} />
-                      <Line type="monotone" dataKey="Balance" stroke="#E8705A" strokeWidth={2} dot={{ r: 3, fill: '#E8705A' }} />
-                      <Line type="monotone" dataKey="New Balance" stroke="#1E2D3D" strokeWidth={2} dot={{ r: 3, fill: '#1E2D3D' }} />
+                      <Line type="monotone" dataKey="Balance" stroke="#7E6352" strokeWidth={2} dot={{ r: 3, fill: '#7E6352' }} />
+                      <Line type="monotone" dataKey="New Balance" stroke="#352B26" strokeWidth={2} dot={{ r: 3, fill: '#352B26' }} />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>

@@ -526,7 +526,7 @@ export default function FirstTimeBuyerContent() {
                 >
                   {stressTestOpen ? "Hide the formula" : "See how the formula works"}
                   <svg width="16" height="16" viewBox="0 0 20 20" fill="none" className={`transition-transform duration-300 ${stressTestOpen ? "rotate-180" : ""}`}>
-                    <path d="M5 7.5L10 12.5L15 7.5" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M5 7.5L10 12.5L15 7.5" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
                 <div className="grid transition-[grid-template-rows] duration-300 ease-in-out" style={{ gridTemplateRows: stressTestOpen ? "1fr" : "0fr" }}>
@@ -583,7 +583,7 @@ export default function FirstTimeBuyerContent() {
               >
                 {creditOpen ? "Hide details" : "See the five factors and how to improve"}
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" className={`transition-transform duration-300 ${creditOpen ? "rotate-180" : ""}`}>
-                  <path d="M5 7.5L10 12.5L15 7.5" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
               <div className="grid transition-[grid-template-rows] duration-300 ease-in-out" style={{ gridTemplateRows: creditOpen ? "1fr" : "0fr" }}>
@@ -876,7 +876,7 @@ export default function FirstTimeBuyerContent() {
                         value={homePrice}
                         onChange={(e) => setHomePrice(Number(e.target.value))}
                         className="w-full calc-slider accent-coral"
-                        style={{ accentColor: "#E8705A" }}
+                        style={{ accentColor: "#7E6352" }}
                       />
                       <div className="flex justify-between text-[0.75rem] text-slate mt-1" style={{ fontFamily: "var(--font-jakarta)" }}>
                         <span>$200K</span>
@@ -1063,7 +1063,7 @@ export default function FirstTimeBuyerContent() {
                             >
                               <path
                                 d="M5 7.5L10 12.5L15 7.5"
-                                stroke="#E8705A"
+                                stroke="#7E6352"
                                 strokeWidth="2"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -1184,7 +1184,7 @@ export default function FirstTimeBuyerContent() {
                 >
                   Ready to get started?
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 3v10M4 9l4 4 4-4" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M8 3v10M4 9l4 4 4-4" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </a>
               </div>
@@ -1339,7 +1339,7 @@ export default function FirstTimeBuyerContent() {
               >
                 {owningCostsOpen ? "Hide cost breakdown" : "See the full cost breakdown"}
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" className={`transition-transform duration-300 ${owningCostsOpen ? "rotate-180" : ""}`}>
-                  <path d="M5 7.5L10 12.5L15 7.5" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
 
@@ -1475,7 +1475,7 @@ export default function FirstTimeBuyerContent() {
                         >
                           <path
                             d="M5 7.5L10 12.5L15 7.5"
-                            stroke="#E8705A"
+                            stroke="#7E6352"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"

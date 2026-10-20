@@ -14,14 +14,6 @@ export default function SherwoodFooter() {
             className="object-contain"
           />
         </div>
-
-        {/* Affiliation */}
-        <p
-          className="text-[0.9375rem] font-semibold text-slate text-center sm:text-right"
-          style={{ fontFamily: "var(--font-jakarta)" }}
-        >
-          Part of the Mortgage Architects Network
-        </p>
       </div>
     </section>
   );

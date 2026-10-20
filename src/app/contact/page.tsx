@@ -55,7 +55,7 @@ export default function ContactPage() {
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
                   <path
                     d="M6.5 2H4a2 2 0 00-2 2C2 13.822 8.178 20 17 20a2 2 0 002-2v-2.5a2 2 0 00-2-2l-2.946-.982a2 2 0 00-2.19.547L10.5 14A11.05 11.05 0 018 11.5a11.05 11.05 0 01-2.5-2.5l.935-.364a2 2 0 00.547-2.19L6 4a2 2 0 00-1.5-2z"
-                    stroke="#E8705A"
+                    stroke="#7E6352"
                     strokeWidth="1.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -85,8 +85,8 @@ export default function ContactPage() {
             >
               <div className="w-12 h-12 rounded-full bg-coral/10 flex items-center justify-center shrink-0">
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-                  <rect x="2" y="5" width="18" height="13" rx="2" stroke="#E8705A" strokeWidth="1.5" />
-                  <path d="M2 8l9 5 9-5" stroke="#E8705A" strokeWidth="1.5" strokeLinecap="round" />
+                  <rect x="2" y="5" width="18" height="13" rx="2" stroke="#7E6352" strokeWidth="1.5" />
+                  <path d="M2 8l9 5 9-5" stroke="#7E6352" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </div>
               <div>
@@ -111,11 +111,11 @@ export default function ContactPage() {
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
                   <path
                     d="M11 2a7 7 0 017 7c0 5-7 12-7 12S4 14 4 9a7 7 0 017-7z"
-                    stroke="#E8705A"
+                    stroke="#7E6352"
                     strokeWidth="1.5"
                     strokeLinejoin="round"
                   />
-                  <circle cx="11" cy="9" r="2.5" stroke="#E8705A" strokeWidth="1.5" />
+                  <circle cx="11" cy="9" r="2.5" stroke="#7E6352" strokeWidth="1.5" />
                 </svg>
               </div>
               <div>

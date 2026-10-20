@@ -324,7 +324,7 @@ export default function PreApprovalContent() {
           className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10 pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle, #E8705A 0%, transparent 70%)",
+              "radial-gradient(circle, #7E6352 0%, transparent 70%)",
           }}
         />
         <div className="max-w-3xl mx-auto text-center relative">
@@ -1033,7 +1033,7 @@ export default function PreApprovalContent() {
                         >
                           <path
                             d="M5 7.5L10 12.5L15 7.5"
-                            stroke="#E8705A"
+                            stroke="#7E6352"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -1072,7 +1072,7 @@ export default function PreApprovalContent() {
           className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10 pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle, #E8705A 0%, transparent 70%)",
+              "radial-gradient(circle, #7E6352 0%, transparent 70%)",
           }}
         />
         <div className="max-w-2xl mx-auto text-center relative">

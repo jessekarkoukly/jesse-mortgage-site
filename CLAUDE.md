@@ -15,7 +15,6 @@
 | License | M25003068 |
 | Brokerage | Sherwood Mortgage Group |
 | Brokerage License | 12176 |
-| Network | Part of the Mortgage Architects Network |
 | Phone | 416-276-2666 |
 | Email | jkarkoukly@sherwoodmortgagegroup.com |
 | Location | The Annex, Toronto. Works across Toronto and Ontario. |
@@ -26,7 +25,9 @@
 
 Footer disclaimer — verbatim, no exceptions:
 
-> Jesse Karkoukly, Mortgage Agent Lic. M25003068. Brokerage: Sherwood Mortgage Group, Brokerage Lic. 12176. Part of the Mortgage Architects Network. This website does not constitute a mortgage approval, commitment, or rate guarantee. All rates and terms subject to lender approval.
+> Jesse Karkoukly, Mortgage Agent Lic. M25003068. Brokerage: Sherwood Mortgage Group, Brokerage Lic. 12176. This website does not constitute a mortgage approval, commitment, or rate guarantee. All rates and terms subject to lender approval.
+
+"Part of the Mortgage Architects Network" was dropped by Jesse's choice in October 2026 (Sherwood's guide p.13 asks for it; decision recorded in the brand book).
 
 Sherwood logo (`public/sherwood-logo-lic.png`, official "Digital_Horiz_Lic-Full_Color" artwork from the Sherwood brand kit, licence number built in):
 - Full colour only. Never greyscale. Never resized below 80px wide.
@@ -37,17 +38,22 @@ Sherwood logo (`public/sherwood-logo-lic.png`, official "Digital_Horiz_Lic-Full_
 
 ## DESIGN TOKENS
 
+Brand refresh, October 2026. Source: the Jesse Karkoukly Brand Book (Claude artifact). Tailwind token names were kept so every page picked up the new palette: `navy` = espresso, `sand` = linen, `coral` = clay deep, `coral-dark` = sky deep (hover), `slate` = sky.
+
 | Token | Value |
 |---|---|
-| Navy | `#1E2D3D` |
-| Sand | `#F7F3EE` |
-| Sand Dark | `#EDE7DE` |
-| Coral | `#E8705A` |
-| Slate | `#8A9BAA` |
-| Headline font | Spectral 700 / 800 |
+| Espresso (text, buttons, dark sections) | `#352B26` |
+| Linen (light sections) | `#F5EFE8` |
+| Clay (buttons on dark, accents) | `#A88A78` |
+| Clay deep (labels, accent text) | `#7E6352` |
+| Sky | `#7F9BAA` |
+| Sky deep (hover, focus ring, small labels) | `#4F6B7A` |
+| Headline font | Newsreader 400 / 500 (loaded under the `--font-spectral` variable name) |
 | Body font | Plus Jakarta Sans 400 / 600 / 700 |
-| Logo | "Jesse." Spectral 700, coral period. "Karkoukly" below in Spectral 400. |
-| Favicon | JK. — sand on navy, coral period |
+| Labels | Newsreader italic, sentence case. Never small spaced capitals. |
+| Hover | Colour change only to sky (light buttons to `#4F6B7A`, dark buttons to `#9DB6C3`), 150ms. |
+| Logo | P4 slatted door + "Jesse Karkoukly" with "Mortgage Agent" in italic (`public/jesse-logo.png`). |
+| Favicon | P4 slatted door on linen. A bolder small-size version is still to come. |
 
 ---
 
@@ -55,7 +61,8 @@ Sherwood logo (`public/sherwood-logo-lic.png`, official "Digital_Horiz_Lic-Full_
 
 | File | Use |
 |---|---|
-| `public/jesse-hero.jpg` | Homepage hero only |
+| `public/jesse-hero-arch.jpg` | Homepage hero (sunlit wall headshot, arch crop). Above the headline on mobile. |
+| `public/jesse-hero.jpg` | Old hero, retired from the homepage |
 | `public/jesse-about.jpg` | Homepage about section + Annex neighbourhood page only |
 | `public/sherwood-logo-lic.png` | Compliance footer, full colour, every page (official artwork with Brokerage Lic. 12176) |
 | `public/blog/jesse-face.jpg` | Blog byline avatar |
@@ -116,6 +123,8 @@ One component: `BookingModal`. Label is contextual per page.
 | `/services/cottage` | `Book a Call` | `'cottage'` |
 | `/neighbourhoods/*` | `Book a Call` | `null` |
 | All others | `Book a Call` | `null` |
+
+**Homepage (October 2026):** hero buttons are `Schedule a call` (Calendly) and `Email me` (opens the "Tell me a little about your story" form, `src/components/home/StoryForm.tsx`, posting to `/api/story`). The "Mortgage questions?" section uses `Drop me a note` (same form) and `Schedule a call`.
 
 **Nav CTA:** `Book a Call` — navy background, white text. Coral is reserved for page-level CTAs only.
 
@@ -260,6 +269,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 ## SESSION LOG
 
 Newest first.
+
+**2026-10-20: Brand refresh and homepage rebuild**
+New palette, Newsreader headlines, P4 logo and favicon applied site-wide through the theme tokens in `globals.css` (hardcoded old hex values swapped too). Spaced-caps labels render as Newsreader italic via a global rule. Homepage rebuilt from the approved design (sections in `src/components/home/`): hero, What brings you here, rolling Google reviews (4 approved, no stars, links to the Google profile and review link), broker vs bank swipe deck, About, How it works (6 steps, Keys in hand highlighted), Common questions, Blog, Everything I help with, Mortgage questions, and the "Every door, walked through together." band. Lender ticker, rates teaser and newsletter block are off the homepage. Google Business Profile link updated in `sameAs`. Mortgage Architects line removed from the footers. The story form (`/api/story`) emails Jesse through Resend (needs `RESEND_API_KEY`) and saves a row in `leads` with source `homepage_story_form`; it succeeds if either works.
 
 **2026-10-17: SEO sweep, metadata cleanup**
 Link-preview tags (Open Graph, Twitter) now come from `social()` in `src/lib/seo.ts`, so they always match the page title and description and carry the shared image. Old previews had stale titles, "Free, no obligation" wording and no image. Service page FAQs live in `src/data/faqs/` and feed both the visible FAQ and the FAQPage schema, so they cannot drift apart again (all 7 had drifted). Homepage has one `<h1>` (mobile); the desktop copy is `role="heading"`. Homepage Person and FinancialService schema carry `@id`s that the blog schema references. Sitemap includes `/services`, `/services/purchases-and-investment`, `/calculators/mortgage-calculator`.
