@@ -3,6 +3,7 @@
 import { DEBT_CONSOLIDATION_FAQ } from "@/data/faqs/debt-consolidation";
 
 import { useState, useEffect, useRef, useMemo } from "react";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── FAQ data ── */
 const FAQ_ITEMS = DEBT_CONSOLIDATION_FAQ;
@@ -264,6 +265,7 @@ export default function DebtConsolidationContent() {
             Carrying high-interest debt on top of a mortgage? Your equity might
             change the math.
           </h1>
+          <ServiceByline updated="2026-10-20" path="/services/debt-consolidation" name="Debt Consolidation Mortgages" />
           <p
             className="text-sand/80 text-[1.0625rem] md:text-[1.125rem] leading-relaxed max-w-2xl mx-auto mb-10"
             style={{ fontFamily: "var(--font-jakarta)" }}

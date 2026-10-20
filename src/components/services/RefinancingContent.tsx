@@ -4,6 +4,7 @@ import { REFINANCING_FAQ } from "@/data/faqs/refinancing";
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── FAQ data ── */
 const FAQ_ITEMS = REFINANCING_FAQ;
@@ -238,6 +239,7 @@ export default function RefinancingContent() {
           >
             Is breaking your mortgage early actually worth it? Let&rsquo;s find out.
           </h1>
+          <ServiceByline updated="2026-10-20" path="/services/refinancing" name="Mortgage Refinancing" />
           <p
             className="text-sand/80 text-[1.0625rem] md:text-[1.125rem] leading-relaxed max-w-2xl mx-auto mb-10"
             style={{ fontFamily: "var(--font-jakarta)" }}

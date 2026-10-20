@@ -3,6 +3,7 @@
 import { SELF_EMPLOYED_FAQ } from "@/data/faqs/self-employed";
 
 import { useState, useEffect, useRef } from "react";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── TOC sections ── */
 const TOC_ITEMS = [
@@ -343,6 +344,7 @@ export default function SelfEmployedContent() {
             <span className="text-coral">real.</span> Your tax return
             just does not show it.
           </h1>
+          <ServiceByline updated="2026-10-20" path="/services/self-employed" name="Self-Employed Mortgages in Ontario" />
           <p
             className="text-slate text-[1.0625rem] md:text-[1.125rem] leading-relaxed max-w-2xl mx-auto mb-10"
             style={{ fontFamily: "var(--font-jakarta)" }}

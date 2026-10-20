@@ -4,6 +4,7 @@ import { RENEWAL_FAQ } from "@/data/faqs/renewal";
 
 import { useState, useEffect, useRef } from "react";
 import RenewalCapture from "@/components/RenewalCapture";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── FAQ ── */
 const FAQ_ITEMS = RENEWAL_FAQ;
@@ -89,6 +90,7 @@ export default function RenewalContent() {
             Your lender sent a renewal offer. Before you sign, find out what you
             can actually get.
           </h1>
+          <ServiceByline updated="2026-10-20" path="/services/renewal" name="Mortgage Renewal" />
           <p
             className="text-sand/80 text-[1.0625rem] md:text-[1.125rem] leading-relaxed max-w-2xl mx-auto mb-10"
             style={{ fontFamily: "var(--font-jakarta)" }}

@@ -4,6 +4,7 @@ import { PRE_APPROVAL_FAQ } from "@/data/faqs/pre-approval";
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── TOC ── */
 const TOC_ITEMS = [
@@ -340,6 +341,7 @@ export default function PreApprovalContent() {
             Before you fall in love with a home, find out what you can{" "}
             <span className="text-coral">actually</span> afford.
           </h1>
+          <ServiceByline updated="2026-10-20" path="/services/pre-approval" name="Mortgage Pre-Approval" />
           <p
             className="text-[1.0625rem] text-slate leading-relaxed max-w-2xl mx-auto mb-8"
             style={{ fontFamily: "var(--font-jakarta)" }}

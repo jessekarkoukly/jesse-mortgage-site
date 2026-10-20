@@ -4,6 +4,7 @@ import { COTTAGE_FAQ } from "@/data/faqs/cottage";
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── TOC sections ── */
 const TOC_ITEMS = [
@@ -139,6 +140,7 @@ export default function CottageContent() {
             <span className="text-coral">.</span> Know them before you make an
             offer.
           </h1>
+          <ServiceByline updated="2026-10-20" path="/services/cottage" name="Cottage and Vacation Property Mortgages" />
           <p
             className="text-slate text-[1.0625rem] md:text-[1.125rem] leading-relaxed max-w-2xl mx-auto mb-10"
             style={{ fontFamily: "var(--font-jakarta)" }}

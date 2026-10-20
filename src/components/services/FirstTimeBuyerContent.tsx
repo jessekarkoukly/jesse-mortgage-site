@@ -5,6 +5,7 @@ import { FIRST_TIME_BUYERS_FAQ } from "@/data/faqs/first-time-buyers";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import BrokerVsBank from "@/components/BrokerVsBank";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── TOC sections ── */
 const TOC_ITEMS = [
@@ -198,6 +199,7 @@ export default function FirstTimeBuyerContent() {
               The most prepared buyers make the best{" "}
               <span className="text-coral">decisions.</span>
             </h1>
+            <ServiceByline updated="2026-10-20" path="/services/first-time-buyers" name="First-Time Home Buyer Mortgages" />
             <p
               className="text-[1.0625rem] text-slate leading-relaxed max-w-lg mb-8"
               style={{ fontFamily: "var(--font-jakarta)" }}
