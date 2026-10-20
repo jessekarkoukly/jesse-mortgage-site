@@ -18,7 +18,7 @@ export const FAQS = [
   },
   {
     q: "What first-time home buyer programs can I use in Ontario?",
-    a: "The main ones are the First Home Savings Account (FHSA), the RRSP Home Buyers' Plan and the land transfer tax refund. The FHSA lets you save up to $40,000 with tax-deductible contributions and tax-free withdrawals. The Home Buyers' Plan lets you take up to $60,000 from your RRSP and pay it back over time. First-time buyers can get up to $4,000 back on Ontario land transfer tax, plus up to $4,475 on Toronto's. Which ones you qualify for depends on your situation, and we go through that together.",
+    a: "The main ones are the First Home Savings Account (FHSA), the RRSP Home Buyers' Plan and the land transfer tax refund. The FHSA lets you save up to $40,000 with tax-deductible contributions and tax-free withdrawals. The Home Buyers' Plan lets you take up to $60,000 from your RRSP and pay it back over time. First-time buyers can get up to $4,000 back on Ontario land transfer tax, plus up to $4,475 on Toronto's. Which ones you qualify for depends on your situation, and Jesse walks through that with you.",
   },
   {
     q: "I'm self-employed or my income is complicated. Can I still get approved?",
