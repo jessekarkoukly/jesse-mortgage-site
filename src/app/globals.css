@@ -214,7 +214,7 @@ button, a {
   --jk-btn-fg: #FFFFFF;
   --jk-line: #C9B6A5;
 }
-:is(.bg-navy, .bg-navy-2, .bg-coral, [class*="bg-[#352B26]"], [class*="bg-[#4A3E37]"], [class*="bg-[#2"]) {
+:is(.bg-navy, .bg-navy-2, .bg-coral, [class*="bg-[#352B26]"], [class*="bg-[#4A3E37]"], [class*="bg-[#7E6352]"], [class*="bg-[#2"]) {
   --jk-accent: #D2B8A6;   /* light clay */
   --jk-muted: #C9BDB3;
   --jk-body2: #D8CCC0;
@@ -231,3 +231,13 @@ button, a {
 .bg-coral { background-color: var(--jk-btn-bg); color: var(--jk-btn-fg); }
 .bg-coral.text-white, .bg-coral .text-white { color: var(--jk-btn-fg); }
 :is(.bg-navy, .bg-navy-2) :is(.bg-coral:hover, .hover\:bg-coral-dark:hover) { background-color: #9DB6C3; color: #352B26; }
+
+/* Faded text readability (October 2026 audit).
+   Older pages fade text with opacity classes, which dropped below 4.5:1 on linen and espresso.
+   These follow the nearest background through the same variables as the accent colours. */
+.text-navy\/40, .text-navy\/50, .text-navy\/60, .text-navy\/70, .text-navy-2\/70 { color: var(--jk-body2); }
+.text-sand\/40, .text-sand\/50, .text-sand\/60 { color: var(--jk-muted); }
+.bg-coral\/80 { background-color: var(--jk-btn-bg); color: var(--jk-btn-fg); }
+
+/* Wide tables that scroll sideways on phones can be reached by keyboard. */
+.table-wrap:focus-visible, [data-scroll-region]:focus-visible { outline: 2px solid #4F6B7A; outline-offset: 2px; }

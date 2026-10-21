@@ -251,7 +251,7 @@ export default function DebtConsolidationContent() {
 
   /* ── Shared styles ── */
   const darkInputClass =
-    "w-full rounded-lg bg-navy-2 border border-navy/40 px-4 py-3 text-navy text-[0.9375rem] focus:outline-none focus:ring-2 focus:ring-coral/40 placeholder:text-slate/50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
+    "w-full rounded-lg bg-navy-2 border border-[#6B5B52] px-4 py-3 text-[#F5EFE8] text-[0.9375rem] focus:outline-none focus:ring-2 focus:ring-[#9DB6C3] placeholder:text-[#B8AA9F] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
 
   return (
     <>
@@ -602,7 +602,7 @@ export default function DebtConsolidationContent() {
                 Comparing your consolidation options
               </h2>
 
-              <div className="overflow-x-auto -mx-5 px-5">
+              <div className="overflow-x-auto -mx-5 px-5" tabIndex={0} role="group" aria-label="Scrollable table" data-scroll-region>
                 <table
                   className="w-full min-w-[600px] text-[0.875rem]"
                   style={{ fontFamily: "var(--font-jakarta)" }}
@@ -761,6 +761,7 @@ export default function DebtConsolidationContent() {
                             Type
                           </label>
                           <select
+                            aria-label="Debt type"
                             value={debt.type}
                             onChange={(e) =>
                               updateDebt(i, "type", e.target.value)
@@ -783,6 +784,7 @@ export default function DebtConsolidationContent() {
                             Balance ($)
                           </label>
                           <input
+                            aria-label="Balance"
                             type="number"
                             value={debt.balance}
                             onChange={(e) =>
@@ -801,6 +803,7 @@ export default function DebtConsolidationContent() {
                             Rate (%)
                           </label>
                           <input
+                            aria-label="Interest rate"
                             type="number"
                             step="0.01"
                             value={debt.rate}
@@ -820,6 +823,7 @@ export default function DebtConsolidationContent() {
                             Monthly Payment ($)
                           </label>
                           <input
+                            aria-label="Monthly payment"
                             type="number"
                             value={debt.payment}
                             onChange={(e) =>
@@ -879,6 +883,7 @@ export default function DebtConsolidationContent() {
                       Estimated home value ($)
                     </label>
                     <input
+                      aria-label="Estimated home value"
                       type="number"
                       value={homeValue}
                       onChange={(e) => setHomeValue(e.target.value)}
@@ -895,6 +900,7 @@ export default function DebtConsolidationContent() {
                       Current mortgage balance ($)
                     </label>
                     <input
+                      aria-label="Current mortgage balance"
                       type="number"
                       value={mortgageBalance}
                       onChange={(e) => setMortgageBalance(e.target.value)}
@@ -911,6 +917,7 @@ export default function DebtConsolidationContent() {
                       Current mortgage rate (%)
                     </label>
                     <input
+                      aria-label="Current mortgage rate"
                       type="number"
                       step="0.01"
                       value={mortgageRate}
@@ -928,6 +935,7 @@ export default function DebtConsolidationContent() {
                       Amortization remaining (years)
                     </label>
                     <input
+                      aria-label="Amortization remaining in years"
                       type="number"
                       value={amortRemaining}
                       onChange={(e) => setAmortRemaining(e.target.value)}

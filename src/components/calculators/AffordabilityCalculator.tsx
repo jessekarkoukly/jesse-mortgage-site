@@ -325,6 +325,7 @@ function solveMaxMortgageAndHomePrice(
 /* ── Slider Input (with editable text field) ── */
 function SliderInput({
   label,
+  ariaLabel,
   value,
   min,
   max,
@@ -336,6 +337,8 @@ function SliderInput({
   formatDisplay,
 }: {
   label: string;
+  /** Screen reader name when the visible label is shown elsewhere */
+  ariaLabel?: string;
   value: number;
   min: number;
   max: number;
@@ -386,6 +389,7 @@ function SliderInput({
         <div className="flex items-center gap-1 mb-2">
           {prefix && <span className="text-slate text-[1rem]">{prefix}</span>}
           <input
+            aria-label={ariaLabel ?? label}
             type="number"
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
@@ -407,6 +411,7 @@ function SliderInput({
         </p>
       )}
       <input
+        aria-label={ariaLabel ?? label}
         type="range"
         min={min}
         max={max}
@@ -525,7 +530,7 @@ export default function AffordabilityCalculator() {
                 <SliderInput label="Person 2" value={income2} min={0} max={500000} step={5000} onChange={setIncome2} />
               </div>
             ) : (
-              <SliderInput label="" value={grossIncome} min={30000} max={1000000} step={5000} onChange={setGrossIncome} />
+              <SliderInput label="" ariaLabel="Household income" value={grossIncome} min={30000} max={1000000} step={5000} onChange={setGrossIncome} />
             )}
 
             {isSplit && (
@@ -608,6 +613,7 @@ export default function AffordabilityCalculator() {
                 <div className="flex items-center gap-1 bg-white border border-[#E5E7EB] rounded-lg px-2.5 py-1.5">
                   <span className="text-slate text-[0.8125rem]">$</span>
                   <input
+                    aria-label="Property tax"
                     type="number"
                     value={propTaxOverride !== null ? propTaxOverride : Math.round(autoPropTax)}
                     onChange={(e) => {

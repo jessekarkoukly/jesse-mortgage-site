@@ -146,6 +146,7 @@ function InputBox({
           {label}
         </label>
         <input
+          aria-label={label}
           type="text"
           value={focused ? inputVal : displayVal}
           onFocus={handleInputFocus}
@@ -156,6 +157,7 @@ function InputBox({
           style={{ fontFamily: 'var(--font-jakarta)' }}
         />
         <input
+          aria-label={label}
           type="range"
           min={sliderMin}
           max={sliderMax}
@@ -202,6 +204,7 @@ function SelectBox({
         </label>
         <div className="flex items-center mt-auto">
           <select
+            aria-label={label}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             className="w-full text-[0.875rem] font-semibold text-navy bg-transparent border-none outline-none p-0 cursor-pointer appearance-none"
@@ -250,6 +253,7 @@ function DualInputBox({
         <div className="bg-white border border-gray-200 rounded-xl p-3">
           <span className="block text-[0.625rem] text-slate mb-0.5" style={{ fontFamily: 'var(--font-jakarta)' }}>Monthly</span>
           <input
+            aria-label={label}
             type="text"
             value={mFocused ? mInput : fmtDollar(monthlyValue)}
             onFocus={() => { setMFocused(true); setMInput(String(Math.round(monthlyValue))); }}
@@ -263,6 +267,7 @@ function DualInputBox({
         <div className="bg-white border border-gray-200 rounded-xl p-3">
           <span className="block text-[0.625rem] text-slate mb-0.5" style={{ fontFamily: 'var(--font-jakarta)' }}>Yearly</span>
           <input
+            aria-label={label}
             type="text"
             value={yFocused ? yInput : fmtDollar(monthlyValue * 12)}
             onFocus={() => { setYFocused(true); setYInput(String(Math.round(monthlyValue * 12))); }}
@@ -710,7 +715,11 @@ export default function PurchaseCalculator({ onDownloadReport }: PurchaseCalcula
               Pay your mortgage faster
             </span>
             <button
-              onClick={() => setPayFasterEnabled(!payFasterEnabled)}
+              type="button"
+                role="switch"
+                aria-checked={payFasterEnabled}
+                aria-label="Pay your mortgage faster"
+                onClick={() => setPayFasterEnabled(!payFasterEnabled)}
               className={`w-11 h-6 rounded-full p-0.5 transition-colors cursor-pointer ${payFasterEnabled ? 'bg-coral' : 'bg-slate/30'}`}
             >
               <div className={`w-5 h-5 rounded-full bg-white shadow transition-transform ${payFasterEnabled ? 'translate-x-5' : 'translate-x-0'}`} />
@@ -779,7 +788,11 @@ export default function PurchaseCalculator({ onDownloadReport }: PurchaseCalcula
               Add Rental Income
             </span>
             <button
-              onClick={() => setRentalEnabled(!rentalEnabled)}
+              type="button"
+                role="switch"
+                aria-checked={rentalEnabled}
+                aria-label="Add rental income"
+                onClick={() => setRentalEnabled(!rentalEnabled)}
               className={`w-11 h-6 rounded-full p-0.5 transition-colors cursor-pointer ${rentalEnabled ? 'bg-coral' : 'bg-slate/30'}`}
             >
               <div className={`w-5 h-5 rounded-full bg-white shadow transition-transform ${rentalEnabled ? 'translate-x-5' : 'translate-x-0'}`} />

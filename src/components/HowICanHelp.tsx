@@ -243,7 +243,7 @@ function AccordionCard({
                   className="inline-flex items-center gap-2 bg-coral text-white text-[1rem] font-bold px-7 py-4 rounded-xl hover:bg-coral-dark hover:scale-[1.03] active:scale-95 transition-all min-h-[48px] shadow-lg shadow-coral/20"
                   style={{ fontFamily: "var(--font-jakarta)" }}
                 >
-                  Learn More
+                  Learn More<span className="sr-only"> about {card.title}</span>
                   <svg
                     width="18"
                     height="18"
@@ -290,12 +290,12 @@ export default function HowICanHelp({
           >
             Services
           </p>
-          <h2
+          <h1
             className="text-[2.25rem] sm:text-[3rem] font-bold text-navy leading-tight mb-5"
             style={{ fontFamily: "var(--font-spectral)" }}
           >
             How I Can Help<span className="text-coral">.</span>
-          </h2>
+          </h1>
           <p
             className="text-[1.125rem] text-navy-2 leading-relaxed max-w-2xl mx-auto"
             style={{ fontFamily: "var(--font-jakarta)" }}

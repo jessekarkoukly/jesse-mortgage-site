@@ -269,7 +269,7 @@ export default function FirstTimeBuyerContent() {
                     {row.program}
                   </span>
                   <span
-                    className="text-[0.8125rem] font-semibold text-emerald-600 shrink-0 ml-4"
+                    className="text-[0.8125rem] font-semibold text-[#4F6B7A] shrink-0 ml-4"
                     style={{ fontFamily: "var(--font-jakarta)" }}
                   >
                     {row.amount}
@@ -385,7 +385,7 @@ export default function FirstTimeBuyerContent() {
                 <p className="text-[1rem] text-navy-2 leading-relaxed mb-4" style={{ fontFamily: "var(--font-jakarta)" }}>
                   Your down payment is the portion of the price you pay upfront. The rest becomes your mortgage. In Canada, the minimum depends on the price of the home.
                 </p>
-                <div className="overflow-x-auto mb-4">
+                <div className="overflow-x-auto mb-4" tabIndex={0} role="group" aria-label="Scrollable table" data-scroll-region>
                   <table className="w-full text-left text-[0.875rem]" style={{ fontFamily: "var(--font-jakarta)" }}>
                     <thead>
                       <tr className="bg-navy text-sand">
@@ -494,7 +494,7 @@ export default function FirstTimeBuyerContent() {
                     <p className="text-[0.875rem] text-slate" style={{ fontFamily: "var(--font-jakarta)" }}>It affects whether you qualify and what rate you get. The higher the number, the lower the risk, and the better the rate.</p>
                   </div>
                 </div>
-                <div className="overflow-x-auto mb-4">
+                <div className="overflow-x-auto mb-4" tabIndex={0} role="group" aria-label="Scrollable table" data-scroll-region>
                   <table className="w-full text-left text-[0.875rem]" style={{ fontFamily: "var(--font-jakarta)" }}>
                     <thead>
                       <tr className="bg-navy text-sand">
@@ -673,7 +673,7 @@ export default function FirstTimeBuyerContent() {
               >
                 Here is the honest timeline. These assume you are actively paying down balances, making every payment on time, and not adding new debt.
               </p>
-              <div className="overflow-x-auto mb-6">
+              <div className="overflow-x-auto mb-6" tabIndex={0} role="group" aria-label="Scrollable table" data-scroll-region>
                 <table className="w-full text-left text-[0.875rem]" style={{ fontFamily: "var(--font-jakarta)" }}>
                   <thead>
                     <tr className="bg-navy text-sand">
@@ -732,7 +732,7 @@ export default function FirstTimeBuyerContent() {
               </p>
 
               {/* Table 1 */}
-              <div className="overflow-x-auto mb-6">
+              <div className="overflow-x-auto mb-6" tabIndex={0} role="group" aria-label="Scrollable table" data-scroll-region>
                 <table className="w-full text-left text-[0.875rem]" style={{ fontFamily: "var(--font-jakarta)" }}>
                   <thead>
                     <tr className="bg-navy text-sand">
@@ -788,7 +788,7 @@ export default function FirstTimeBuyerContent() {
               >
                 CMHC Insurance Premiums
               </h3>
-              <div className="overflow-x-auto mb-6">
+              <div className="overflow-x-auto mb-6" tabIndex={0} role="group" aria-label="Scrollable table" data-scroll-region>
                 <table className="w-full text-left text-[0.875rem]" style={{ fontFamily: "var(--font-jakarta)" }}>
                   <thead>
                     <tr className="bg-navy text-sand">
@@ -882,6 +882,7 @@ export default function FirstTimeBuyerContent() {
                         max={3000000}
                         step={10000}
                         value={homePrice}
+                        aria-label="Target home price"
                         onChange={(e) => setHomePrice(Number(e.target.value))}
                         className="w-full calc-slider accent-coral"
                         style={{ accentColor: "#7E6352" }}
@@ -1055,7 +1056,7 @@ export default function FirstTimeBuyerContent() {
                           </div>
                           <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 pl-0 sm:pl-0">
                             <span
-                              className="text-[1rem] font-bold text-emerald-600"
+                              className="text-[1rem] font-bold text-[#4F6B7A]"
                               style={{ fontFamily: "var(--font-spectral)" }}
                             >
                               {prog.amount}
@@ -1133,12 +1134,12 @@ export default function FirstTimeBuyerContent() {
               {/* Stacking banner */}
               <div className="bg-navy rounded-xl mt-6 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                 <div>
-                  <h4
+                  <h3
                     className="text-[1.125rem] font-bold text-sand mb-2"
                     style={{ fontFamily: "var(--font-spectral)" }}
                   >
                     The stacking story is the real headline.
-                  </h4>
+                  </h3>
                   <p
                     className="text-[0.8125rem] text-slate leading-relaxed max-w-lg"
                     style={{ fontFamily: "var(--font-jakarta)" }}
@@ -1415,6 +1416,7 @@ export default function FirstTimeBuyerContent() {
                     className="bg-white border border-sand-2 rounded-xl p-5 border-t-[3px] border-t-coral"
                   >
                     <p
+                      aria-hidden="true"
                       className="text-[2rem] font-bold text-coral/20 mb-2"
                       style={{ fontFamily: "var(--font-spectral)" }}
                     >

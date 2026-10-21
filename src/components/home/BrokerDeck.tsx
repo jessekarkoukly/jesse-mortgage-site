@@ -252,11 +252,11 @@ export default function BrokerDeck() {
           <div className="flex items-center justify-center gap-5">
             <button type="button" aria-label="Previous reason" onClick={() => { stopDemo(); setIdx((i) => (i + N - 1) % N); setDx(0); setOut(0); }}
               className="cursor-pointer w-12 h-12 rounded-full border-[1.5px] border-[#D8CCC0] bg-white text-[#352B26] text-lg hover:border-[#4F6B7A] hover:text-[#4F6B7A] transition-colors duration-150">←</button>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-0">
               {REASONS.map((r, i) => (
                 <button key={r.title} type="button" aria-label={`Reason ${i + 1} of ${N}`} aria-current={i === idx}
                   onClick={() => { stopDemo(); setIdx(i); setDx(0); setOut(0); }}
-                  className="cursor-pointer p-1.5 -m-1.5"
+                  className="cursor-pointer h-12 min-w-[28px] px-1.5 flex items-center justify-center"
                 >
                   <span className="block h-2.5 rounded-full" style={{ width: i === idx ? 34 : 10, background: i === idx ? B.clay : "#D8CCC0", transition: "width 0.4s ease, background 0.4s ease" }} />
                 </button>

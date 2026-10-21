@@ -15,6 +15,7 @@ export default function HomeHero({ onSchedule, onEmail }: Props) {
             width={1000}
             height={1250}
             priority
+            sizes="(min-width: 1024px) 340px, (min-width: 640px) 300px, 240px"
             className="w-[240px] h-[300px] sm:w-[300px] sm:h-[375px] lg:w-[340px] lg:h-[430px] object-cover"
             style={{ borderRadius: "999px 999px 18px 18px" }}
           />

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { social } from "@/lib/seo";
 import Link from "next/link";
+import ServiceByline from "@/components/ServiceByline";
 import PageShell from "@/components/PageShell";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
 
@@ -31,6 +32,7 @@ export default function PurchasesInvestmentPage() {
           >
             Purchase and Investment Property Mortgages in Toronto
           </h1>
+          <ServiceByline updated="2026-10-20" path="/services/purchases-and-investment" name="Purchase and Investment Property Mortgages" />
           <p
             className="text-[1.125rem] text-navy-2 leading-relaxed max-w-2xl"
             style={{ fontFamily: "var(--font-jakarta)" }}

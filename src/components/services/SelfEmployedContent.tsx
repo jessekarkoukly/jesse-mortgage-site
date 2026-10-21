@@ -487,7 +487,7 @@ export default function SelfEmployedContent() {
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-navy/60 text-[0.8125rem]" style={{ fontFamily: "var(--font-jakarta)" }}>Write-offs</span>
-                        <span className="text-red-500 font-semibold text-[0.9375rem]" style={{ fontFamily: "var(--font-jakarta)" }}>-$138,000</span>
+                        <span className="text-red-700 font-semibold text-[0.9375rem]" style={{ fontFamily: "var(--font-jakarta)" }}>-$138,000</span>
                       </div>
                       <div className="border-t border-sand-2 pt-3 flex justify-between items-center">
                         <span className="text-navy font-semibold text-[0.8125rem]" style={{ fontFamily: "var(--font-jakarta)" }}>NOA Line 15000</span>
@@ -1101,7 +1101,7 @@ export default function SelfEmployedContent() {
                         <div className="px-4 pb-4 pt-0 ml-9">
                           <div className="space-y-3">
                             <div>
-                              <p className="text-[0.6875rem] font-bold text-red-500/70 uppercase tracking-widest mb-1" style={{ fontFamily: "var(--font-jakarta)" }}>
+                              <p className="text-[0.6875rem] font-bold text-red-700/70 uppercase tracking-widest mb-1" style={{ fontFamily: "var(--font-jakarta)" }}>
                                 Why it hurts
                               </p>
                               <p className="text-navy/60 text-[0.875rem] leading-relaxed" style={{ fontFamily: "var(--font-jakarta)" }}>

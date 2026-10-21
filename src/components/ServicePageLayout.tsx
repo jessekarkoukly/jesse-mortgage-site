@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import ServiceByline from "@/components/ServiceByline";
 
 interface ServicePageLayoutProps {
   eyebrow: string;
@@ -12,6 +13,8 @@ interface ServicePageLayoutProps {
   }[];
   bullets?: string[];
   ctaText?: string;
+  /** Author line and last-updated date under the headline */
+  byline?: { updated: string; path: string; name: string };
 }
 
 export default function ServicePageLayout({
@@ -21,6 +24,7 @@ export default function ServicePageLayout({
   sections,
   bullets,
   ctaText = "Book a Call",
+  byline,
 }: ServicePageLayoutProps) {
   const handleBookCall = () => {
     window.dispatchEvent(new CustomEvent("open-booking-modal"));
@@ -43,6 +47,7 @@ export default function ServicePageLayout({
           >
             {title}
           </h1>
+          {byline && <ServiceByline {...byline} />}
           <p
             className="text-[1.0625rem] text-navy-2 leading-relaxed max-w-2xl"
             style={{ fontFamily: "var(--font-jakarta)" }}
