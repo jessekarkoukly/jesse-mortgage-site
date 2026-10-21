@@ -112,21 +112,21 @@ One component: `BookingModal`. Label is contextual per page.
 
 | Page | CTA Label | Goal pre-population |
 |---|---|---|
-| Homepage | `Book a Call` | `null` |
-| `/working-with-jesse` | `Book a Call` | `null` |
+| Homepage | `Schedule a call` | `null` |
+| `/working-with-jesse` | `Schedule a call` | `null` |
 | `/services/first-time-buyers` | `Book an Intro Call` | `'first_time_buyer'` |
 | `/services/pre-approval` | `Book a Pre-Approval Call` | `'pre_approval'` |
-| `/services/renewal` | `Book a Call` | `'renewal'` |
-| `/services/self-employed` | `Book a Call` | `'self_employed'` |
-| `/services/refinancing` | `Book a Call` | `'refinancing'` |
-| `/services/debt-consolidation` | `Book a Call` | `'debt_consolidation'` |
-| `/services/cottage` | `Book a Call` | `'cottage'` |
-| `/neighbourhoods/*` | `Book a Call` | `null` |
-| All others | `Book a Call` | `null` |
+| `/services/renewal` | `Schedule a call` | `'renewal'` |
+| `/services/self-employed` | `Schedule a call` | `'self_employed'` |
+| `/services/refinancing` | `Schedule a call` | `'refinancing'` |
+| `/services/debt-consolidation` | `Schedule a call` | `'debt_consolidation'` |
+| `/services/cottage` | `Schedule a call` | `'cottage'` |
+| `/neighbourhoods/*` | `Schedule a call` | `null` |
+| All others | `Schedule a call` | `null` |
 
-**Homepage (October 2026):** hero buttons are `Schedule a call` (Calendly) and `Email me` (opens the "Tell me a little about your story" form, `src/components/home/StoryForm.tsx`, posting to `/api/story`). The "Mortgage questions?" section uses `Drop me a note` (same form) and `Schedule a call`.
+**Labels (October 21, 2026, Jesse's call, site-wide):** every booking button reads `Schedule a call` (sentence case). Buttons that start a direct email read `Start the conversation`: the homepage hero and "Mortgage questions?" buttons open the "Tell me a little about your story" form (`src/components/home/StoryForm.tsx`, posting to `/api/story`); the blog post's ask box opens an email. `Book an Intro Call` and `Book a Pre-Approval Call` were not part of this change.
 
-**Nav CTA:** `Book a Call` — navy background, white text. Coral is reserved for page-level CTAs only.
+**Nav CTA:** `Schedule a call` — navy background, white text. Coral is reserved for page-level CTAs only.
 
 **Secondary CTA:** `How It Works →` — ghost style, links to `/working-with-jesse`. Never opens modal.
 
@@ -155,7 +155,7 @@ const payment = principal * (periodicRate * Math.pow(1 + periodicRate, n))
                 / (Math.pow(1 + periodicRate, n) - 1);
 ```
 
-Every calculator result ends with: "Want Jesse to run your exact numbers? It takes one call." CTA: `Book a Call` → BookingModal.
+Every calculator result ends with: "Want Jesse to run your exact numbers? It takes one call." CTA: `Schedule a call` → BookingModal.
 
 ---
 
@@ -234,7 +234,7 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 - Two-track: full-width stacked cards, thumb-friendly
 - "How I Can Help" accordion: ALL closed by default on mobile
 - Calculator pill: bottom-right, perfect thumb zone
-- Sticky "Book a Call" bar: appears after 400px scroll, bottom of screen, does not obscure content
+- Sticky "Schedule a call" bar: appears after 400px scroll, bottom of screen, does not obscure content
 - Reviews: horizontal scroll on mobile, not stacked
 - Broker vs Bank table: compress to 3 rows or convert to two cards on mobile
 - No pop-ups. Mortgage audience skews older.

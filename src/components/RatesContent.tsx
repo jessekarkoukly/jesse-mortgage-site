@@ -201,7 +201,7 @@ export default function RatesContent() {
             className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark hover:scale-[1.03] active:scale-95 transition-all cursor-pointer text-[0.9375rem] mb-4"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Book a Call
+            Schedule a call
           </button>
           <p
             className="text-sand/70 text-[0.9375rem]"

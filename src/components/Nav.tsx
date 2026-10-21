@@ -166,7 +166,7 @@ export default function Nav({ onBookingOpen }: NavProps) {
             className="bg-navy text-white text-[1rem] font-semibold px-7 py-3 rounded-lg hover:bg-navy-2 hover:scale-[1.03] active:scale-95 transition-all duration-150 cursor-pointer"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Book a Call
+            Schedule a call
           </button>
         </div>
 
@@ -280,7 +280,7 @@ export default function Nav({ onBookingOpen }: NavProps) {
               className="w-full bg-navy text-white font-semibold py-3 rounded hover:bg-navy-2 active:scale-95 transition-all cursor-pointer"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
-              Book a Call
+              Schedule a call
             </button>
           </div>
         </div>

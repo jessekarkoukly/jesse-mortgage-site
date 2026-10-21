@@ -598,7 +598,7 @@ export default function MortgagePaymentCalculator() {
                 className="w-full bg-navy text-white font-semibold py-3 rounded-lg hover:bg-navy-2 transition-colors cursor-pointer text-[0.875rem]"
                 style={{ fontFamily: "var(--font-jakarta)" }}
               >
-                Book a Call
+                Schedule a call
               </button>
             </div>
           </div>

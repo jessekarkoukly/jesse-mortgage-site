@@ -464,7 +464,7 @@ export default function LandTransferTaxCalculator() {
               Want a full closing cost estimate? Run the numbers →
             </Link>
 
-            {/* Book a Call CTA */}
+            {/* Schedule a call CTA */}
             <div className="mt-5 pt-5 border-t border-sand-2">
               <p
                 className="text-slate text-[0.8125rem] mb-3 text-center"
@@ -477,7 +477,7 @@ export default function LandTransferTaxCalculator() {
                 className="w-full bg-navy text-white font-semibold py-3 rounded-lg hover:bg-navy-2 transition-colors cursor-pointer text-[0.875rem]"
                 style={{ fontFamily: "var(--font-jakarta)" }}
               >
-                Book a Call
+                Schedule a call
               </button>
             </div>
           </div>

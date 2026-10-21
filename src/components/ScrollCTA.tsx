@@ -104,7 +104,7 @@ export default function ScrollCTA() {
         className="mt-3 w-full bg-coral hover:bg-coral-dark hover:scale-[1.03] active:scale-95 text-white font-semibold text-[0.8125rem] py-2.5 rounded-lg transition-all"
         style={{ fontFamily: "var(--font-jakarta)" }}
       >
-        Book a Call
+        Schedule a call
       </button>
     </div>
   );

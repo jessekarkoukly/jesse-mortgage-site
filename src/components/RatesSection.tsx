@@ -127,7 +127,7 @@ export default function RatesSection({ onBookingOpen }: RatesSectionProps) {
                 onClick={onBookingOpen}
                 className="text-coral hover:underline cursor-pointer"
               >
-                Book a call for your actual number &rarr;
+                Schedule a call for your actual number &rarr;
               </button>
             </p>
           </div>

@@ -127,7 +127,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-label="Book a call with Jesse"
+        aria-label="Schedule a call with Jesse"
       >
         {/* Progress bar */}
         {!submitted && (

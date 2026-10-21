@@ -115,7 +115,7 @@ export default function BrandTestPage() {
                 border: "none",
               }}
             >
-              Book a Call
+              Schedule a call
             </button>
           </div>
 
@@ -165,7 +165,7 @@ export default function BrandTestPage() {
                     color: C.black,
                   }}
                 >
-                  Book a Call
+                  Schedule a call
                 </button>
                 <button
                   className="font-semibold px-6 py-3.5 rounded-full hover:scale-[1.02] active:scale-95 transition-all duration-150 text-[0.875rem]"
@@ -244,7 +244,7 @@ export default function BrandTestPage() {
                   className="w-full sm:w-auto font-bold px-7 py-4 rounded-full active:scale-95 transition-all duration-150 cursor-pointer text-[0.9375rem] shadow-md text-center"
                   style={{ fontFamily: "var(--font-jakarta)", background: C.lime, color: C.black }}
                 >
-                  Book a Call
+                  Schedule a call
                 </button>
               </div>
               <div className="flex flex-wrap gap-3 sm:gap-4">
@@ -448,7 +448,7 @@ export default function BrandTestPage() {
             className="font-bold px-10 py-4 rounded-full hover:scale-[1.03] active:scale-95 transition-all duration-150 cursor-pointer text-[1rem] shadow-lg"
             style={{ fontFamily: "var(--font-jakarta)", background: C.lime, color: C.black }}
           >
-            Book a Call
+            Schedule a call
           </button>
         </section>
 

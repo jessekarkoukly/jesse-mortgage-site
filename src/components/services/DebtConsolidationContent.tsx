@@ -288,7 +288,7 @@ export default function DebtConsolidationContent() {
             className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark transition-colors cursor-pointer text-[0.9375rem]"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Book a Call
+            Schedule a call
           </button>
 
           {/* Trust chips */}
@@ -1158,7 +1158,7 @@ export default function DebtConsolidationContent() {
                       className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark transition-colors cursor-pointer text-[0.9375rem]"
                       style={{ fontFamily: "var(--font-jakarta)" }}
                     >
-                      Book a Call
+                      Schedule a call
                     </button>
                   </div>
                 </div>
@@ -1275,7 +1275,7 @@ export default function DebtConsolidationContent() {
                 className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark transition-colors cursor-pointer text-[0.9375rem]"
                 style={{ fontFamily: "var(--font-jakarta)" }}
               >
-                Book a Call
+                Schedule a call
               </button>
             </div>
 
@@ -1413,7 +1413,7 @@ export default function DebtConsolidationContent() {
             className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark transition-colors cursor-pointer text-[0.9375rem]"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Book a Call
+            Schedule a call
           </button>
         </div>
       </section>

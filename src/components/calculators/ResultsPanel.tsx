@@ -213,7 +213,7 @@ export default function ResultsPanel({
             className="w-full bg-coral text-white font-semibold py-3 rounded-lg hover:bg-coral-dark transition-colors cursor-pointer text-[0.875rem]"
             style={{ fontFamily: 'var(--font-jakarta)' }}
           >
-            Book a Call
+            Schedule a call
           </button>
           <button
             onClick={onDownloadReport}

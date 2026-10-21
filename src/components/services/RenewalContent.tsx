@@ -112,7 +112,7 @@ export default function RenewalContent() {
             className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark transition-colors cursor-pointer text-[0.9375rem]"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Book a Call
+            Schedule a call
           </button>
 
           {/* Trust chips */}
@@ -395,7 +395,7 @@ export default function RenewalContent() {
             className="bg-white text-coral font-semibold px-8 py-3.5 rounded-lg hover:bg-sand transition-colors cursor-pointer text-[0.9375rem]"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Book a Call
+            Schedule a call
           </button>
         </div>
       </section>
@@ -424,7 +424,7 @@ export default function RenewalContent() {
             className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark transition-colors cursor-pointer text-[0.9375rem]"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Book a Call
+            Schedule a call
           </button>
         </div>
       </section>

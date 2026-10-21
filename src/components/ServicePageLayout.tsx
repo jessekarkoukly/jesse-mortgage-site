@@ -23,7 +23,7 @@ export default function ServicePageLayout({
   intro,
   sections,
   bullets,
-  ctaText = "Book a Call",
+  ctaText = "Schedule a call",
   byline,
 }: ServicePageLayoutProps) {
   const handleBookCall = () => {
