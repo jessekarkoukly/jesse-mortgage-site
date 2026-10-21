@@ -33,7 +33,7 @@ export default async function Image() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "flex-start",
-          backgroundColor: "#1E2D3D",
+          backgroundColor: "#352B26",
           padding: "80px",
         }}
       >
@@ -55,14 +55,14 @@ export default async function Image() {
             }}
           >
             Jesse
-            <span style={{ color: "#E8705A" }}>.</span>
+            <span style={{ color: "#7E6352" }}>.</span>
           </span>
           <span
             style={{
               fontFamily: "Spectral",
               fontSize: "36px",
               fontWeight: 400,
-              color: "#8A9BAA",
+              color: "#7F9BAA",
               lineHeight: 1,
               marginTop: "-4px",
             }}
@@ -77,7 +77,7 @@ export default async function Image() {
             fontFamily: "Spectral",
             fontSize: "44px",
             fontWeight: 700,
-            color: "#F7F3EE",
+            color: "#F5EFE8",
             lineHeight: 1.25,
             margin: 0,
             maxWidth: "800px",
@@ -92,7 +92,7 @@ export default async function Image() {
             fontFamily: "Plus Jakarta Sans",
             fontSize: "22px",
             fontWeight: 600,
-            color: "#8A9BAA",
+            color: "#7F9BAA",
             lineHeight: 1.5,
             marginTop: "20px",
             maxWidth: "700px",
@@ -115,18 +115,18 @@ export default async function Image() {
               fontFamily: "Plus Jakarta Sans",
               fontSize: "18px",
               fontWeight: 600,
-              color: "#8A9BAA",
+              color: "#7F9BAA",
             }}
           >
             Sherwood Mortgage Group
           </span>
-          <span style={{ color: "#E8705A", fontSize: "18px" }}>|</span>
+          <span style={{ color: "#7E6352", fontSize: "18px" }}>|</span>
           <span
             style={{
               fontFamily: "Plus Jakarta Sans",
               fontSize: "18px",
               fontWeight: 600,
-              color: "#8A9BAA",
+              color: "#7F9BAA",
             }}
           >
             jessekarkoukly.com

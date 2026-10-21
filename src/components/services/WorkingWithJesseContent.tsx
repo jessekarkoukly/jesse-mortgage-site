@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── Steps ── */
 const STEPS = [
@@ -154,6 +155,7 @@ export default function WorkingWithJesseContent() {
           >
             Here is what to expect.
           </h1>
+          <ServiceByline updated="2026-10-20" path="/working-with-jesse" name="Working with Jesse" />
           <p
             className="text-navy/80 text-[1.0625rem] md:text-[1.125rem] leading-relaxed max-w-2xl mx-auto mb-8"
             style={{ fontFamily: "var(--font-jakarta)" }}

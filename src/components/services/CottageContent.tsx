@@ -4,6 +4,7 @@ import { COTTAGE_FAQ } from "@/data/faqs/cottage";
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── TOC sections ── */
 const TOC_ITEMS = [
@@ -89,7 +90,15 @@ const FUNDING_OPTIONS = [
 
 export default function CottageContent() {
   const [activeSection, setActiveSection] = useState("how-it-works");
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [closedFaq, setClosedFaq] = useState<Set<number>>(() => new Set());
+  // FAQs start fully expanded so every answer is visible to readers, search engines and AI tools.
+  const toggleFaq = (i: number) =>
+    setClosedFaq((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   /* Scroll spy for TOC */
@@ -139,6 +148,7 @@ export default function CottageContent() {
             <span className="text-coral">.</span> Know them before you make an
             offer.
           </h1>
+          <ServiceByline updated="2026-10-20" path="/services/cottage" name="Cottage and Vacation Property Mortgages" />
           <p
             className="text-slate text-[1.0625rem] md:text-[1.125rem] leading-relaxed max-w-2xl mx-auto mb-10"
             style={{ fontFamily: "var(--font-jakarta)" }}
@@ -626,7 +636,7 @@ export default function CottageContent() {
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                         <path
                           d="M2.5 6.5L5 9l4.5-6"
-                          stroke="#E8705A"
+                          stroke="#7E6352"
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -730,7 +740,7 @@ export default function CottageContent() {
 
               <div className="space-y-3">
                 {FAQ_ITEMS.map((faq, i) => {
-                  const isOpen = openFaq === i;
+                  const isOpen = !closedFaq.has(i);
                   return (
                     <div
                       key={i}
@@ -741,7 +751,7 @@ export default function CottageContent() {
                       }`}
                     >
                       <button
-                        onClick={() => setOpenFaq(isOpen ? null : i)}
+                        onClick={() => toggleFaq(i)}
                         className="w-full flex items-center justify-between p-5 text-left cursor-pointer"
                       >
                         <span

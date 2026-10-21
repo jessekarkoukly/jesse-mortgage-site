@@ -3,6 +3,7 @@
 import { DEBT_CONSOLIDATION_FAQ } from "@/data/faqs/debt-consolidation";
 
 import { useState, useEffect, useRef, useMemo } from "react";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── FAQ data ── */
 const FAQ_ITEMS = DEBT_CONSOLIDATION_FAQ;
@@ -113,7 +114,15 @@ const TOC_SECTIONS = [
 /* ══════════════════════════════════════════════════════════════ */
 
 export default function DebtConsolidationContent() {
-  const [openFaq, setOpenFaq] = useState<number>(0);
+  const [closedFaq, setClosedFaq] = useState<Set<number>>(() => new Set());
+  // FAQs start fully expanded so every answer is visible to readers, search engines and AI tools.
+  const toggleFaq = (i: number) =>
+    setClosedFaq((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
   const [activeId, setActiveId] = useState<string>(TOC_SECTIONS[0].id);
   const sectionRefs = useRef<Map<string, IntersectionObserverEntry>>(new Map());
 
@@ -264,6 +273,7 @@ export default function DebtConsolidationContent() {
             Carrying high-interest debt on top of a mortgage? Your equity might
             change the math.
           </h1>
+          <ServiceByline updated="2026-10-20" path="/services/debt-consolidation" name="Debt Consolidation Mortgages" />
           <p
             className="text-sand/80 text-[1.0625rem] md:text-[1.125rem] leading-relaxed max-w-2xl mx-auto mb-10"
             style={{ fontFamily: "var(--font-jakarta)" }}
@@ -1317,11 +1327,11 @@ export default function DebtConsolidationContent() {
 
               <div className="space-y-3">
                 {FAQ_ITEMS.map((item, i) => {
-                  const isOpen = openFaq === i;
+                  const isOpen = !closedFaq.has(i);
                   return (
                     <div key={i} className="bg-sand rounded-lg overflow-hidden">
                       <button
-                        onClick={() => setOpenFaq(isOpen ? -1 : i)}
+                        onClick={() => toggleFaq(i)}
                         className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"
                       >
                         <span

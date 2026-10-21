@@ -49,7 +49,7 @@ function parseDollar(s: string): number {
 function sliderGradientStyle(value: number, min: number, max: number): React.CSSProperties {
   const pct = max === min ? 0 : ((value - min) / (max - min)) * 100;
   return {
-    background: `linear-gradient(to right, #1E2D3D 0%, #E8705A ${pct}%, #E0DDD8 ${pct}%)`,
+    background: `linear-gradient(to right, #352B26 0%, #7E6352 ${pct}%, #E0DDD8 ${pct}%)`,
   };
 }
 

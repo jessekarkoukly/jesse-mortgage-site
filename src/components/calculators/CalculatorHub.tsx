@@ -56,8 +56,8 @@ const CALCULATORS = [
 function IconHome() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-      <path d="M4 14L14 5l10 9" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M6 12.5V23a1 1 0 001 1h4.5v-6h5v6H21a1 1 0 001-1V12.5" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 14L14 5l10 9" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M6 12.5V23a1 1 0 001 1h4.5v-6h5v6H21a1 1 0 001-1V12.5" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -65,9 +65,9 @@ function IconHome() {
 function IconWallet() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-      <rect x="3" y="7" width="22" height="16" rx="2" stroke="#E8705A" strokeWidth="2" />
-      <path d="M3 11h22" stroke="#E8705A" strokeWidth="2" />
-      <circle cx="20" cy="17" r="1.5" fill="#E8705A" />
+      <rect x="3" y="7" width="22" height="16" rx="2" stroke="#7E6352" strokeWidth="2" />
+      <path d="M3 11h22" stroke="#7E6352" strokeWidth="2" />
+      <circle cx="20" cy="17" r="1.5" fill="#7E6352" />
     </svg>
   );
 }
@@ -75,9 +75,9 @@ function IconWallet() {
 function IconGauge() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-      <path d="M14 24c5.523 0 10-4.477 10-10S19.523 4 14 4 4 8.477 4 14s4.477 10 10 10z" stroke="#E8705A" strokeWidth="2" />
-      <path d="M14 14l4-6" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="14" cy="14" r="2" fill="#E8705A" />
+      <path d="M14 24c5.523 0 10-4.477 10-10S19.523 4 14 4 4 8.477 4 14s4.477 10 10 10z" stroke="#7E6352" strokeWidth="2" />
+      <path d="M14 14l4-6" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="14" cy="14" r="2" fill="#7E6352" />
     </svg>
   );
 }
@@ -85,9 +85,9 @@ function IconGauge() {
 function IconTarget() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-      <circle cx="14" cy="14" r="10" stroke="#E8705A" strokeWidth="2" />
-      <circle cx="14" cy="14" r="6" stroke="#E8705A" strokeWidth="2" />
-      <circle cx="14" cy="14" r="2" fill="#E8705A" />
+      <circle cx="14" cy="14" r="10" stroke="#7E6352" strokeWidth="2" />
+      <circle cx="14" cy="14" r="6" stroke="#7E6352" strokeWidth="2" />
+      <circle cx="14" cy="14" r="2" fill="#7E6352" />
     </svg>
   );
 }
@@ -95,8 +95,8 @@ function IconTarget() {
 function IconTax() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-      <rect x="5" y="3" width="18" height="22" rx="2" stroke="#E8705A" strokeWidth="2" />
-      <path d="M9 9h10M9 13h10M9 17h6" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" />
+      <rect x="5" y="3" width="18" height="22" rx="2" stroke="#7E6352" strokeWidth="2" />
+      <path d="M9 9h10M9 13h10M9 17h6" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -104,8 +104,8 @@ function IconTax() {
 function IconReceipt() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-      <path d="M6 4h16a1 1 0 011 1v19l-3-2-3 2-3-2-3 2-3-2-2 1.333V5a1 1 0 011-1z" stroke="#E8705A" strokeWidth="2" strokeLinejoin="round" />
-      <path d="M10 10h8M10 14h5" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" />
+      <path d="M6 4h16a1 1 0 011 1v19l-3-2-3 2-3-2-3 2-3-2-2 1.333V5a1 1 0 011-1z" stroke="#7E6352" strokeWidth="2" strokeLinejoin="round" />
+      <path d="M10 10h8M10 14h5" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -113,9 +113,9 @@ function IconReceipt() {
 function IconMortgage() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-      <rect x="5" y="12" width="18" height="12" rx="2" stroke="#E8705A" strokeWidth="2" />
-      <path d="M3 14l11-9 11 9" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M11 19h6" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" />
+      <rect x="5" y="12" width="18" height="12" rx="2" stroke="#7E6352" strokeWidth="2" />
+      <path d="M3 14l11-9 11 9" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M11 19h6" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -123,8 +123,8 @@ function IconMortgage() {
 function IconChart() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-      <path d="M4 24V10l8 6 8-10 4 4" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M4 24h20" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" />
+      <path d="M4 24V10l8 6 8-10 4 4" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 24h20" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -132,8 +132,8 @@ function IconChart() {
 function IconPenalty() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-      <path d="M7 7l14 14M21 7L7 21" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" />
-      <rect x="4" y="4" width="20" height="20" rx="3" stroke="#E8705A" strokeWidth="2" />
+      <path d="M7 7l14 14M21 7L7 21" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" />
+      <rect x="4" y="4" width="20" height="20" rx="3" stroke="#7E6352" strokeWidth="2" />
     </svg>
   );
 }
@@ -215,7 +215,7 @@ export default function CalculatorHub() {
                   >
                     <path
                       d="M2 7h10M8 3l4 4-4 4"
-                      stroke="#E8705A"
+                      stroke="#7E6352"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"

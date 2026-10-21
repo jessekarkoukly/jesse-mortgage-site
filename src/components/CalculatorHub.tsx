@@ -53,15 +53,15 @@ function CalcIcon() {
       aria-hidden="true"
       className="mb-4"
     >
-      <rect x="4" y="4" width="24" height="24" rx="3" stroke="#E8705A" strokeWidth="1.75" />
-      <rect x="8" y="8" width="6" height="4" rx="1" fill="#E8705A" />
-      <rect x="18" y="8" width="6" height="4" rx="1" stroke="#E8705A" strokeWidth="1.5" />
-      <rect x="8" y="16" width="4" height="4" rx="1" stroke="#E8705A" strokeWidth="1.5" />
-      <rect x="14" y="16" width="4" height="4" rx="1" stroke="#E8705A" strokeWidth="1.5" />
-      <rect x="20" y="16" width="4" height="4" rx="1" stroke="#E8705A" strokeWidth="1.5" />
-      <rect x="8" y="22" width="4" height="2" rx="1" stroke="#E8705A" strokeWidth="1.5" />
-      <rect x="14" y="22" width="4" height="2" rx="1" stroke="#E8705A" strokeWidth="1.5" />
-      <rect x="20" y="22" width="4" height="2" rx="1" stroke="#E8705A" strokeWidth="1.5" />
+      <rect x="4" y="4" width="24" height="24" rx="3" stroke="#7E6352" strokeWidth="1.75" />
+      <rect x="8" y="8" width="6" height="4" rx="1" fill="#7E6352" />
+      <rect x="18" y="8" width="6" height="4" rx="1" stroke="#7E6352" strokeWidth="1.5" />
+      <rect x="8" y="16" width="4" height="4" rx="1" stroke="#7E6352" strokeWidth="1.5" />
+      <rect x="14" y="16" width="4" height="4" rx="1" stroke="#7E6352" strokeWidth="1.5" />
+      <rect x="20" y="16" width="4" height="4" rx="1" stroke="#7E6352" strokeWidth="1.5" />
+      <rect x="8" y="22" width="4" height="2" rx="1" stroke="#7E6352" strokeWidth="1.5" />
+      <rect x="14" y="22" width="4" height="2" rx="1" stroke="#7E6352" strokeWidth="1.5" />
+      <rect x="20" y="22" width="4" height="2" rx="1" stroke="#7E6352" strokeWidth="1.5" />
     </svg>
   );
 }
@@ -117,7 +117,7 @@ export default function CalculatorHub() {
               >
                 Try this tool
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M2 7h10M8 3l4 4-4 4" stroke="#E8705A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M2 7h10M8 3l4 4-4 4" stroke="#7E6352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
             </Link>

@@ -31,7 +31,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "#1E2D3D",
+          backgroundColor: "#352B26",
           padding: "72px 80px",
         }}
       >
@@ -40,7 +40,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             fontFamily: "Plus Jakarta Sans",
             fontSize: "22px",
             fontWeight: 600,
-            color: "#E8705A",
+            color: "#7E6352",
             letterSpacing: "0.12em",
             textTransform: "uppercase",
           }}
@@ -61,11 +61,11 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           {/[.?!]$/.test(title) ? title : `${title}.`}
         </p>
         <div style={{ display: "flex", alignItems: "center", gap: "24px", marginTop: "auto" }}>
-          <span style={{ fontFamily: "Plus Jakarta Sans", fontSize: "20px", fontWeight: 600, color: "#8A9BAA" }}>
+          <span style={{ fontFamily: "Plus Jakarta Sans", fontSize: "20px", fontWeight: 600, color: "#7F9BAA" }}>
             Jesse Karkoukly, Mortgage Agent
           </span>
-          <span style={{ color: "#E8705A", fontSize: "20px" }}>|</span>
-          <span style={{ fontFamily: "Plus Jakarta Sans", fontSize: "20px", fontWeight: 600, color: "#8A9BAA" }}>
+          <span style={{ color: "#7E6352", fontSize: "20px" }}>|</span>
+          <span style={{ fontFamily: "Plus Jakarta Sans", fontSize: "20px", fontWeight: 600, color: "#7F9BAA" }}>
             jessekarkoukly.com
           </span>
         </div>

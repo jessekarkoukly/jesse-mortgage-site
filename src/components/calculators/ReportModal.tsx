@@ -108,7 +108,7 @@ export default function ReportModal({
           className="absolute top-4 right-4 p-2 rounded-full hover:bg-sand transition-colors"
           aria-label="Close"
         >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#1E2D3D" strokeWidth="2">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#352B26" strokeWidth="2">
             <path d="M12 4L4 12M4 4l8 8" />
           </svg>
         </button>

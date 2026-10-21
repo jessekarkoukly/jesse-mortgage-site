@@ -2,13 +2,25 @@
 
 @theme {
   /* Brand colours */
-  --color-navy:       #1E2D3D;
-  --color-navy-2:     #2E4255;
-  --color-sand:       #F4F4F2;
-  --color-sand-2:     #E9E9E7;
-  --color-coral:      #E8705A;
-  --color-coral-dark: #D05A45;
-  --color-slate:      #8A9BAA;
+  /* Brand refresh, October 2026 (see brand book). Token names kept so every page picks up the new palette.
+     navy  = espresso (dark text, dark sections)
+     sand  = linen (light sections)
+     coral = clay deep (accents and page-level buttons)
+     coral-dark = sky deep (hover colour)
+     slate = sky */
+  --color-navy:       #352B26;
+  --color-navy-2:     #5A4C44;
+  --color-sand:       #F5EFE8;
+  --color-sand-2:     #E3D9CD;
+  --color-coral:      #7E6352;
+  --color-coral-dark: #4F6B7A;
+  --color-slate:      #7F9BAA;
+  --color-espresso:   #352B26;
+  --color-linen:      #F5EFE8;
+  --color-clay:       #A88A78;
+  --color-clay-deep:  #7E6352;
+  --color-sky:        #7F9BAA;
+  --color-sky-deep:   #4F6B7A;
 
   /* Semantic aliases */
   --color-background: var(--color-sand);
@@ -42,19 +54,37 @@ main, section, header, footer {
 
 body {
   background-color: #FFFFFF;
-  color: #1E2D3D;
+  color: #352B26;
   font-family: var(--font-jakarta), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background-color: #E8705A;
+  background-color: #7E6352;
   color: #fff;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-spectral), Georgia, serif;
+  /* Newsreader reads best at 400 to 500. Unlayered, so this wins over Tailwind's font-bold on headings. */
+  font-weight: 500;
+}
+
+/* Brand: no small spaced capitals above headlines. Any uppercase + letter-spaced label becomes Newsreader italic. */
+[class*="uppercase"][class*="tracking-"] {
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--font-spectral), Georgia, serif !important;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.125rem;
+}
+
+/* Brand: links rest in espresso and turn sky deep; focus ring is sky deep. Motion is a colour change only. */
+:focus-visible {
+  outline: 2px solid #4F6B7A;
+  outline-offset: 2px;
 }
 
 /* ── Marquee animation ── */
@@ -73,6 +103,10 @@ h1, h2, h3, h4, h5, h6 {
   animation-play-state: paused;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
 /* ── Utilities ── */
 .coral-dot::before {
   content: '';
@@ -80,7 +114,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #E8705A;
+  background-color: #7E6352;
   margin-right: 8px;
   vertical-align: middle;
 }
@@ -96,7 +130,7 @@ input[type="range"].calc-slider {
   outline: none;
   cursor: pointer;
   /* Fallback if no inline style */
-  background: linear-gradient(to right, #1E2D3D, #E8705A);
+  background: linear-gradient(to right, #352B26, #7E6352);
 }
 
 input[type="range"].calc-slider::-webkit-slider-thumb {
@@ -105,7 +139,7 @@ input[type="range"].calc-slider::-webkit-slider-thumb {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #E8705A;
+  background: #7E6352;
   cursor: pointer;
   border: 3px solid white;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.18);
@@ -113,14 +147,14 @@ input[type="range"].calc-slider::-webkit-slider-thumb {
 }
 
 input[type="range"].calc-slider::-webkit-slider-thumb:hover {
-  box-shadow: 0 2px 8px rgba(232, 112, 90, 0.4);
+  box-shadow: 0 2px 8px rgba(126, 99, 82, 0.4);
 }
 
 input[type="range"].calc-slider::-moz-range-thumb {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #E8705A;
+  background: #7E6352;
   cursor: pointer;
   border: 3px solid white;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.18);
@@ -136,7 +170,7 @@ input[type="range"].calc-slider::-moz-range-track {
 input[type="range"].calc-slider::-moz-range-progress {
   height: 6px;
   border-radius: 3px;
-  background: linear-gradient(to right, #1E2D3D, #E8705A);
+  background: linear-gradient(to right, #352B26, #7E6352);
 }
 
 /* ── Touch device optimizations ── */
@@ -157,3 +191,43 @@ input[type="range"].calc-slider::-moz-range-progress {
 button, a {
   touch-action: manipulation;
 }
+
+/* Homepage "How it works" step bubble */
+@keyframes jk-pop {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [style*="jk-pop"] { animation: none !important; }
+}
+
+/* ── Accent colours follow the nearest background ──
+   Brand rule: never brown on brown, never faint on light. Each surface sets the
+   colours its children use, so a light card inside a dark section (or the reverse)
+   always gets the right pair. Values checked for contrast. */
+:root,
+:is(.bg-white, .bg-sand, .bg-sand-2, [class*="bg-[#F"], [class*="bg-[#f"]) {
+  --jk-accent: #6B5141;   /* clay deep, darkened for small text */
+  --jk-muted: #4F6B7A;    /* sky deep */
+  --jk-body2: #5A4C44;
+  --jk-btn-bg: #7E6352;
+  --jk-btn-fg: #FFFFFF;
+  --jk-line: #C9B6A5;
+}
+:is(.bg-navy, .bg-navy-2, .bg-coral, [class*="bg-[#352B26]"], [class*="bg-[#4A3E37]"], [class*="bg-[#2"]) {
+  --jk-accent: #D2B8A6;   /* light clay */
+  --jk-muted: #C9BDB3;
+  --jk-body2: #D8CCC0;
+  --jk-btn-bg: #C4A592;
+  --jk-btn-fg: #352B26;
+  --jk-line: rgba(210, 184, 166, 0.55);
+}
+.bg-navy-2 { background-color: #4A3E37; }
+:is(.text-coral, .text-coral-dark) { color: var(--jk-accent); }
+.text-coral\/60, .text-coral\/80 { color: var(--jk-accent); opacity: 0.85; }
+.text-slate { color: var(--jk-muted); }
+.text-navy-2 { color: var(--jk-body2); }
+:is(.border-coral, .border-coral\/20, .border-coral\/30, .border-coral\/40) { border-color: var(--jk-line); }
+.bg-coral { background-color: var(--jk-btn-bg); color: var(--jk-btn-fg); }
+.bg-coral.text-white, .bg-coral .text-white { color: var(--jk-btn-fg); }
+:is(.bg-navy, .bg-navy-2) :is(.bg-coral:hover, .hover\:bg-coral-dark:hover) { background-color: #9DB6C3; color: #352B26; }

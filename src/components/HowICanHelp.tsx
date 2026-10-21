@@ -142,7 +142,7 @@ function AccordionCard({
     <div
       className={`rounded-xl border transition-all duration-300 overflow-hidden ${
         isOpen
-          ? "bg-[#243a4f] border-navy-2"
+          ? "bg-[#4A3E37] border-navy-2"
           : "bg-navy border-navy-2 hover:border-coral hover:scale-[1.01] hover:-translate-y-0.5"
       }`}
     >
@@ -192,7 +192,7 @@ function AccordionCard({
             >
               <path
                 d="M5 7.5L10 12.5L15 7.5"
-                stroke="#E8705A"
+                stroke="#7E6352"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"

@@ -4,6 +4,7 @@ import { PRE_APPROVAL_FAQ } from "@/data/faqs/pre-approval";
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── TOC ── */
 const TOC_ITEMS = [
@@ -289,7 +290,15 @@ function AffordabilityCalculator({
 
 export default function PreApprovalContent() {
   const [activeSection, setActiveSection] = useState("what-it-is");
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [closedFaq, setClosedFaq] = useState<Set<number>>(() => new Set());
+  // FAQs start fully expanded so every answer is visible to readers, search engines and AI tools.
+  const toggleFaq = (i: number) =>
+    setClosedFaq((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -323,7 +332,7 @@ export default function PreApprovalContent() {
           className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10 pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle, #E8705A 0%, transparent 70%)",
+              "radial-gradient(circle, #7E6352 0%, transparent 70%)",
           }}
         />
         <div className="max-w-3xl mx-auto text-center relative">
@@ -340,6 +349,7 @@ export default function PreApprovalContent() {
             Before you fall in love with a home, find out what you can{" "}
             <span className="text-coral">actually</span> afford.
           </h1>
+          <ServiceByline updated="2026-10-20" path="/services/pre-approval" name="Mortgage Pre-Approval" />
           <p
             className="text-[1.0625rem] text-slate leading-relaxed max-w-2xl mx-auto mb-8"
             style={{ fontFamily: "var(--font-jakarta)" }}
@@ -1001,7 +1011,7 @@ export default function PreApprovalContent() {
 
               <div className="space-y-3">
                 {FAQ_ITEMS.map((faq, i) => {
-                  const isOpen = openFaq === i;
+                  const isOpen = !closedFaq.has(i);
                   return (
                     <div
                       key={i}
@@ -1009,7 +1019,7 @@ export default function PreApprovalContent() {
                     >
                       <button
                         onClick={() =>
-                          setOpenFaq(isOpen ? null : i)
+                          toggleFaq(i)
                         }
                         className="w-full text-left p-4 sm:p-5 cursor-pointer flex items-center justify-between gap-3 sm:gap-4"
                         aria-expanded={isOpen}
@@ -1031,7 +1041,7 @@ export default function PreApprovalContent() {
                         >
                           <path
                             d="M5 7.5L10 12.5L15 7.5"
-                            stroke="#E8705A"
+                            stroke="#7E6352"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -1070,7 +1080,7 @@ export default function PreApprovalContent() {
           className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10 pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle, #E8705A 0%, transparent 70%)",
+              "radial-gradient(circle, #7E6352 0%, transparent 70%)",
           }}
         />
         <div className="max-w-2xl mx-auto text-center relative">

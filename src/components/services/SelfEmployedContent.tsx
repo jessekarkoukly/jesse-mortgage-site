@@ -3,6 +3,7 @@
 import { SELF_EMPLOYED_FAQ } from "@/data/faqs/self-employed";
 
 import { useState, useEffect, useRef } from "react";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── TOC sections ── */
 const TOC_ITEMS = [
@@ -291,7 +292,15 @@ const TIMELINE_PHASES = [
 
 export default function SelfEmployedContent() {
   const [activeSection, setActiveSection] = useState("the-challenge");
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [closedFaq, setClosedFaq] = useState<Set<number>>(() => new Set());
+  // FAQs start fully expanded so every answer is visible to readers, search engines and AI tools.
+  const toggleFaq = (i: number) =>
+    setClosedFaq((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
   const [openScenario, setOpenScenario] = useState<number | null>(null);
   const [openKiller, setOpenKiller] = useState<number | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -343,6 +352,7 @@ export default function SelfEmployedContent() {
             <span className="text-coral">real.</span> Your tax return
             just does not show it.
           </h1>
+          <ServiceByline updated="2026-10-20" path="/services/self-employed" name="Self-Employed Mortgages in Ontario" />
           <p
             className="text-slate text-[1.0625rem] md:text-[1.125rem] leading-relaxed max-w-2xl mx-auto mb-10"
             style={{ fontFamily: "var(--font-jakarta)" }}
@@ -789,7 +799,7 @@ export default function SelfEmployedContent() {
                   <div key={i} className="bg-sand rounded-xl p-5 flex gap-3">
                     <span className="w-6 h-6 rounded-full bg-coral/15 flex items-center justify-center shrink-0 mt-0.5">
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M2.5 6.5L5 9l4.5-6" stroke="#E8705A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M2.5 6.5L5 9l4.5-6" stroke="#7E6352" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </span>
                     <div>
@@ -1295,7 +1305,7 @@ export default function SelfEmployedContent() {
 
               <div className="space-y-3">
                 {FAQ_ITEMS.map((faq, i) => {
-                  const isOpen = openFaq === i;
+                  const isOpen = !closedFaq.has(i);
                   return (
                     <div
                       key={i}
@@ -1304,7 +1314,7 @@ export default function SelfEmployedContent() {
                       }`}
                     >
                       <button
-                        onClick={() => setOpenFaq(isOpen ? null : i)}
+                        onClick={() => toggleFaq(i)}
                         className="w-full flex items-center justify-between p-5 text-left cursor-pointer"
                       >
                         <span

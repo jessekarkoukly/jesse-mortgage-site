@@ -1,12 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Spectral, Plus_Jakarta_Sans } from "next/font/google";
+import { Newsreader, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 
-const spectral = Spectral({
+// Brand refresh: headlines are Newsreader. The CSS variable keeps its old name (--font-spectral)
+// so every existing heading picks up the new face without touching each file.
+const spectral = Newsreader({
   variable: "--font-spectral",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -20,7 +23,7 @@ const jakarta = Plus_Jakarta_Sans({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#1E2D3D",
+  themeColor: "#F5EFE8",
 };
 
 export const metadata: Metadata = {

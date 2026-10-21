@@ -23,7 +23,15 @@ export default function NeighbourhoodPageLayout({
   data,
 }: NeighbourhoodPageLayoutProps) {
   const [activeSection, setActiveSection] = useState("the-vibe");
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [closedFaq, setClosedFaq] = useState<Set<number>>(() => new Set());
+  // FAQs start fully expanded so every answer is visible to readers, search engines and AI tools.
+  const toggleFaq = (i: number) =>
+    setClosedFaq((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -443,7 +451,7 @@ export default function NeighbourhoodPageLayout({
                       >
                         <button
                           onClick={() =>
-                            setOpenFaq(openFaq === i ? null : i)
+                            toggleFaq(i)
                           }
                           className="w-full text-left px-5 py-4 flex items-center justify-between cursor-pointer"
                         >
@@ -459,7 +467,7 @@ export default function NeighbourhoodPageLayout({
                             viewBox="0 0 20 20"
                             fill="none"
                             className={`shrink-0 text-coral transition-transform duration-200 ${
-                              openFaq === i ? "rotate-45" : ""
+                              !closedFaq.has(i) ? "rotate-45" : ""
                             }`}
                           >
                             <path
@@ -474,7 +482,7 @@ export default function NeighbourhoodPageLayout({
                           className="grid transition-all duration-300 ease-in-out"
                           style={{
                             gridTemplateRows:
-                              openFaq === i ? "1fr" : "0fr",
+                              !closedFaq.has(i) ? "1fr" : "0fr",
                           }}
                         >
                           <div className="overflow-hidden">

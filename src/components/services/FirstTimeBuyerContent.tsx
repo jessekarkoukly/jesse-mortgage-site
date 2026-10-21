@@ -5,6 +5,7 @@ import { FIRST_TIME_BUYERS_FAQ } from "@/data/faqs/first-time-buyers";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import BrokerVsBank from "@/components/BrokerVsBank";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── TOC sections ── */
 const TOC_ITEMS = [
@@ -145,7 +146,15 @@ const FAQ_ITEMS = FIRST_TIME_BUYERS_FAQ;
 export default function FirstTimeBuyerContent() {
   const [activeSection, setActiveSection] = useState("how-to-qualify");
   const [openProgram, setOpenProgram] = useState<number | null>(null);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [closedFaq, setClosedFaq] = useState<Set<number>>(() => new Set());
+  // FAQs start fully expanded so every answer is visible to readers, search engines and AI tools.
+  const toggleFaq = (i: number) =>
+    setClosedFaq((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
   const [stressTestOpen, setStressTestOpen] = useState(false);
   const [creditOpen, setCreditOpen] = useState(false);
   const [homePrice, setHomePrice] = useState(800000);
@@ -198,6 +207,7 @@ export default function FirstTimeBuyerContent() {
               The most prepared buyers make the best{" "}
               <span className="text-coral">decisions.</span>
             </h1>
+            <ServiceByline updated="2026-10-20" path="/services/first-time-buyers" name="First-Time Home Buyer Mortgages" />
             <p
               className="text-[1.0625rem] text-slate leading-relaxed max-w-lg mb-8"
               style={{ fontFamily: "var(--font-jakarta)" }}
@@ -524,7 +534,7 @@ export default function FirstTimeBuyerContent() {
                 >
                   {stressTestOpen ? "Hide the formula" : "See how the formula works"}
                   <svg width="16" height="16" viewBox="0 0 20 20" fill="none" className={`transition-transform duration-300 ${stressTestOpen ? "rotate-180" : ""}`}>
-                    <path d="M5 7.5L10 12.5L15 7.5" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M5 7.5L10 12.5L15 7.5" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
                 <div className="grid transition-[grid-template-rows] duration-300 ease-in-out" style={{ gridTemplateRows: stressTestOpen ? "1fr" : "0fr" }}>
@@ -581,7 +591,7 @@ export default function FirstTimeBuyerContent() {
               >
                 {creditOpen ? "Hide details" : "See the five factors and how to improve"}
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" className={`transition-transform duration-300 ${creditOpen ? "rotate-180" : ""}`}>
-                  <path d="M5 7.5L10 12.5L15 7.5" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
               <div className="grid transition-[grid-template-rows] duration-300 ease-in-out" style={{ gridTemplateRows: creditOpen ? "1fr" : "0fr" }}>
@@ -874,7 +884,7 @@ export default function FirstTimeBuyerContent() {
                         value={homePrice}
                         onChange={(e) => setHomePrice(Number(e.target.value))}
                         className="w-full calc-slider accent-coral"
-                        style={{ accentColor: "#E8705A" }}
+                        style={{ accentColor: "#7E6352" }}
                       />
                       <div className="flex justify-between text-[0.75rem] text-slate mt-1" style={{ fontFamily: "var(--font-jakarta)" }}>
                         <span>$200K</span>
@@ -1061,7 +1071,7 @@ export default function FirstTimeBuyerContent() {
                             >
                               <path
                                 d="M5 7.5L10 12.5L15 7.5"
-                                stroke="#E8705A"
+                                stroke="#7E6352"
                                 strokeWidth="2"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -1182,7 +1192,7 @@ export default function FirstTimeBuyerContent() {
                 >
                   Ready to get started?
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 3v10M4 9l4 4 4-4" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M8 3v10M4 9l4 4 4-4" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </a>
               </div>
@@ -1337,7 +1347,7 @@ export default function FirstTimeBuyerContent() {
               >
                 {owningCostsOpen ? "Hide cost breakdown" : "See the full cost breakdown"}
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" className={`transition-transform duration-300 ${owningCostsOpen ? "rotate-180" : ""}`}>
-                  <path d="M5 7.5L10 12.5L15 7.5" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
 
@@ -1443,7 +1453,7 @@ export default function FirstTimeBuyerContent() {
               </h2>
               <div className="space-y-3">
                 {FAQ_ITEMS.map((faq, i) => {
-                  const isOpen = openFaq === i;
+                  const isOpen = !closedFaq.has(i);
                   return (
                     <div
                       key={i}
@@ -1451,7 +1461,7 @@ export default function FirstTimeBuyerContent() {
                     >
                       <button
                         onClick={() =>
-                          setOpenFaq(isOpen ? null : i)
+                          toggleFaq(i)
                         }
                         className="w-full text-left p-4 sm:p-5 cursor-pointer flex items-center justify-between gap-3 sm:gap-4"
                         aria-expanded={isOpen}
@@ -1473,7 +1483,7 @@ export default function FirstTimeBuyerContent() {
                         >
                           <path
                             d="M5 7.5L10 12.5L15 7.5"
-                            stroke="#E8705A"
+                            stroke="#7E6352"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"

@@ -4,6 +4,7 @@ import { REFINANCING_FAQ } from "@/data/faqs/refinancing";
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
+import ServiceByline from "@/components/ServiceByline";
 
 /* ── FAQ data ── */
 const FAQ_ITEMS = REFINANCING_FAQ;
@@ -99,7 +100,15 @@ const TOC_SECTIONS = [
 /* ══════════════════════════════════════════════════════════════ */
 
 export default function RefinancingContent() {
-  const [openFaq, setOpenFaq] = useState<number>(0);
+  const [closedFaq, setClosedFaq] = useState<Set<number>>(() => new Set());
+  // FAQs start fully expanded so every answer is visible to readers, search engines and AI tools.
+  const toggleFaq = (i: number) =>
+    setClosedFaq((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
 
   /* ── Equity calculator state ── */
   const [homeValue, setHomeValue] = useState("");
@@ -238,6 +247,7 @@ export default function RefinancingContent() {
           >
             Is breaking your mortgage early actually worth it? Let&rsquo;s find out.
           </h1>
+          <ServiceByline updated="2026-10-20" path="/services/refinancing" name="Mortgage Refinancing" />
           <p
             className="text-sand/80 text-[1.0625rem] md:text-[1.125rem] leading-relaxed max-w-2xl mx-auto mb-10"
             style={{ fontFamily: "var(--font-jakarta)" }}
@@ -1086,14 +1096,14 @@ export default function RefinancingContent() {
 
               <div className="space-y-3">
                 {FAQ_ITEMS.map((item, i) => {
-                  const isOpen = openFaq === i;
+                  const isOpen = !closedFaq.has(i);
                   return (
                     <div
                       key={i}
                       className="bg-sand rounded-lg overflow-hidden"
                     >
                       <button
-                        onClick={() => setOpenFaq(isOpen ? -1 : i)}
+                        onClick={() => toggleFaq(i)}
                         className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"
                       >
                         <span

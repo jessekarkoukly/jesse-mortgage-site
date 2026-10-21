@@ -157,8 +157,8 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
             <div className="text-center py-6">
               <div className="w-14 h-14 rounded-full bg-coral/10 flex items-center justify-center mx-auto mb-5">
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-                  <circle cx="14" cy="14" r="13" stroke="#E8705A" strokeWidth="1.75" />
-                  <path d="M8 14l4 4 8-8" stroke="#E8705A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="14" cy="14" r="13" stroke="#7E6352" strokeWidth="1.75" />
+                  <path d="M8 14l4 4 8-8" stroke="#7E6352" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <h3
