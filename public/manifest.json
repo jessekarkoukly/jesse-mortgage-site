@@ -4,12 +4,12 @@
   "description": "Toronto mortgage agent with Sherwood Mortgage Group. Compare 50+ lenders and get a clear plan.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F7F3EE",
-  "theme_color": "#1E2D3D",
+  "background_color": "#F5EFE8",
+  "theme_color": "#F5EFE8",
   "icons": [
     {
       "src": "/favicon.ico",
-      "sizes": "48x48",
+      "sizes": "16x16 32x32 48x48",
       "type": "image/x-icon"
     },
     {

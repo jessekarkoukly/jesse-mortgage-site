@@ -34,10 +34,8 @@ export const metadata: Metadata = {
   description:
     "Jesse Karkoukly is a Toronto mortgage agent with Sherwood Mortgage Group, helping first-time and self-employed buyers make confident mortgage decisions.",
   metadataBase: new URL("https://jessekarkoukly.com"),
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
+  // Icons come from src/app/favicon.ico, icon.svg and apple-icon.png. Next links them
+  // with a content hash, so browsers fetch a new version whenever the file changes.
   manifest: "/manifest.json",
   openGraph: {
     type: "website",
