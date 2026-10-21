@@ -53,7 +53,7 @@ Brand refresh, October 2026. Source: the Jesse Karkoukly Brand Book (Claude arti
 | Labels | Newsreader italic, sentence case. Never small spaced capitals. |
 | Hover | Colour change only to sky (light buttons to `#4F6B7A`, dark buttons to `#9DB6C3`), 150ms. |
 | Logo | P4 slatted door + "Jesse Karkoukly" with "Mortgage Agent" in italic (`public/jesse-logo.png`). |
-| Favicon | P4 slatted door on linen. A bolder small-size version is still to come. |
+| Favicon | Bold small-size P4: four slats (sky to espresso) on linen, drawn on the pixel grid (`src/app/favicon.ico` 16/32/48, `src/app/icon.svg` on a 16px grid). `apple-icon.png` and the 192/512 PNGs keep the full P4. Next links them with content hashes, so do not add an `icons` block to the layout. |
 
 ---
 
@@ -259,6 +259,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 ## SESSION LOG
 
 Newest first.
+
+**2026-10-21: Favicon**
+The favicon at tab size was six thin slats that blurred into grey. New bold small-size mark (four slats, pixel-aligned). Removed the layout's manual `icons` list, which had overridden `icon.svg` and `apple-icon.png`; the icon links now carry content hashes, so browsers fetch new versions. Manifest colours moved to linen.
 
 **2026-10-21: Site audit fixes**
 Full crawl of 42 pages: all 200, no broken links, sitemap complete, schema valid. Fixed: link preview images were empty (0 bytes) on the live site because they loaded .woff2 fonts from Google, which the image renderer cannot read. They now share one card in the new brand (`src/lib/og.tsx`, fonts and logo bundled in `assets/og/`) and are built as static files at deploy. Homepage title is `Jesse Karkoukly | Toronto Mortgage Agent`; blog post title is `Mortgage on Dividend Income: Self-Employed Guide (Ontario)`. Hero and About photos have `sizes`, cutting the homepage from 868 KB to 468 KB. `/services` has its h1. Bylines on equity takeout, specialty, and purchases and investment. Calculator and form fields carry labels for screen readers, toggles are switches, broker deck dots are 48px tall tap targets, green amounts are sky deep. Contrast audit of 21 pages: zero failures.
