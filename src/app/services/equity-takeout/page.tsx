@@ -26,6 +26,7 @@ export default function EquityTakeoutPage() {
     <PageShell>
       <BreadcrumbJsonLd items={[{ name: "Services", href: "/services" }, { name: "Equity Takeout", href: "/services/equity-takeout" }]} />
       <ServicePageLayout
+        byline={{ updated: "2026-10-20", path: "/services/equity-takeout", name: "Home Equity Takeout" }}
         eyebrow="Restructure / Equity Take Out"
         title="Your home equity is an asset. Let's talk about how to use it wisely."
         intro="Whether you are renovating, investing, helping a family member, or just want to improve your cash flow, your home equity gives you options. I help you understand what is available and what it actually costs."

@@ -141,6 +141,7 @@ function SliderInput({
           <span className="text-navy font-bold text-[1.25rem]" style={{ fontFamily: 'var(--font-spectral)' }}>$</span>
         )}
         <input
+          aria-label={label}
           type="text"
           inputMode="numeric"
           value={editing ? draft : display}
@@ -165,6 +166,7 @@ function SliderInput({
         />
       </div>
       <input
+        aria-label={label}
         type="range"
         min={min}
         max={max}
@@ -359,6 +361,7 @@ export default function ClosingCostsCalculator() {
               </span>
             </div>
             <input
+              aria-label="Down payment percentage"
               type="range"
               min={5}
               max={100}

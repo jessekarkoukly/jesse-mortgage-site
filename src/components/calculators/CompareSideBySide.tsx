@@ -120,6 +120,7 @@ function SliderInput({
         {suffix}
       </p>
       <input
+        aria-label={label}
         type="range"
         min={min}
         max={max}
@@ -156,6 +157,7 @@ function ScenarioColumn({
       {/* Header */}
       <div className={`${headerClass} rounded-t-xl px-4 py-3`}>
         <input
+          aria-label="Scenario name"
           type="text"
           value={scenario.label}
           onChange={(e) => onChange({ label: e.target.value })}
@@ -190,6 +192,7 @@ function ScenarioColumn({
             {scenario.rate.toFixed(2)}%
           </p>
           <input
+            aria-label="Interest rate"
             type="range"
             min={1}
             max={12}
@@ -212,6 +215,7 @@ function ScenarioColumn({
             Rate Term
           </span>
           <select
+            aria-label="Rate term"
             value={scenario.rateTerm}
             onChange={(e) => onChange({ rateTerm: e.target.value })}
             className="w-full bg-transparent text-navy font-bold text-[1.25rem] focus:outline-none cursor-pointer"
@@ -246,6 +250,7 @@ function ScenarioColumn({
             Lender Name (optional)
           </span>
           <input
+            aria-label="Lender name"
             type="text"
             value={scenario.lender}
             onChange={(e) => onChange({ lender: e.target.value })}
@@ -473,7 +478,7 @@ export default function CompareSideBySide() {
         </h2>
 
         {/* ── 1. Head-to-Head Table ── */}
-        <div className="overflow-x-auto mb-8">
+        <div className="overflow-x-auto mb-8" tabIndex={0} role="group" aria-label="Scrollable table" data-scroll-region>
           <table className="w-full text-[0.875rem]" style={{ fontFamily: "var(--font-jakarta)" }}>
             <thead>
               <tr className="border-b border-[#E5E7EB]">
@@ -558,7 +563,7 @@ export default function CompareSideBySide() {
         >
           Over the Rate Term
         </h3>
-        <div className="overflow-x-auto mb-8">
+        <div className="overflow-x-auto mb-8" tabIndex={0} role="group" aria-label="Scrollable table" data-scroll-region>
           <table className="w-full text-[0.875rem]" style={{ fontFamily: "var(--font-jakarta)" }}>
             <thead>
               <tr className="border-b border-[#E5E7EB]">
@@ -659,7 +664,7 @@ export default function CompareSideBySide() {
         >
           Full Amortization
         </h3>
-        <div className="overflow-x-auto mb-4">
+        <div className="overflow-x-auto mb-4" tabIndex={0} role="group" aria-label="Scrollable table" data-scroll-region>
           <table className="w-full text-[0.875rem]" style={{ fontFamily: "var(--font-jakarta)" }}>
             <thead>
               <tr className="border-b border-[#E5E7EB]">

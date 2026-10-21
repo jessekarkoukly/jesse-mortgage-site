@@ -132,6 +132,7 @@ function AffordabilityCalculator({
               </span>
             </div>
             <input
+              aria-label="Household income"
               type="range"
               min={40000}
               max={400000}
@@ -157,6 +158,7 @@ function AffordabilityCalculator({
               </span>
             </div>
             <input
+              aria-label="Monthly debts"
               type="range"
               min={0}
               max={5000}
@@ -182,6 +184,7 @@ function AffordabilityCalculator({
               </span>
             </div>
             <input
+              aria-label="Down payment saved"
               type="range"
               min={10000}
               max={500000}
@@ -212,7 +215,11 @@ function AffordabilityCalculator({
             </p>
           </div>
           <button
-            onClick={() => setFirstTime(!firstTime)}
+            type="button"
+                role="switch"
+                aria-checked={firstTime}
+                aria-label="First-time buyer"
+                onClick={() => setFirstTime(!firstTime)}
             className={`w-11 h-6 rounded-full transition-colors duration-200 relative cursor-pointer ${
               firstTime ? "bg-coral" : "bg-sand-2"
             }`}
@@ -576,6 +583,7 @@ export default function PreApprovalContent() {
                     className="bg-navy rounded-xl p-6 flex gap-5"
                   >
                     <span
+                      aria-hidden="true"
                       className="text-[2.5rem] font-bold text-coral/20 leading-none shrink-0 w-14"
                       style={{ fontFamily: "var(--font-spectral)" }}
                     >
@@ -624,7 +632,7 @@ export default function PreApprovalContent() {
                 universe of options they will ever offer you.
               </p>
 
-              <div className="overflow-x-auto mb-6">
+              <div className="overflow-x-auto mb-6" tabIndex={0} role="group" aria-label="Scrollable table" data-scroll-region>
                 <table
                   className="w-full text-left text-[0.8125rem]"
                   style={{ fontFamily: "var(--font-jakarta)" }}
@@ -656,7 +664,7 @@ export default function PreApprovalContent() {
                           {label}
                         </td>
                         <td className="py-3 px-4">{bank}</td>
-                        <td className="py-3 px-4 font-semibold text-emerald-600">
+                        <td className="py-3 px-4 font-semibold text-[#4F6B7A]">
                           {jesse}
                         </td>
                       </tr>

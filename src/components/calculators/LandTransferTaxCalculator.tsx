@@ -126,6 +126,7 @@ function SliderInput({
         ${fmt(value)}
       </p>
       <input
+        aria-label={label}
         type="range"
         min={min}
         max={max}

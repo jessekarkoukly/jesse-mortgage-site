@@ -82,6 +82,7 @@ function SliderInput({
           `${prefix}${prefix === "$" ? fmt2(value) : value}${suffix}`}
       </p>
       <input
+        aria-label={label}
         type="range"
         min={min}
         max={max}
@@ -302,6 +303,7 @@ export default function MortgagePaymentCalculator() {
                   {rate.toFixed(2)}%
                 </p>
                 <input
+                  aria-label="Interest rate"
                   type="range"
                   min={1}
                   max={12}
@@ -322,6 +324,7 @@ export default function MortgagePaymentCalculator() {
                   Rate Term
                 </span>
                 <select
+                  aria-label="Rate term"
                   value={rateTerm}
                   onChange={(e) => setRateTerm(e.target.value)}
                   className="w-full bg-transparent text-navy font-bold text-[1.25rem] focus:outline-none cursor-pointer"
@@ -373,6 +376,7 @@ export default function MortgagePaymentCalculator() {
               Payment Frequency
             </span>
             <select
+              aria-label="Payment frequency"
               value={frequency}
               onChange={(e) => setFrequency(e.target.value as FrequencyKey)}
               className="w-full bg-transparent text-navy font-bold text-[1.25rem] focus:outline-none cursor-pointer"

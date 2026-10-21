@@ -192,7 +192,7 @@ function Body() {
           <b>Say you made $100,000 last year and $80,000 this year.</b> That&apos;s a 20% drop. Your two-year average is
           ($100,000 + $80,000) ÷ 2 = $90,000.
         </p>
-        <div className="table-wrap">
+        <div className="table-wrap" tabIndex={0} role="group" aria-label="Scrollable table">
           <table>
             <caption>Income each lender would use: $100,000 last year, $80,000 this year</caption>
             <thead>
@@ -312,7 +312,7 @@ function Body() {
           4.74% is one of the best 5-year fixed rates I&apos;m seeing this month for 20% down. The math uses the
           dividends actually paid, the safer number.
         </p>
-        <div className="table-wrap">
+        <div className="table-wrap" tabIndex={0} role="group" aria-label="Scrollable table">
           <table>
             <caption>Maximum mortgage by how the owner pays themselves</caption>
             <thead>
@@ -552,7 +552,7 @@ const post: Post = {
   slug: "self-employed-dividends-mortgage",
   h1: "Can I get a mortgage if I'm self-employed and pay myself in dividends?",
   headline: "Can I Get a Mortgage If I'm Self-Employed and Pay Myself in Dividends?",
-  metaTitle: "Mortgage When Paid in Dividends: Self-Employed Guide (Ontario)",
+  metaTitle: "Mortgage on Dividend Income: Self-Employed Guide (Ontario)",
   metaDescription:
     "Yes, you can get a mortgage paid in dividends. How lenders read your income, real math, and what to fix before you apply.",
   teaser:

@@ -134,6 +134,7 @@ function SliderInput({
         <div className="flex items-center gap-1 mb-2">
           {prefix && <span className="text-slate text-[1rem]">{prefix}</span>}
           <input
+            aria-label={label}
             type="number"
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
@@ -155,6 +156,7 @@ function SliderInput({
         </p>
       )}
       <input
+        aria-label={label}
         type="range"
         min={min}
         max={max}

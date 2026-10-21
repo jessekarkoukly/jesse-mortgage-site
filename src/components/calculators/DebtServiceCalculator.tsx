@@ -112,6 +112,7 @@ function SliderInput({
         {prefix}{prefix === "$" ? Math.round(value).toLocaleString("en-CA") : ""}{prefix !== "$" ? value : ""}{suffix}
       </p>
       <input
+        aria-label={label}
         type="range"
         min={min}
         max={max}
@@ -154,6 +155,7 @@ function PlainInput({
       <div className="flex items-center gap-1">
         {prefix && <span className="text-slate text-[0.875rem]">{prefix}</span>}
         <input
+          aria-label={label}
           type="number"
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -387,6 +389,7 @@ export default function DebtServiceCalculator() {
                   {rate.toFixed(2)}%
                 </p>
                 <input
+                  aria-label="Interest rate"
                   type="range"
                   min={1}
                   max={12}
@@ -404,6 +407,7 @@ export default function DebtServiceCalculator() {
                   Rate Term
                 </span>
                 <select
+                  aria-label="Rate term"
                   value={rateTerm}
                   onChange={(e) => setRateTerm(e.target.value)}
                   className="w-full bg-transparent text-navy font-bold text-[1.375rem] focus:outline-none cursor-pointer"
@@ -459,6 +463,10 @@ export default function DebtServiceCalculator() {
                 Add Rental Income
               </p>
               <button
+                type="button"
+                role="switch"
+                aria-checked={rentalToggle}
+                aria-label="Rental income"
                 onClick={() => {
                   setRentalToggle(!rentalToggle);
                   if (rentalToggle) {

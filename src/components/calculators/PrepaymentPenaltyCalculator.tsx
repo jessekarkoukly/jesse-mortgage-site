@@ -208,6 +208,7 @@ export default function PrepaymentPenaltyCalculator() {
               Province
             </label>
             <select
+              aria-label="Province"
               value={province}
               onChange={(e) => setProvince(e.target.value)}
               className="w-full border border-[#E5E7EB] rounded-lg px-4 py-3 text-[0.9375rem] text-navy bg-white focus:outline-none focus:ring-2 focus:ring-coral/30"
@@ -232,6 +233,7 @@ export default function PrepaymentPenaltyCalculator() {
                 $
               </span>
               <input
+                aria-label="Current mortgage balance"
                 type="text"
                 inputMode="numeric"
                 value={
@@ -255,6 +257,7 @@ export default function PrepaymentPenaltyCalculator() {
               />
             </div>
             <input
+              aria-label="Current mortgage balance"
               type="range"
               min={50000}
               max={2000000}
@@ -273,6 +276,7 @@ export default function PrepaymentPenaltyCalculator() {
             </label>
             <div className="relative">
               <input
+                aria-label="Current mortgage rate"
                 type="text"
                 inputMode="decimal"
                 value={rateEditing ? rateDraft : rate.toFixed(2)}
@@ -295,6 +299,7 @@ export default function PrepaymentPenaltyCalculator() {
               </span>
             </div>
             <input
+              aria-label="Current mortgage rate"
               type="range"
               min={0.5}
               max={10}
@@ -312,6 +317,7 @@ export default function PrepaymentPenaltyCalculator() {
               <InfoBubble text="Big banks and monoline lenders calculate penalties differently. Big banks typically use posted rates (resulting in higher penalties), while monolines use your actual contract rate." />
             </label>
             <select
+              aria-label="Mortgage provider"
               value={provider}
               onChange={(e) => setProvider(e.target.value)}
               className="w-full border border-[#E5E7EB] rounded-lg px-4 py-3 text-[0.9375rem] text-navy bg-white focus:outline-none focus:ring-2 focus:ring-coral/30"
@@ -355,6 +361,7 @@ export default function PrepaymentPenaltyCalculator() {
               <InfoBubble text="The length of your current mortgage term. Most common in Canada is 5 years. This is different from your amortization period." />
             </label>
             <select
+              aria-label="Current term"
               value={term}
               onChange={(e) => setTerm(e.target.value)}
               className="w-full border border-[#E5E7EB] rounded-lg px-4 py-3 text-[0.9375rem] text-navy bg-white focus:outline-none focus:ring-2 focus:ring-coral/30"
@@ -375,6 +382,7 @@ export default function PrepaymentPenaltyCalculator() {
             </label>
             <div className="flex gap-3">
               <input
+                aria-label="Mortgage start month"
                 type="text"
                 inputMode="numeric"
                 maxLength={2}
@@ -386,6 +394,7 @@ export default function PrepaymentPenaltyCalculator() {
                 className="flex-1 border border-[#E5E7EB] rounded-lg px-4 py-3 text-[0.9375rem] text-navy bg-white focus:outline-none focus:ring-2 focus:ring-coral/30 text-center"
               />
               <input
+                aria-label="Mortgage start day"
                 type="text"
                 inputMode="numeric"
                 maxLength={2}
@@ -397,6 +406,7 @@ export default function PrepaymentPenaltyCalculator() {
                 className="flex-1 border border-[#E5E7EB] rounded-lg px-4 py-3 text-[0.9375rem] text-navy bg-white focus:outline-none focus:ring-2 focus:ring-coral/30 text-center"
               />
               <input
+                aria-label="Mortgage start year"
                 type="text"
                 inputMode="numeric"
                 maxLength={4}

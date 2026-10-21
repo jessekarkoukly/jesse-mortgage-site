@@ -225,7 +225,7 @@ export default function RenewalContent() {
               </div>
 
               {/* Mid-page CTA strip */}
-              <div className="mt-16 bg-coral rounded-xl py-10 px-6 text-center">
+              <div className="mt-16 bg-[#7E6352] rounded-xl py-10 px-6 text-center">
                 <p
                   className="text-white text-[1.25rem] md:text-[1.5rem] font-bold mb-5"
                   style={{ fontFamily: "var(--font-spectral)" }}
@@ -376,7 +376,7 @@ export default function RenewalContent() {
       </section>
 
       {/* ── Timing Strip (full-bleed, outside the grid) ── */}
-      <section className="bg-coral">
+      <section className="bg-[#7E6352]">
         <div className="mx-auto max-w-3xl px-5 py-16 md:py-20 text-center">
           <h2
             className="text-white text-[1.75rem] md:text-[2.5rem] font-bold mb-4"

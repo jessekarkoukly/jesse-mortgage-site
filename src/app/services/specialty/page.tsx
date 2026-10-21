@@ -26,6 +26,7 @@ export default function SpecialtyPage() {
     <PageShell>
       <BreadcrumbJsonLd items={[{ name: "Services", href: "/services" }, { name: "Specialty Programs", href: "/services/specialty" }]} />
       <ServicePageLayout
+        byline={{ updated: "2026-10-20", path: "/services/specialty", name: "Specialty Mortgage Programs" }}
         eyebrow="Specialty Programs"
         title="Not everyone fits a standard mortgage box."
         intro="Whether you are purchasing, refinancing, or renewing, standard programs do not always account for your situation. That is why specialized lending products exist. I help you find the right one."

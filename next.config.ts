@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Link preview images read their fonts and logo from /assets/og at runtime.
+  outputFileTracingIncludes: {
+    "/opengraph-image": ["./assets/og/**"],
+    "/twitter-image": ["./assets/og/**"],
+    "/blog/[slug]/opengraph-image": ["./assets/og/**"],
+  },
   async redirects() {
     return [
       // Send www to the main address so Google sees one site, not two.

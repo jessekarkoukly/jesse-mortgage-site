@@ -83,7 +83,7 @@ export default function Nav({ onBookingOpen }: NavProps) {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav aria-label="Main" className="hidden lg:flex items-center gap-8">
           {/* Services dropdown */}
           <div
             ref={dropdownRef}
@@ -205,7 +205,7 @@ export default function Nav({ onBookingOpen }: NavProps) {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="lg:hidden bg-white border-t border-sand-2 px-6 pb-6 pt-4">
-          <nav className="flex flex-col gap-4 mb-6">
+          <nav aria-label="Mobile menu" className="flex flex-col gap-4 mb-6">
             {/* Services with expandable sub-links */}
             <div>
               <button

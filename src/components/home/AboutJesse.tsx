@@ -10,6 +10,7 @@ export default function AboutJesse() {
           alt="Jesse Karkoukly walking with his family on a Toronto street in the fall"
           width={1067}
           height={1600}
+          sizes="(max-width: 480px) 100vw, 440px"
           className="w-full max-w-[440px] h-[440px] lg:h-[580px] object-cover rounded-[20px] mx-auto lg:mx-0 shrink-0"
         />
         <div className="flex-1 min-w-0 flex flex-col gap-5">

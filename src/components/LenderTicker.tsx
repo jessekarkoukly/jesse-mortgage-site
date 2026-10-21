@@ -40,10 +40,11 @@ export default function LenderTicker() {
               <div key={i} className="flex items-center shrink-0 px-6">
                 <img
                   src={lender.logo}
-                  alt={lender.name}
+                  alt={i < doubled.length / 2 ? lender.name : ""}
                   className="h-24 sm:h-28 w-auto object-contain opacity-75 hover:opacity-100 hover:scale-110 transition-all duration-200"
                   style={{ filter: "grayscale(1) contrast(15) invert(1)" }}
-                  loading="eager"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             ))}

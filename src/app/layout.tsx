@@ -28,7 +28,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Jesse Karkoukly | Toronto Mortgage Agent | Sherwood Mortgage Group",
+    default: "Jesse Karkoukly | Toronto Mortgage Agent",
     template: "%s",
   },
   description:
@@ -44,13 +44,13 @@ export const metadata: Metadata = {
     locale: "en_CA",
     url: "https://jessekarkoukly.com",
     siteName: "Jesse Karkoukly | Toronto Mortgage Agent",
-    title: "Jesse Karkoukly | Toronto Mortgage Agent | Sherwood Mortgage Group",
+    title: "Jesse Karkoukly | Toronto Mortgage Agent",
     description:
       "Jesse Karkoukly is a Toronto mortgage agent with Sherwood Mortgage Group, helping first-time and self-employed buyers make confident mortgage decisions.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jesse Karkoukly | Toronto Mortgage Agent | Sherwood Mortgage Group",
+    title: "Jesse Karkoukly | Toronto Mortgage Agent",
     description:
       "Jesse Karkoukly is a Toronto mortgage agent with Sherwood Mortgage Group, helping first-time and self-employed buyers make confident mortgage decisions.",
   },

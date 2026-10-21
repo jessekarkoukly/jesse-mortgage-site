@@ -124,6 +124,7 @@ function InputBox({
           {label}
         </label>
         <input
+          aria-label={label}
           type="text"
           value={focused ? inputVal : displayVal}
           onFocus={handleInputFocus}
@@ -134,6 +135,7 @@ function InputBox({
           style={{ fontFamily: 'var(--font-jakarta)' }}
         />
         <input
+          aria-label={label}
           type="range"
           min={sliderMin}
           max={sliderMax}
@@ -172,6 +174,7 @@ function SelectBox({
         </label>
         <div className="flex items-center mt-auto">
           <select
+            aria-label={label}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             className="w-full text-[0.875rem] font-semibold text-navy bg-transparent border-none outline-none p-0 cursor-pointer appearance-none"
@@ -409,6 +412,10 @@ export default function MortgageCalculator() {
                 Pay your mortgage faster
               </span>
               <button
+                type="button"
+                role="switch"
+                aria-checked={payFasterEnabled}
+                aria-label="Pay your mortgage faster"
                 onClick={() => setPayFasterEnabled(!payFasterEnabled)}
                 className={`w-11 h-6 rounded-full p-0.5 transition-colors cursor-pointer shrink-0 ${payFasterEnabled ? 'bg-coral' : 'bg-slate/30'}`}
               >
