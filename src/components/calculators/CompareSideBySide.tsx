@@ -751,7 +751,7 @@ export default function CompareSideBySide() {
             className="bg-navy text-white font-semibold py-3 px-8 rounded-lg hover:bg-navy-2 transition-colors cursor-pointer text-[0.875rem]"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Book a Call
+            Schedule a call
           </button>
           <p
             className="text-slate text-[0.75rem] mt-4"

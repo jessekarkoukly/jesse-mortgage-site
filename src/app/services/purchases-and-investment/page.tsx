@@ -188,7 +188,7 @@ export default function PurchasesInvestmentPage() {
             className="shrink-0 bg-coral text-white font-semibold px-7 py-3.5 rounded hover:bg-coral/90 transition-colors"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Book a Call
+            Schedule a call
           </Link>
         </div>
       </section>

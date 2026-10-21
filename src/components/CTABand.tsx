@@ -24,7 +24,7 @@ export default function CTABand({ onBookingOpen }: CTABandProps) {
             className="bg-sand text-navy font-semibold px-8 py-3.5 rounded hover:bg-white hover:scale-[1.03] active:scale-95 transition-all duration-150 cursor-pointer text-[0.9375rem] w-full sm:w-auto"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Book a Call
+            Schedule a call
           </button>
           <a
             href="tel:4162762666"

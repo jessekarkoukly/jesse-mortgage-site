@@ -21,7 +21,7 @@ interface PageShellProps {
 }
 
 export default function PageShell({ children, hideFloatingCTAs }: PageShellProps) {
-  // Listen for custom event from "Book a Call" buttons across the site
+  // Listen for custom event from "Schedule a call" buttons across the site
   useEffect(() => {
     const handleOpen = () => openCalendly();
     window.addEventListener("open-booking-modal", handleOpen);

@@ -116,7 +116,7 @@ export default function OpenHousePage() {
                 rel="noopener noreferrer"
                 className="underline hover:text-white transition-colors"
               >
-                Book a call
+                Schedule a call
               </a>
               <span className="hidden sm:inline">·</span>
               <a href="tel:+14162762666" className="underline hover:text-white transition-colors">

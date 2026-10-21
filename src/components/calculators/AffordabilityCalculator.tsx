@@ -834,7 +834,7 @@ export default function AffordabilityCalculator() {
                 className="w-full bg-coral text-white font-semibold py-3 rounded-lg hover:bg-coral-dark hover:scale-[1.03] active:scale-95 transition-all cursor-pointer text-[0.875rem]"
                 style={{ fontFamily: "var(--font-jakarta)" }}
               >
-                Book a Call
+                Schedule a call
               </button>
             </div>
           </div>

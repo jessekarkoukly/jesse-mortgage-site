@@ -30,11 +30,11 @@ export default function HomeHero({ onSchedule, onEmail }: Props) {
           <p className="m-0 text-[1.0625rem] sm:text-[1.1875rem] leading-relaxed max-w-xl" style={{ ...sans, color: B.body }}>
             Thanks for stopping by. I’m Jesse, a Toronto mortgage agent at Sherwood Mortgage Group.
           </p>
-          <div className="flex flex-wrap gap-3 pt-1">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 pt-1">
             <button
               type="button"
               onClick={onSchedule}
-              className="cursor-pointer rounded-full px-7 py-4 min-h-[48px] text-[1rem] font-semibold transition-colors duration-150 bg-[#352B26] text-[#F5EFE8] border-[1.5px] border-[#352B26] hover:bg-[#4F6B7A] hover:border-[#4F6B7A]"
+              className="cursor-pointer w-full sm:w-auto rounded-full px-7 py-4 min-h-[48px] text-[1rem] font-semibold transition-colors duration-150 bg-[#352B26] text-[#F5EFE8] border-[1.5px] border-[#352B26] hover:bg-[#4F6B7A] hover:border-[#4F6B7A]"
               style={sans}
             >
               Schedule a call
@@ -42,10 +42,10 @@ export default function HomeHero({ onSchedule, onEmail }: Props) {
             <button
               type="button"
               onClick={onEmail}
-              className="cursor-pointer rounded-full px-7 py-4 min-h-[48px] text-[1rem] font-semibold transition-colors duration-150 bg-transparent text-[#352B26] border-[1.5px] border-[#352B26] hover:text-[#4F6B7A] hover:border-[#4F6B7A]"
+              className="cursor-pointer w-full sm:w-auto rounded-full px-7 py-4 min-h-[48px] text-[1rem] font-semibold transition-colors duration-150 bg-transparent text-[#352B26] border-[1.5px] border-[#352B26] hover:text-[#4F6B7A] hover:border-[#4F6B7A]"
               style={sans}
             >
-              Email me
+              Start the conversation
             </button>
           </div>
         </div>

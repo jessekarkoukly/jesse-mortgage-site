@@ -39,7 +39,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
               className="bg-coral text-white font-bold px-8 py-4 rounded-lg hover:bg-coral-dark hover:scale-[1.03] active:scale-95 transition-all duration-150 cursor-pointer text-[0.9375rem] shadow-md hover:shadow-lg"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
-              Book a Call
+              Schedule a call
             </button>
             <a
               href="https://app.scarlettnetwork.com/Jesse_Karkoukly/application/0/interview/purpose"
@@ -113,7 +113,7 @@ export default function Hero({ onBookingOpen }: HeroProps) {
               className="w-full sm:w-auto bg-coral text-white font-bold px-7 py-4 rounded-lg hover:bg-coral-dark active:scale-95 transition-all duration-150 cursor-pointer text-[0.9375rem] shadow-md text-center"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
-              Book a Call
+              Schedule a call
             </button>
             <a
               href="https://app.scarlettnetwork.com/Jesse_Karkoukly/application/0/interview/purpose"

@@ -28,7 +28,7 @@ export default function TrackPrompt({ onBookingOpen }: TrackPromptProps) {
             className="text-white/80 text-[0.9375rem]"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Book a call. Takes about 20 minutes.
+            Schedule a call. Takes about 20 minutes.
           </p>
         </div>
       </button>

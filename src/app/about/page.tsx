@@ -338,7 +338,7 @@ export default function AboutPage() {
             className="inline-block bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark transition-colors"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Book a Call
+            Schedule a call
           </Link>
         </div>
       </section>

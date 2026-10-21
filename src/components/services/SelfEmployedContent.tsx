@@ -367,7 +367,7 @@ export default function SelfEmployedContent() {
               className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark transition-colors cursor-pointer text-[0.9375rem]"
               style={{ fontFamily: "var(--font-jakarta)" }}
             >
-              Book a Call
+              Schedule a call
             </button>
           </div>
           <div className="flex flex-wrap gap-5 justify-center mt-6">
@@ -714,7 +714,7 @@ export default function SelfEmployedContent() {
                 className="bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark transition-colors cursor-pointer text-[0.9375rem]"
                 style={{ fontFamily: "var(--font-jakarta)" }}
               >
-                Book a Call
+                Schedule a call
               </button>
             </div>
 

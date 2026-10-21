@@ -534,7 +534,7 @@ export default function PrepaymentPenaltyCalculator() {
                 onClick={handleBookCall}
                 className="w-full bg-coral text-white font-bold py-3.5 rounded-xl hover:bg-coral-dark transition-colors text-[0.9375rem] cursor-pointer"
               >
-                Book a Call
+                Schedule a call
               </button>
               <p className="text-[0.75rem] text-slate text-center -mt-2">
                 Want Jesse to run your exact numbers? It takes one call.

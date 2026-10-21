@@ -31,7 +31,7 @@ export default function StickyMobileCTA() {
         className="w-full rounded-lg bg-coral text-white font-bold text-[0.9375rem] py-3 active:bg-coral-dark active:scale-95 transition-all cursor-pointer"
         style={{ fontFamily: "var(--font-jakarta)" }}
       >
-        Book a Call
+        Schedule a call
       </button>
     </div>
   );

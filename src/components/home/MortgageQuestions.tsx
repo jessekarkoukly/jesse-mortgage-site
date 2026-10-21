@@ -24,7 +24,7 @@ export default function MortgageQuestions({ onSchedule, onEmail }: Props) {
               <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" />
               </svg>
-              Drop me a note
+              Start the conversation
             </button>
             <button
               type="button"
