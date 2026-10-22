@@ -126,6 +126,8 @@ One component: `BookingModal`. Label is contextual per page.
 
 **Labels (October 21, 2026, Jesse's call, site-wide):** every booking button reads `Schedule a call` (sentence case). Buttons that start a direct email read `Start the conversation`: the homepage hero and "Mortgage questions?" buttons open the "Tell me a little about your story" form (`src/components/home/StoryForm.tsx`, posting to `/api/story`); the blog post's ask box opens an email. `Book an Intro Call` and `Book a Pre-Approval Call` were not part of this change.
 
+**Schedule a call flow (October 22, 2026, for Matt Evanoff):** every `Schedule a call` button (nav, page CTAs, sticky bar, homepage) opens the short inquiry form (`src/components/InquiryForm.tsx`: name, email, phone, "What can I help with?"). It posts to `/api/leads`, which saves to Supabase `leads` and emails Jesse through Resend, and succeeds if either works. Success goes to `/thank-you` (noindex): "Thanks, [first name]." / "Looking forward to connecting with you." and the Calendly inline embed with name and email prefilled (passed in sessionStorage, never in the URL). The same form sits on `/contact` (`#schedule`). `/open-house` still links straight to Calendly.
+
 **Nav CTA:** `Schedule a call` — navy background, white text. Coral is reserved for page-level CTAs only.
 
 **Secondary CTA:** `How It Works →` — ghost style, links to `/working-with-jesse`. Never opens modal.
@@ -259,6 +261,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 ## SESSION LOG
 
 Newest first.
+
+**2026-10-22: Inquiry form and lead tables**
+The `leads`, `email_subscribers`, `renewal_reminders` and `calculator_leads` tables had never been created, so the newsletter signup (/blog), renewal reminder and calculator report forms failed, and story form leads only arrived by email. Tables created (RLS on, no public policies; server routes use the service role key, including `/api/email-subscribe` now). Matt's flow built: Schedule a call opens the inquiry form, then `/thank-you` with Calendly. `/api/leads` rewritten: honeypot, input limits, HTML-escaped email with reply-to, save and email in parallel. Email needs `RESEND_API_KEY` in Vercel and jessekarkoukly.com verified in Resend.
 
 **2026-10-21: Favicon**
 The favicon at tab size was six thin slats that blurred into grey. New bold small-size mark (four slats, pixel-aligned). Removed the layout's manual `icons` list, which had overridden `icon.svg` and `apple-icon.png`; the icon links now carry content hashes, so browsers fetch new versions. Manifest colours moved to linen.

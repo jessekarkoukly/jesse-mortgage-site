@@ -15,15 +15,11 @@ import BlogPreview from "@/components/BlogPreview";
 import HelpList from "@/components/home/HelpList";
 import MortgageQuestions from "@/components/home/MortgageQuestions";
 import StoryForm from "@/components/home/StoryForm";
+import InquiryForm from "@/components/InquiryForm";
 import SherwoodFooter from "@/components/SherwoodFooter";
 import JesseFooter from "@/components/JesseFooter";
 import HomeJsonLd from "@/components/HomeJsonLd";
-import { CALENDLY_URL } from "@/components/home/brand";
 
-function openCalendly() {
-  trackEvent("book_call_click");
-  window.open(CALENDLY_URL, "_blank", "noopener,noreferrer");
-}
 
 export default function HomePage() {
   const [storyOpen, setStoryOpen] = useState(false);
@@ -32,6 +28,12 @@ export default function HomePage() {
     setStoryOpen(true);
   }, []);
   const closeStory = useCallback(() => setStoryOpen(false), []);
+  const [inquiryOpen, setInquiryOpen] = useState(false);
+  const openCalendly = useCallback(() => {
+    trackEvent("book_call_click");
+    setInquiryOpen(true);
+  }, []);
+  const closeInquiry = useCallback(() => setInquiryOpen(false), []);
 
   return (
     <>
@@ -53,6 +55,7 @@ export default function HomePage() {
       <SherwoodFooter />
       <JesseFooter />
       <StoryForm open={storyOpen} onClose={closeStory} />
+      <InquiryForm open={inquiryOpen} onClose={closeInquiry} />
     </>
   );
 }

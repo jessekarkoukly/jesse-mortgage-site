@@ -1,19 +1,13 @@
 "use client";
 
 import { trackEvent } from "@/lib/analytics";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Nav from "@/components/Nav";
 import SherwoodFooter from "@/components/SherwoodFooter";
 import JesseFooter from "@/components/JesseFooter";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import ScrollCTA from "@/components/ScrollCTA";
-
-const CALENDLY_URL = "https://calendly.com/working-with-jesse/30min";
-
-function openCalendly() {
-  trackEvent("book_call_click");
-  window.open(CALENDLY_URL, "_blank", "noopener,noreferrer");
-}
+import InquiryForm from "@/components/InquiryForm";
 
 interface PageShellProps {
   children: React.ReactNode;
@@ -21,21 +15,29 @@ interface PageShellProps {
 }
 
 export default function PageShell({ children, hideFloatingCTAs }: PageShellProps) {
-  // Listen for custom event from "Schedule a call" buttons across the site
+  // Every "Schedule a call" button opens the short inquiry form, which leads to /thank-you and Calendly.
+  const [inquiryOpen, setInquiryOpen] = useState(false);
+  const openInquiry = useCallback(() => {
+    trackEvent("book_call_click");
+    setInquiryOpen(true);
+  }, []);
+  const closeInquiry = useCallback(() => setInquiryOpen(false), []);
+
   useEffect(() => {
-    const handleOpen = () => openCalendly();
+    const handleOpen = () => openInquiry();
     window.addEventListener("open-booking-modal", handleOpen);
     return () => window.removeEventListener("open-booking-modal", handleOpen);
-  }, []);
+  }, [openInquiry]);
 
   return (
     <>
-      <Nav onBookingOpen={openCalendly} />
+      <Nav onBookingOpen={openInquiry} />
       <main>{children}</main>
       <SherwoodFooter />
       <JesseFooter />
       {!hideFloatingCTAs && <StickyMobileCTA />}
       {!hideFloatingCTAs && <ScrollCTA />}
+      <InquiryForm open={inquiryOpen} onClose={closeInquiry} />
     </>
   );
 }

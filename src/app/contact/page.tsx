@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { social } from "@/lib/seo";
 import PageShell from "@/components/PageShell";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import { InquiryFields } from "@/components/InquiryForm";
 
 export const metadata: Metadata = {
   title: "Contact Jesse Karkoukly | Toronto Mortgage Agent",
@@ -43,6 +44,20 @@ export default function ContactPage() {
             The fastest way to get started is a 15-30 minute call. You walk me through your
             situation and I tell you exactly where you stand.
           </p>
+
+          {/* Short inquiry form: submits, then /thank-you with Calendly */}
+          <div id="schedule" className="bg-white rounded-2xl px-6 sm:px-9 py-7 sm:py-9 mb-10 scroll-mt-28">
+            <h2
+              className="text-[1.75rem] sm:text-[2rem] text-navy leading-tight mb-1.5"
+              style={{ fontFamily: "var(--font-spectral)", fontWeight: 500 }}
+            >
+              Schedule a call
+            </h2>
+            <p className="text-[0.9375rem] text-navy-2 leading-relaxed mb-6" style={{ fontFamily: "var(--font-jakarta)" }}>
+              Share a little about you, then pick a time that suits you.
+            </p>
+            <InquiryFields autoFocus={false} />
+          </div>
 
           {/* Contact options */}
           <div className="flex flex-col gap-6">
