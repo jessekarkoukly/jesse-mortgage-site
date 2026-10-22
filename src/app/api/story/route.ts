@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const resendKey = process.env.RESEND_API_KEY;
+  const resendKey = (process.env.RESEND_API_KEY ?? "").replace(/\s/g, "").replace(/^["']|["']$/g, "");
   if (resendKey) {
     try {
       const res = await fetch("https://api.resend.com/emails", {

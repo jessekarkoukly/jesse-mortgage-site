@@ -95,7 +95,7 @@ async function saveLead(lead: Lead) {
 }
 
 async function emailJesse(lead: Lead) {
-  const resendKey = process.env.RESEND_API_KEY;
+  const resendKey = (process.env.RESEND_API_KEY ?? "").replace(/\s/g, "").replace(/^["']|["']$/g, "");
   if (!resendKey) return false;
 
   const name = [lead.first_name, lead.last_name].filter(Boolean).join(" ") || "Someone";
