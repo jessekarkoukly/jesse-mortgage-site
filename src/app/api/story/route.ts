@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { supabaseServer } from "@/lib/supabaseServer";
 import { NextRequest, NextResponse } from "next/server";
 
 // "Tell me a little about your story" form on the homepage.
@@ -46,12 +46,11 @@ export async function POST(req: NextRequest) {
   let saved = false;
   let emailed = false;
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (url && key) {
+  const db = supabaseServer();
+  if (db) {
     try {
       const [first, ...rest] = name.split(" ");
-      const { error } = await createClient(url, key)
+      const { error } = await db
         .from("leads")
         .insert([{
           first_name: first,

@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { supabaseServer } from "@/lib/supabaseServer";
 import { NextRequest, NextResponse } from "next/server";
 
 const JESSE_EMAIL = "jkarkoukly@sherwoodmortgagegroup.com";
@@ -68,11 +68,10 @@ type Lead = {
 };
 
 async function saveLead(lead: Lead) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return false;
+  const db = supabaseServer();
+  if (!db) return false;
   try {
-    const { error } = await createClient(url, key)
+    const { error } = await db
       .from("leads")
       .insert([
         {
