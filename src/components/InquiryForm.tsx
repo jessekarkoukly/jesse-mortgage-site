@@ -18,7 +18,7 @@ const input =
   "w-full rounded-xl border-[1.5px] border-[#E3D9CD] bg-white px-4 py-3.5 min-h-[52px] text-[1rem] text-[#352B26] placeholder:text-[#8C7A6E] focus:outline-none focus:border-[#4F6B7A] transition-colors duration-150";
 
 /** The four-field inquiry form. Used in the pop-up and on /contact. */
-export function InquiryFields({ onDone }: { onDone?: () => void }) {
+export function InquiryFields({ onDone, autoFocus = true }: { onDone?: () => void; autoFocus?: boolean }) {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,9 +29,10 @@ export function InquiryFields({ onDone }: { onDone?: () => void }) {
   const firstRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    if (!autoFocus) return;
     const t = window.setTimeout(() => firstRef.current?.focus(), 50);
     return () => window.clearTimeout(t);
-  }, []);
+  }, [autoFocus]);
 
   const valid = name.trim() && /\S+@\S+\.\S+/.test(email.trim()) && phone.trim() && help;
 
@@ -57,8 +58,9 @@ export function InquiryFields({ onDone }: { onDone?: () => void }) {
       if (!res.ok) throw new Error(String(res.status));
       trackEvent("inquiry_submit");
       onDone?.();
-      const q = new URLSearchParams({ name: name.trim(), email: email.trim() });
-      router.push(`/thank-you?${q.toString()}`);
+      // Hand the name and email to the thank-you page without putting them in the URL.
+      try { sessionStorage.setItem("jk_inquiry", JSON.stringify({ name: name.trim(), email: email.trim() })); } catch {}
+      router.push("/thank-you");
     } catch {
       setStatus("error");
     }

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import PageShell from "@/components/PageShell";
 import ThankYouContent from "./ThankYouContent";
 
@@ -13,9 +12,7 @@ export const metadata: Metadata = {
 export default function ThankYouPage() {
   return (
     <PageShell hideFloatingCTAs>
-      <Suspense>
-        <ThankYouContent />
-      </Suspense>
+      <ThankYouContent />
     </PageShell>
   );
 }
