@@ -44,8 +44,13 @@ export default function AboutPage() {
   return (
     <PageShell hideFloatingCTAs>
       <BreadcrumbJsonLd items={[{ name: "About", href: "/about" }]} />
+      {/* ── Contact card, first thing on the page ── */}
+      <section className="bg-sand pt-28 lg:pt-32 pb-4 px-5 sm:px-6">
+        <ContactCard />
+      </section>
+
       {/* ── Hero ── */}
-      <section className="bg-sand pt-28 pb-20 px-6">
+      <section className="bg-sand pt-14 pb-20 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <p
@@ -99,8 +104,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      <ContactCard />
 
       {/* ── How Jesse works ── */}
       <section className="bg-sand py-16 lg:py-20 px-5 sm:px-6">

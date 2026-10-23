@@ -201,6 +201,17 @@ button, a {
   [style*="jk-pop"] { animation: none !important; }
 }
 
+/* Business card on About and Contact: drops in from above and settles, once. */
+@keyframes jk-card-drop {
+  0%   { opacity: 0; transform: translateY(-36px) rotate(-1.5deg); }
+  60%  { opacity: 1; transform: translateY(6px) rotate(0.3deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0); }
+}
+.jk-card-drop { animation: jk-card-drop 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both; }
+@media (prefers-reduced-motion: reduce) {
+  .jk-card-drop { animation: none; }
+}
+
 /* ── Accent colours follow the nearest background ──
    Brand rule: never brown on brown, never faint on light. Each surface sets the
    colours its children use, so a light card inside a dark section (or the reverse)

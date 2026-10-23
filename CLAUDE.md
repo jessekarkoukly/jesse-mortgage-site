@@ -262,6 +262,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 
 Newest first.
 
+**2026-10-23: Business card on About and Contact**
+`src/components/about/ContactCard.tsx` is now a white business card (logo, phone, email that copies on click, office, licensing, Schedule a call and Start the conversation) with a one-time drop-in animation (`.jk-card-drop` in `globals.css`, off for reduced motion). It is the first thing on `/about` and the whole of `/contact` with "Looking forward to connecting with you." under it. The inline inquiry form left `/contact`; Schedule a call opens it. A nav Contact pop-out was mocked up and declined (branch `contact-card-draft`, not merged).
+
 **2026-10-23: Calendly embed, About page**
 Calendly link is now Jesse's scheduling page `https://calendly.com/working-with-jesse` (his embed code: linen background, espresso text, sky deep buttons). Both homepage buttons end on `/thank-you`: the story form now saves the name and email and redirects there too. The story form is mounted in `PageShell` (event `open-story-form`) so any page can open it. About page: Jesse's hero copy, a Contact card (phone, email, office, licensing, Schedule a call and Start the conversation buttons) in place of the stats strip and credentials, "A few things worth knowing upfront" rebuilt as four white cards on linen with Jesse's wording, reviews and the closing band removed.
 
