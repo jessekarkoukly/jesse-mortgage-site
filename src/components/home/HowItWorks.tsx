@@ -7,11 +7,11 @@ import { B, serif, sans } from "./brand";
 // Step explanations use Jesse's wording from the Working with Jesse page.
 const STEPS = [
   { title: "Intro call", text: "It starts with a conversation. Your situation, your timeline, what matters most to you. I ask the questions, you share what you know, and by the end you have a clear picture of what the path forward looks like." },
-  { title: "List of documents needed", text: "I send you a clear list of exactly what I need. Nothing more. You share documents when you are ready and I let you know if anything is missing." },
-  { title: "Personalized roadmap", text: "I put together a customized plan based on your income, your goals, and your timeline. I walk you through each scenario, look at a few different options side by side, and you leave knowing exactly where you stand." },
+  { title: "List of documents needed", text: "I send you a clear list of exactly what I need. You share documents when you are ready and I let you know if anything is missing." },
+  { title: "Personalized roadmap", text: "I put together a customized plan based on your income, your goals, and your timeline. I walk you through each scenario and look at a few different options side by side." },
   { title: "Pre-approval", text: "I shop your file across 50+ lenders and come back with real options. You see multiple scenarios with different rates, terms, and structures so you can make an informed decision." },
   { title: "Mortgage commitment", text: "Once you have an accepted offer, I finalize the approval and lock in your rate. I manage the lender relationship and keep you updated at every stage." },
-  { title: "Keys in hand", text: "The mortgage funds, you sign at the lawyer's office, and you get your keys. My job at this point is to make sure nothing goes wrong." },
+  { title: "Keys in hand", text: "My job is to get you from the starting point to keys in hand." },
 ];
 
 /**
@@ -48,9 +48,6 @@ export default function HowItWorks() {
       <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <div className="lg:sticky lg:top-32 self-start flex flex-col gap-4">
           <h2 className="m-0 text-[2.125rem] sm:text-[2.75rem] leading-[1.1]" style={{ ...serif, fontWeight: 400, color: B.espresso }}>How it works</h2>
-          <p className="m-0 text-[1.0625rem] leading-[1.65] max-w-md" style={{ ...sans, color: B.body }}>
-            Six steps from the first call to your keys.
-          </p>
           <Link href="/working-with-jesse" className="self-start text-[0.9375rem] font-semibold underline underline-offset-2 hover:text-[#4F6B7A] py-2" style={{ ...sans, color: B.espresso }}>
             Each step in detail
           </Link>
