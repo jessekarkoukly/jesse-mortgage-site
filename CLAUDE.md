@@ -262,6 +262,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 
 Newest first.
 
+**2026-10-23: How it works timeline, shorter hero**
+How it works is a vertical timeline (numbered dots, line fills as you scroll, Keys in hand in sky deep with the key icon), replacing the flip cards. Step copy trimmed by Jesse: no "Nothing more", no "you leave knowing exactly where you stand", Keys in hand is "My job is to get you from the starting point to keys in hand." Hero subline: "I'm Jesse Karkoukly, a Toronto mortgage agent at Sherwood Mortgage Group. I help you create a home buying plan."
+
 **2026-10-23: Meta pixel setup, privacy line**
 Meta pixel for Matt's ads: `src/components/MetaPixel.tsx` in the layout, ID in `src/lib/metaPixel.ts` (`META_PIXEL_ID`, empty means the pixel does not load). Events: PageView on every page and route change, `FormStart` (custom, with `form: schedule_call` or `start_conversation`) when a form opens, `Lead` when `/thank-you` loads. Under both forms: "Your information stays private and is only used to contact you directly. No spam, just the occasional market email." (Jesse's call, overrides the no-spam rule here) with a Privacy link. Privacy page now covers the Meta pixel and the occasional market email.
 
