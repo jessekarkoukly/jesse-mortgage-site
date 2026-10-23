@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
+import { metaCustom } from "@/lib/metaPixel";
 import { B, JESSE_EMAIL, serif, sans } from "./brand";
 
 const SITUATIONS = [
@@ -30,6 +31,7 @@ export default function StoryForm({ open, onClose }: Props) {
 
   useEffect(() => {
     if (!open) return;
+    metaCustom("FormStart", { form: "start_conversation" });
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const t = window.setTimeout(() => firstRef.current?.focus(), 50);
@@ -131,6 +133,9 @@ export default function StoryForm({ open, onClose }: Props) {
                 {status === "sending" ? "Sending…" : "Send my story"} <span aria-hidden="true">→</span>
               </button>
             </div>
+            <p className="m-0 text-[0.8125rem] leading-snug text-right" style={{ ...sans, color: B.onDark }}>
+              Your information stays private and is only used to contact you directly. No spam, just the occasional market email. <a href="/privacy" className="underline underline-offset-2 hover:text-[#9DB6C3]">Privacy</a>
+            </p>
           </form>
         )}
       </div>

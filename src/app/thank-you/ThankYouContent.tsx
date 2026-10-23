@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useSyncExternalStore } from "react";
 import { B, CALENDLY_URL, serif, sans } from "@/components/home/brand";
+import { metaTrack } from "@/lib/metaPixel";
 
 export default function ThankYouContent() {
   // Name and email from the inquiry form, kept in this browser tab only.
@@ -23,6 +24,9 @@ export default function ThankYouContent() {
     if (email) q.set("email", email);
     return `${CALENDLY_URL}?${q.toString()}`;
   }, [name, email]);
+
+  // A completed form lands here, so this is the lead Meta counts.
+  useEffect(() => { metaTrack("Lead"); }, []);
 
   useEffect(() => {
     const w = window as unknown as { Calendly?: { initInlineWidgets?: () => void } };
