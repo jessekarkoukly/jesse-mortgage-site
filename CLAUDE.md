@@ -262,6 +262,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 
 Newest first.
 
+**2026-10-23: Meta pixel setup, privacy line**
+Meta pixel for Matt's ads: `src/components/MetaPixel.tsx` in the layout, ID in `src/lib/metaPixel.ts` (`META_PIXEL_ID`, empty means the pixel does not load). Events: PageView on every page and route change, `FormStart` (custom, with `form: schedule_call` or `start_conversation`) when a form opens, `Lead` when `/thank-you` loads. Under both forms: "Your information stays private and is only used to contact you directly. No spam, just the occasional market email." (Jesse's call, overrides the no-spam rule here) with a Privacy link. Privacy page now covers the Meta pixel and the occasional market email.
+
 **2026-10-23: Homepage copy pass 1**
 Hero headline `Confident mortgage decisions start here.` (also on the link preview images), new subline. What brings you here: new copy for the first three cards, second card is "Ready to look at homes". About section: address line replaced by a sky deep "Start the conversation" button. How it works: six cards in a 3 by 2 grid that flip to show each step on an inverted colour back (both sides in the page; no turn with reduced motion). FAQ: Jesse's answers for broker cost, better rate, self-employed and what happens when you reach out; answers are first person; answers support paragraph breaks (`\n\n`).
 

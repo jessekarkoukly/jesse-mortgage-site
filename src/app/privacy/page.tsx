@@ -42,6 +42,11 @@ const SECTIONS: { heading: string; body: React.ReactNode }[] = [
           type, a random session ID, campaign tags in the link (UTM), the first page you landed
           on, and which buttons you clicked. This does not identify you by name.
         </li>
+        <li>
+          <b>Ad measurement.</b> If you arrive from one of my ads on Facebook or Instagram, the Meta
+          pixel records which pages you visit and whether you send a form, so I can see which ads
+          help people. Meta may use cookies for this.
+        </li>
       </ul>
     ),
   },
@@ -74,6 +79,10 @@ const SECTIONS: { heading: string; body: React.ReactNode }[] = [
             <b>Calendly</b> handles booking when you schedule a call.
           </li>
           <li>
+            <b>Meta</b> (Facebook and Instagram) measures how my ads perform through its pixel. You
+            can control ad tracking in your Facebook or Instagram ad settings.
+          </li>
+          <li>
             <b>Scarlett Network</b> handles your mortgage application if you start one.
           </li>
         </ul>
@@ -88,8 +97,9 @@ const SECTIONS: { heading: string; body: React.ReactNode }[] = [
     heading: "Emails and consent",
     body: (
       <p>
-        I only email you if you sign up or ask me to. Every email has an unsubscribe link, and you
-        can also just reply and ask me to stop. This follows Canada&apos;s Anti-Spam Legislation
+        I only email you if you sign up, ask me to, or reach out through a form on this site. If you
+        reach out, I may send the occasional market email. Every email has an unsubscribe link, and
+        you can also just reply and ask me to stop. This follows Canada&apos;s Anti-Spam Legislation
         (CASL).
       </p>
     ),
