@@ -2,9 +2,9 @@ import Link from "next/link";
 import { B, serif, sans } from "./brand";
 
 const CARDS = [
-  { title: "Starting to think about buying", body: "What you qualify for, the programs you can use and the closing costs, in order.", link: "First-time buyers", href: "/services/first-time-buyers" },
-  { title: "Ready to make offers", body: "A clear number and a plan before you start looking at homes.", link: "Pre-approval", href: "/services/pre-approval" },
-  { title: "Renewal coming up", body: "A look at your options before your lender sends the renewal letter.", link: "Renewals", href: "/services/renewal" },
+  { title: "Starting to think about buying", body: "Understand what you qualify for, the first-time buyer programs available to you, your closing costs and how the whole process works.", link: "First-time buyers", href: "/services/first-time-buyers" },
+  { title: "Ready to look at homes", body: "Get a clear buying roadmap: what you qualify for, how much, and the options available. A pre-approval can go a long way here, holding a rate for up to 60 days.", link: "Pre-approval", href: "/services/pre-approval" },
+  { title: "Renewal coming up", body: "A conversation to understand your mortgage renewal and find ways to improve your position.", link: "Renewals", href: "/services/renewal" },
   { title: "Already own, want to change something", body: "Refinancing, using your equity or rolling debt into your mortgage.", link: "Refinance", href: "/services/refinancing" },
 ];
 

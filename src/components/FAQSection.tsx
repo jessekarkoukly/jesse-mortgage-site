@@ -6,11 +6,11 @@ import { useState } from "react";
 export const FAQS = [
   {
     q: "Do I actually have to pay anything to use a mortgage broker?",
-    a: "No. The lender pays the broker when a mortgage closes, not you. That fee is built into how lenders price their mortgages and does not affect the rate you receive. You pay nothing for the advice.",
+    a: "Typically, no. On most residential mortgages, the lender pays me a finder's fee when your mortgage closes, so there is no cost to you.\n\nWorking with me means I can see rates across lenders and know where I can negotiate the best rate and term. The only time a broker usually charges a fee is on an alternative (B lender) mortgage, and I would tell you what it costs upfront, in the first conversation.\n\nWorking with a trusted broker can often save you money over the long run, through good advice, lender deals only available to brokers, and volume discounts some lenders offer.",
   },
   {
     q: "Can a broker actually get me a better rate than if I just go to my bank?",
-    a: "Often yes, sometimes no. A broker has access to over 50 lenders including banks, credit unions, and monoline lenders your bank will never mention. In most cases, that competition produces a better rate. But if your bank genuinely has the best deal for your situation, Jesse will tell you that and explain why.",
+    a: "Often yes, sometimes no. As a mortgage broker, I have access to over 50 lenders.\n\nBut if your bank genuinely has the best deal for your situation, I will tell you that straight up and explain why.",
   },
   {
     q: "How much do I need for a down payment in Ontario?",
@@ -18,11 +18,11 @@ export const FAQS = [
   },
   {
     q: "What first-time home buyer programs can I use in Ontario?",
-    a: "The main ones are the First Home Savings Account (FHSA), the RRSP Home Buyers' Plan and the land transfer tax refund. The FHSA lets you save up to $40,000 with tax-deductible contributions and tax-free withdrawals. The Home Buyers' Plan lets you take up to $60,000 from your RRSP and pay it back over time. First-time buyers can get up to $4,000 back on Ontario land transfer tax, plus up to $4,475 on Toronto's. Which ones you qualify for depends on your situation, and Jesse walks through that with you.",
+    a: "The main ones are the First Home Savings Account (FHSA), the RRSP Home Buyers' Plan and the land transfer tax refund. The FHSA lets you save up to $40,000 with tax-deductible contributions and tax-free withdrawals. The Home Buyers' Plan lets you take up to $60,000 from your RRSP and pay it back over time. First-time buyers can get up to $4,000 back on Ontario land transfer tax, plus up to $4,475 on Toronto's. Which ones you qualify for depends on your situation, and I walk through that with you.",
   },
   {
     q: "I'm self-employed or my income is complicated. Can I still get approved?",
-    a: "Complicated income is where a broker adds the most value. Lenders treat contract income, self-employment, commission, and bonuses differently, and some lenders are significantly better than others for specific income types. Before asking for a single document, Jesse will tell you honestly whether and how you qualify.",
+    a: "Complicated income is where a broker can add a substantial amount of value. Lenders treat contract income, self-employment, commission, and bonuses differently, and some lenders are significantly better than others for specific income types. Before asking for a single document, I will tell you honestly whether and how you qualify.",
   },
   {
     q: "What will my closing costs be in Toronto?",
@@ -30,7 +30,7 @@ export const FAQS = [
   },
   {
     q: "What actually happens when I reach out?",
-    a: "You book a call. Jesse asks about your situation, your timeline, and what you are trying to accomplish. No documents yet, just a conversation. From there, he tells you honestly where you stand, what your options look like, and what the next step is. Most people leave that first call with more clarity than they expected.",
+    a: "Typically, it starts with an intro call where I learn about your situation and what you are hoping for. Everything you share is kept secure and confidential.\n\nFrom there, I build a mortgage plan with you that goes beyond the mortgage itself: your max purchase price, different home buying scenarios, qualification and pre-approval, and the details that come with different lenders and products.\n\nThen I walk with you through every step, from pre-qualification to getting your keys.",
   },
   {
     q: "My renewal is coming up. When should I actually start looking?",
@@ -49,7 +49,7 @@ const faqSchema = {
   mainEntity: FAQS.map((item) => ({
     "@type": "Question",
     name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
+    acceptedAnswer: { "@type": "Answer", text: item.a.replace(/\n\n/g, " ") },
   })),
 };
 
@@ -125,14 +125,16 @@ export default function FAQSection() {
                 </button>
 
                 {/* Answer is always in the page so search engines and AI tools can read it; hidden until opened */}
-                <p
+                <div
                   id={`faq-answer-${i}`}
                   hidden={!isOpen}
-                  className="pb-6 text-[1.0625rem] text-navy-2 leading-relaxed"
+                  className="pb-6 flex flex-col gap-3 text-[1.0625rem] text-navy-2 leading-relaxed"
                   style={{ fontFamily: "var(--font-jakarta)" }}
                 >
-                  {item.a}
-                </p>
+                  {item.a.split("\n\n").map((para, j) => (
+                    <p key={j} className="m-0">{para}</p>
+                  ))}
+                </div>
               </div>
             );
           })}

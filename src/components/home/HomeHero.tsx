@@ -25,10 +25,10 @@ export default function HomeHero({ onSchedule, onEmail }: Props) {
             className="m-0 text-[2.5rem] sm:text-[3.25rem] lg:text-[4.25rem] leading-[1.05]"
             style={{ ...serif, color: B.espresso, fontWeight: 400, letterSpacing: "-0.5px" }}
           >
-            Helping people in Ontario make confident mortgage decisions.
+            Confident mortgage decisions start here.
           </h1>
           <p className="m-0 text-[1.0625rem] sm:text-[1.1875rem] leading-relaxed max-w-xl" style={{ ...sans, color: B.body }}>
-            Thanks for stopping by. I’m Jesse, a Toronto mortgage agent at Sherwood Mortgage Group.
+            I’m Jesse Karkoukly, a Toronto mortgage agent at Sherwood Mortgage Group. I help first-time home buyers and self-employed borrowers understand what they qualify for and build a home buying plan.
           </p>
           <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 pt-1">
             <button
