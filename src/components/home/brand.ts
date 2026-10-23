@@ -19,7 +19,7 @@ export const B = {
 export const serif = { fontFamily: "var(--font-spectral), Georgia, serif" } as const;
 export const sans = { fontFamily: "var(--font-jakarta), Arial, sans-serif" } as const;
 
-export const CALENDLY_URL = "https://calendly.com/working-with-jesse/30min";
+export const CALENDLY_URL = "https://calendly.com/working-with-jesse";
 export const GOOGLE_PROFILE_URL = "https://share.google/pcVCw03qKeeffDScG";
 export const GOOGLE_REVIEW_URL = "https://g.page/r/CbcXk8ZttngFEAE/review";
 export const JESSE_EMAIL = "jkarkoukly@sherwoodmortgagegroup.com";

@@ -3,7 +3,7 @@
 import { trackEvent } from "@/lib/analytics";
 import Nav from "@/components/Nav";
 
-const CALENDLY_URL = "https://calendly.com/working-with-jesse/30min";
+import { CALENDLY_URL } from "@/components/home/brand";
 
 export default function NavWithBooking() {
   return (

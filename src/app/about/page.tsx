@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { social } from "@/lib/seo";
 import Image from "next/image";
-import Link from "next/link";
 import PageShell from "@/components/PageShell";
 import BreadcrumbJsonLd from "@/components/BreadcrumbJsonLd";
+import ContactCard from "@/components/about/ContactCard";
 
 export const metadata: Metadata = {
   title: "About Jesse Karkoukly | Toronto Mortgage Agent",
@@ -17,60 +17,27 @@ export const metadata: Metadata = {
     "mortgage broker Toronto",
     "Ontario mortgage agent",
     "mortgage agent The Annex",
-    "Mortgage Architects Network",
   ],
   ...social("About Jesse Karkoukly | Toronto Mortgage Agent", "Jesse Karkoukly is a Toronto mortgage agent with Sherwood Mortgage Group. A decade in tech, now helping first-time and self-employed buyers.", "/about"),
 };
 
 const VALUES = [
   {
-    title: "Every option, not just the best-paying one",
-    body: "Before you make any decision, you see every rate I find across every lender, in writing. Not a curated shortlist. You pick. I execute.",
+    title: "Multiple options",
+    body: "My role is to find you the best mortgage deal. I will always be direct and let you know which lenders are in the running for really good rates, promos and products for your specific situation.",
   },
   {
     title: "If your bank is better, I will tell you",
-    body: "My job is to get you the best outcome, not to move your mortgage for the sake of moving it. If staying put is the right call, I will say so in plain language and explain exactly why.",
-  },
-  {
-    title: "You will know where you stand before any paperwork",
-    body: "If you qualify, I will tell you how and what to expect. If you do not, I will tell you that too, along with what would need to change. You get the honest answer in the first conversation.",
+    body: "Simply put, if you have a deal I don't think I can beat, I will let you know straight up.",
   },
   {
     title: "You are never locked in",
-    body: "No contracts between you and me. No fees. Walk away at any point before you sign. The first thing I will ever ask you to sign is a rate hold. It locks in today's rate and commits you to nothing.",
+    body: "For better or for worse, there are no contracts between you and me. Typically, I get paid directly by the lender for bringing them your deal. With some lenders, I can also get discounted rates through volume bonuses.",
   },
   {
-    title: "When your mortgage comes up again, I will still know your file",
-    body: "I am not a bank employee who rotates departments. When your renewal comes around, you will have my number, I will have your history, and we start from where we left off.",
+    title: "Built on relationships",
+    body: "I am building my business through relationships and referrals. I welcome any conversation and any question you have.",
   },
-];
-
-const REVIEWS = [
-  {
-    quote:
-      "His industry expertise and understanding of the broader economic landscape ensured we received excellent guidance when our mortgage came due. Consistently responsive, knowledgeable, and easy to work with. We felt confident every step of the way.",
-    name: "Norah",
-  },
-  {
-    quote:
-      "I always appreciated how clearly he explained important details. He communicates well, knows his stuff, and is someone I would confidently recommend.",
-    name: "Yoni",
-  },
-  {
-    quote:
-      "Consistently delivered thoughtful, high-quality guidance and handled every situation with professionalism and care. Working with him always left us in a stronger position.",
-    name: "Nicole",
-  },
-  {
-    quote: "Consistently impressed by how responsive and detail-oriented he is.",
-    name: "Rafaela",
-  },
-];
-
-const STATS = [
-  { value: "50+", label: "Lenders compared" },
-  { value: "10+", label: "Years in tech before mortgages" },
-  { value: "Toronto", label: "Home base" },
 ];
 
 export default function AboutPage() {
@@ -106,14 +73,14 @@ export default function AboutPage() {
               </p>
               <p>
                 My background is in technology. I spent years building systems that had to be
-                logical, clear, and well-documented. That is how I approach mortgages. I put your
-                situation on paper, explain exactly what the numbers mean, and give you enough
-                context to make a confident decision.
+                logical, clear, and well-documented. That is how I approach mortgages. I explain
+                what your options are, based on your situation, so you can make a confident decision.
               </p>
               <p>
-                I work with first-time buyers, homeowners at renewal, self-employed borrowers, and
-                investors. The situations are all different, but the approach is the same. Understand
-                the picture, find the right fit, and communicate clearly throughout.
+                I typically work with first-time homebuyers and self-employed borrowers looking to
+                figure out what they qualify for and how to get the best possible mortgage. Mortgages
+                are big decisions and can also come with a lot of complex feelings. I look forward to
+                connecting with you.
               </p>
             </div>
           </div>
@@ -133,213 +100,42 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Stats strip ── */}
-      <section className="bg-navy py-10 px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-3 gap-6">
-          {STATS.map((s) => (
-            <div key={s.label} className="text-center">
-              <p
-                className="text-coral text-[1.75rem] sm:text-[2rem] font-bold mb-1"
-                style={{ fontFamily: "var(--font-spectral)" }}
-              >
-                {s.value}
-              </p>
-              <p
-                className="text-sand/60 text-[0.75rem] sm:text-[0.8125rem] font-medium"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                {s.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <ContactCard />
 
-      {/* ── Credentials ── */}
-      <section className="bg-white py-16 px-6">
-        <div className="max-w-2xl mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
-            {[
-              { label: "Brokerage", value: "Sherwood Mortgage Group" },
-              { label: "Brokerage Licence", value: "#12176" },
-              { label: "Network", value: "Mortgage Architects" },
-              { label: "Personal Licence", value: "M25003068" },
-              { label: "Location", value: "390 Dupont St Ste 201, Toronto" },
-              { label: "Serves", value: "All of Ontario" },
-            ].map((item) => (
-              <div key={item.label} className="flex flex-col">
-                <span
-                  className="text-slate text-[0.6875rem] font-semibold uppercase tracking-wider mb-1"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  {item.label}
-                </span>
-                <span
-                  className="text-navy font-semibold text-[0.9375rem]"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  {item.value}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── How Jesse Operates ── */}
-      <section className="bg-navy py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <p
-            className="text-[0.6875rem] font-semibold text-coral tracking-[0.2em] uppercase mb-3 text-center"
-            style={{ fontFamily: "var(--font-jakarta)" }}
-          >
-            How Jesse Operates
-          </p>
+      {/* ── How Jesse works ── */}
+      <section className="bg-sand py-16 lg:py-20 px-5 sm:px-6">
+        <div className="max-w-6xl mx-auto">
           <h2
-            className="text-[1.75rem] sm:text-[2.25rem] font-bold text-sand leading-tight mb-3 text-center"
-            style={{ fontFamily: "var(--font-spectral)" }}
+            className="text-[2rem] sm:text-[2.5rem] text-navy leading-[1.1] mb-10"
+            style={{ fontFamily: "var(--font-spectral)", fontWeight: 400 }}
           >
-            A few things worth knowing upfront<span className="text-coral">.</span>
+            A few things worth knowing upfront
           </h2>
-          <p
-            className="text-sand/50 text-[1.0625rem] leading-relaxed max-w-2xl mx-auto text-center mb-12"
-            style={{ fontFamily: "var(--font-jakarta)" }}
-          >
-            These are not marketing words. They are promises I keep or you should find someone else.
-          </p>
-
-          <div className="grid sm:grid-cols-2 gap-5">
+          <ol className="m-0 p-0 list-none grid gap-4 sm:gap-5 sm:grid-cols-2">
             {VALUES.map((v, i) => (
-              <div
-                key={v.title}
-                className={`bg-white/5 backdrop-blur rounded-xl p-6 border border-white/10${
-                  i === VALUES.length - 1 ? " sm:col-span-2 sm:max-w-[calc(50%-0.625rem)] sm:mx-auto" : ""
-                }`}
-              >
-                <div className="flex items-start gap-3 mb-3">
-                  <span className="w-6 h-6 rounded-full bg-coral/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path
-                        d="M2.5 6.5L5 9l4.5-6"
-                        stroke="#7E6352"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <h3
-                    className="text-sand font-bold text-[0.9375rem]"
-                    style={{ fontFamily: "var(--font-jakarta)" }}
-                  >
-                    {v.title}
-                  </h3>
-                </div>
+              <li key={v.title} className="bg-white rounded-2xl p-6 sm:p-8 flex flex-col gap-3">
+                <span
+                  aria-hidden="true"
+                  className="text-[1.75rem] leading-none"
+                  style={{ fontFamily: "var(--font-spectral)", color: "#7E6352" }}
+                >
+                  0{i + 1}
+                </span>
+                <h3
+                  className="text-[1.375rem] sm:text-[1.5rem] text-navy leading-snug"
+                  style={{ fontFamily: "var(--font-spectral)", fontWeight: 500 }}
+                >
+                  {v.title}
+                </h3>
                 <p
-                  className="text-sand/60 text-[0.875rem] leading-relaxed ml-9"
+                  className="text-[1rem] leading-[1.65] text-[#5A4C44]"
                   style={{ fontFamily: "var(--font-jakarta)" }}
                 >
                   {v.body}
                 </p>
-              </div>
+              </li>
             ))}
-          </div>
-
-          <p
-            className="text-sand/40 text-[0.9375rem] leading-relaxed text-center mt-10"
-            style={{ fontFamily: "var(--font-jakarta)" }}
-          >
-            Most clients tell me the first call took ten minutes. The promises above are why they called at all.
-          </p>
-        </div>
-      </section>
-
-      {/* ── Reviews ── */}
-      <section className="bg-sand py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <p
-            className="text-[0.6875rem] font-semibold text-coral tracking-[0.2em] uppercase mb-3 text-center"
-            style={{ fontFamily: "var(--font-jakarta)" }}
-          >
-            What People Say
-          </p>
-          <h2
-            className="text-[1.75rem] sm:text-[2.25rem] font-bold text-navy leading-tight mb-12 text-center"
-            style={{ fontFamily: "var(--font-spectral)" }}
-          >
-            The people Jesse has worked with<span className="text-coral">.</span>
-          </h2>
-
-          <div className="grid sm:grid-cols-2 gap-5">
-            {REVIEWS.map((r) => (
-              <div
-                key={r.name}
-                className="bg-white rounded-xl p-6 border border-sand-2 shadow-sm"
-              >
-                <svg
-                  className="text-coral/30 mb-4"
-                  width="28"
-                  height="20"
-                  viewBox="0 0 28 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M0 20V8.571C0 2.857 4.2.476 8.4 0l1.05 2.857C5.95 4.286 5.25 6.19 5.25 8.571H10.5V20H0zm17.5 0V8.571C17.5 2.857 21.7.476 25.9 0l1.05 2.857c-3.5 1.429-4.2 3.333-4.2 5.714H28V20H17.5z" />
-                </svg>
-                <p
-                  className="text-navy/70 text-[0.9375rem] leading-relaxed mb-4"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  {r.quote}
-                </p>
-                <p
-                  className="text-navy font-bold text-[0.875rem]"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  {r.name}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <p
-            className="text-center mt-8"
-            style={{ fontFamily: "var(--font-jakarta)" }}
-          >
-            <a
-              href="https://www.google.com/maps/place/Sherwood+Mortgage+Group"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-coral font-semibold text-[0.875rem] hover:underline"
-            >
-              All reviews on Google →
-            </a>
-          </p>
-        </div>
-      </section>
-
-      {/* ── CTA Band ── */}
-      <section className="bg-navy py-16 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2
-            className="text-[1.75rem] sm:text-[2rem] font-bold text-sand leading-tight mb-3"
-            style={{ fontFamily: "var(--font-spectral)" }}
-          >
-            Ready to talk through your situation<span className="text-coral">?</span>
-          </h2>
-          <p
-            className="text-slate text-[1.0625rem] leading-relaxed mb-8"
-            style={{ fontFamily: "var(--font-jakarta)" }}
-          >
-            A 15-minute call is enough to know if I can help.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block bg-coral text-white font-semibold px-8 py-3.5 rounded-lg hover:bg-coral-dark transition-colors"
-            style={{ fontFamily: "var(--font-jakarta)" }}
-          >
-            Schedule a call
-          </Link>
+          </ol>
         </div>
       </section>
     </PageShell>

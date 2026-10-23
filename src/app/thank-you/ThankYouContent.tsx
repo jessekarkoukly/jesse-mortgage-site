@@ -18,7 +18,7 @@ export default function ThankYouContent() {
 
   // Calendly inline embed, with the visitor's name and email filled in.
   const src = useMemo(() => {
-    const q = new URLSearchParams({ hide_gdpr_banner: "1", background_color: "ffffff", text_color: "352b26", primary_color: "4f6b7a" });
+    const q = new URLSearchParams({ background_color: "f5efe8", text_color: "352b26", primary_color: "4f6b7a" });
     if (name) q.set("name", name);
     if (email) q.set("email", email);
     return `${CALENDLY_URL}?${q.toString()}`;
@@ -43,7 +43,7 @@ export default function ThankYouContent() {
         <p className="m-0 text-[1.0625rem] sm:text-[1.1875rem] leading-relaxed max-w-xl" style={{ ...sans, color: B.body }}>
           Looking forward to connecting with you.
         </p>
-        <div key={src} className="calendly-inline-widget mt-4 rounded-2xl overflow-hidden bg-white" data-url={src} style={{ minWidth: 320, height: 700 }} />
+        <div key={src} className="calendly-inline-widget mt-2" data-url={src} style={{ minWidth: 320, height: 700 }} />
       </div>
     </section>
   );

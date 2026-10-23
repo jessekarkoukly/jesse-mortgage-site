@@ -8,6 +8,7 @@ import JesseFooter from "@/components/JesseFooter";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import ScrollCTA from "@/components/ScrollCTA";
 import InquiryForm from "@/components/InquiryForm";
+import StoryForm from "@/components/home/StoryForm";
 
 interface PageShellProps {
   children: React.ReactNode;
@@ -22,6 +23,18 @@ export default function PageShell({ children, hideFloatingCTAs }: PageShellProps
     setInquiryOpen(true);
   }, []);
   const closeInquiry = useCallback(() => setInquiryOpen(false), []);
+
+  // "Start the conversation" buttons open the story form.
+  const [storyOpen, setStoryOpen] = useState(false);
+  const closeStory = useCallback(() => setStoryOpen(false), []);
+  useEffect(() => {
+    const handle = () => {
+      trackEvent("email_me_click");
+      setStoryOpen(true);
+    };
+    window.addEventListener("open-story-form", handle);
+    return () => window.removeEventListener("open-story-form", handle);
+  }, []);
 
   useEffect(() => {
     const handleOpen = () => openInquiry();
@@ -38,6 +51,7 @@ export default function PageShell({ children, hideFloatingCTAs }: PageShellProps
       {!hideFloatingCTAs && <StickyMobileCTA />}
       {!hideFloatingCTAs && <ScrollCTA />}
       <InquiryForm open={inquiryOpen} onClose={closeInquiry} />
+      <StoryForm open={storyOpen} onClose={closeStory} />
     </>
   );
 }
