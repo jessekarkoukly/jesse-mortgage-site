@@ -5,5 +5,5 @@ export const size = ogSize;
 export const contentType = "image/png";
 
 export default function Image() {
-  return ogCard({ headline: "Helping people in Ontario make confident mortgage decisions." });
+  return ogCard({ headline: "Confident mortgage decisions start here." });
 }

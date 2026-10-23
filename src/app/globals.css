@@ -212,6 +212,11 @@ button, a {
   .jk-card-drop { animation: none; }
 }
 
+/* How it works flip cards: with reduced motion, swap sides without the turn. */
+@media (prefers-reduced-motion: reduce) {
+  .jk-flip { transition: none !important; }
+}
+
 /* ── Accent colours follow the nearest background ──
    Brand rule: never brown on brown, never faint on light. Each surface sets the
    colours its children use, so a light card inside a dark section (or the reverse)

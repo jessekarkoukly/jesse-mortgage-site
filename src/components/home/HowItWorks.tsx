@@ -14,9 +14,20 @@ const STEPS = [
   { title: "Keys in hand", text: "The mortgage funds, you sign at the lawyer's office, and you get your keys. My job at this point is to make sure nothing goes wrong." },
 ];
 
+/**
+ * Six step cards that flip over to show the explanation in inverted colours.
+ * Both sides are always in the page, so search engines and AI tools read every step.
+ */
 export default function HowItWorks() {
-  const [open, setOpen] = useState<number | null>(null);
+  const [flipped, setFlipped] = useState<Set<number>>(() => new Set());
   const last = STEPS.length - 1;
+  const toggle = (i: number) =>
+    setFlipped((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
 
   return (
     <section className="px-5 sm:px-6 py-16 lg:py-20" style={{ background: B.sand }}>
@@ -28,72 +39,63 @@ export default function HowItWorks() {
           </Link>
         </div>
 
-        <ol className="m-0 p-0 list-none grid gap-3.5 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+        <ol className="m-0 p-0 list-none grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {STEPS.map((s, i) => {
-            const isOpen = open === i;
+            const isFlipped = flipped.has(i);
             const isKeys = i === last;
+            // Front: linen (Keys in hand: sky deep). Back: the inverse.
+            const front = isKeys ? { bg: B.skyDeep, fg: B.linen, num: B.linen } : { bg: B.linen, fg: B.espresso, num: B.clayDeep };
+            const back = isKeys ? { bg: B.linen, fg: B.espresso, label: B.skyDeep } : { bg: B.espresso, fg: B.onDark, label: B.clayLight };
             return (
-              <li key={s.title} className="relative">
+              <li key={s.title} className="[perspective:1200px]">
                 <button
                   type="button"
-                  aria-expanded={isOpen}
-                  aria-controls={`step-${i}`}
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  className="relative overflow-hidden w-full h-full text-left cursor-pointer rounded-2xl p-5 flex flex-col gap-2 border-[1.5px] transition-[border-color,transform] duration-150 hover:-translate-y-0.5"
-                  style={{
-                    background: isKeys ? B.skyDeep : B.linen,
-                    color: isKeys ? B.linen : B.espresso,
-                    borderColor: isOpen ? (isKeys ? B.skyLight : B.skyDeep) : "transparent",
-                    boxShadow: isKeys ? "0 10px 28px rgba(79,107,122,0.35)" : "none",
-                  }}
+                  onClick={() => toggle(i)}
+                  aria-pressed={isFlipped}
+                  aria-label={`Step ${i + 1}: ${s.title}. ${isFlipped ? "Show the step name" : "Show what happens"}`}
+                  className="jk-flip relative block w-full h-[230px] sm:h-[250px] cursor-pointer text-left rounded-2xl transition-transform duration-700 [transform-style:preserve-3d] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-offset-4"
+                  style={{ transform: isFlipped ? "rotateY(180deg)" : "none" }}
                 >
-                  {isKeys && (
-                    <svg aria-hidden="true" width="120" height="120" viewBox="0 0 120 120" className="absolute -right-2.5 -top-2.5">
-                      <g fill="none" stroke={B.skyLight} strokeWidth="2" strokeLinecap="round"><path d="M88 22v12M82 28h12" /><path d="M104 46v8M100 50h8" /><path d="M70 10v6M67 13h6" /></g>
-                      <circle cx="98" cy="30" r="2.5" fill={B.linen} /><circle cx="80" cy="44" r="2" fill={B.clayLight} /><circle cx="110" cy="14" r="2" fill={B.clayLight} />
-                    </svg>
-                  )}
-                  <span className="flex items-center justify-between">
-                    <span className="text-[1.75rem]" style={{ ...serif, color: isKeys ? B.linen : B.clayDeep }}>0{i + 1}</span>
-                    <span
-                      aria-hidden="true"
-                      className="w-7 h-7 rounded-full flex items-center justify-center text-[1rem] transition-transform duration-200"
-                      style={{ background: isKeys ? "rgba(245,239,232,0.18)" : B.white, color: isKeys ? B.linen : B.espresso, transform: isOpen ? "rotate(45deg)" : "none" }}
-                    >
-                      +
-                    </span>
-                  </span>
-                  <span className="flex items-center gap-2.5">
+                  {/* Front */}
+                  <span
+                    className="absolute inset-0 rounded-2xl p-6 flex flex-col justify-between overflow-hidden [backface-visibility:hidden]"
+                    style={{ background: front.bg, color: front.fg, boxShadow: isKeys ? "0 10px 28px rgba(79,107,122,0.35)" : "none" }}
+                  >
                     {isKeys && (
-                      <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={B.linen} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="7.5" cy="15.5" r="4.5" /><path d="M10.7 12.3 20 3" /><path d="m16 7 3 3" /><path d="m18 5 2 2" />
+                      <svg aria-hidden="true" width="120" height="120" viewBox="0 0 120 120" className="absolute -right-2.5 -top-2.5">
+                        <g fill="none" stroke={B.skyLight} strokeWidth="2" strokeLinecap="round"><path d="M88 22v12M82 28h12" /><path d="M104 46v8M100 50h8" /><path d="M70 10v6M67 13h6" /></g>
+                        <circle cx="98" cy="30" r="2.5" fill={B.linen} /><circle cx="80" cy="44" r="2" fill={B.clayLight} /><circle cx="110" cy="14" r="2" fill={B.clayLight} />
                       </svg>
                     )}
-                    <b className="text-[1.0625rem] leading-snug" style={sans}>{s.title}</b>
+                    <span className="text-[2.5rem] leading-none" style={{ ...serif, color: front.num }}>0{i + 1}</span>
+                    <span className="flex items-end justify-between gap-4">
+                      <span className="flex items-center gap-2.5">
+                        {isKeys && (
+                          <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={B.linen} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="7.5" cy="15.5" r="4.5" /><path d="M10.7 12.3 20 3" /><path d="m16 7 3 3" /><path d="m18 5 2 2" />
+                          </svg>
+                        )}
+                        <span className="text-[1.375rem] leading-snug" style={{ ...serif, fontWeight: 500 }}>{s.title}</span>
+                      </span>
+                      <span aria-hidden="true" className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center" style={{ background: isKeys ? "rgba(245,239,232,0.18)" : B.white }}>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3" /><path d="M18 3v4h-4M6 21v-4h4" /></svg>
+                      </span>
+                    </span>
+                  </span>
+
+                  {/* Back */}
+                  <span
+                    className="absolute inset-0 rounded-2xl p-6 flex flex-col gap-2.5 overflow-hidden [backface-visibility:hidden] [transform:rotateY(180deg)]"
+                    style={{ background: back.bg, color: back.fg }}
+                  >
+                    <span className="text-[1.0625rem]" style={{ ...serif, fontStyle: "italic", color: back.label }}>Step {i + 1}: {s.title}</span>
+                    <span className="text-[0.9375rem] sm:text-[1rem] leading-[1.6]" style={sans}>{s.text}</span>
                   </span>
                 </button>
               </li>
             );
           })}
         </ol>
-
-        {/* The bubble for the chosen step. Every explanation stays in the page for search and AI. */}
-        <div className="relative">
-          {STEPS.map((s, i) => (
-            <div
-              key={s.title}
-              id={`step-${i}`}
-              role="region"
-              aria-label={s.title}
-              hidden={open !== i}
-              className="rounded-2xl px-6 py-5 sm:px-8 sm:py-6 shadow-[0_14px_34px_rgba(53,43,38,0.18)]"
-              style={{ background: B.espresso, color: B.linen, animation: "jk-pop 0.28s cubic-bezier(0.34,1.56,0.64,1)" }}
-            >
-              <p className="m-0 mb-1.5 text-[1.0625rem]" style={{ ...serif, fontStyle: "italic", color: B.clayLight }}>Step {i + 1}: {s.title}</p>
-              <p className="m-0 text-[1rem] sm:text-[1.0625rem] leading-[1.65]" style={{ ...sans, color: B.onDark }}>{s.text}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );

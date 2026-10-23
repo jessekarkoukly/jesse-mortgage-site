@@ -262,6 +262,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 
 Newest first.
 
+**2026-10-23: Homepage copy pass 1**
+Hero headline `Confident mortgage decisions start here.` (also on the link preview images), new subline. What brings you here: new copy for the first three cards, second card is "Ready to look at homes". About section: address line replaced by a sky deep "Start the conversation" button. How it works: six cards in a 3 by 2 grid that flip to show each step on an inverted colour back (both sides in the page; no turn with reduced motion). FAQ: Jesse's answers for broker cost, better rate, self-employed and what happens when you reach out; answers are first person; answers support paragraph breaks (`\n\n`).
+
 **2026-10-23: Business card on About and Contact**
 `src/components/about/ContactCard.tsx` is now a white business card (logo, phone, email that copies on click, office, licensing, Schedule a call and Start the conversation) with a one-time drop-in animation (`.jk-card-drop` in `globals.css`, off for reduced motion). It is the first thing on `/about` and the whole of `/contact` with "Looking forward to connecting with you." under it. The inline inquiry form left `/contact`; Schedule a call opens it. A nav Contact pop-out was mocked up and declined (branch `contact-card-draft`, not merged).
 

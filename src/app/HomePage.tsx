@@ -44,7 +44,7 @@ export default function HomePage() {
         <WhatBringsYou />
         <ReviewsStrip />
         <BrokerDeck />
-        <AboutJesse />
+        <AboutJesse onStory={openStory} />
         <HowItWorks />
         <LenderTicker />
         <FAQSection />
