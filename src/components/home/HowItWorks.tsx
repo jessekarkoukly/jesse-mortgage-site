@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { B, serif, sans } from "./brand";
 
 // Step explanations use Jesse's wording from the Working with Jesse page.
@@ -15,83 +15,89 @@ const STEPS = [
 ];
 
 /**
- * Six step cards that flip over to show the explanation in inverted colours.
- * Both sides are always in the page, so search engines and AI tools read every step.
+ * Vertical timeline. Each step's dot fills in as it scrolls into view, and the line grows with it.
+ * All text is always on the page.
  */
 export default function HowItWorks() {
-  const [flipped, setFlipped] = useState<Set<number>>(() => new Set());
+  const [reached, setReached] = useState(0);
+  const refs = useRef<(HTMLLIElement | null)[]>([]);
   const last = STEPS.length - 1;
-  const toggle = (i: number) =>
-    setFlipped((prev) => {
-      const next = new Set(prev);
-      if (next.has(i)) next.delete(i);
-      else next.add(i);
-      return next;
-    });
+
+  useEffect(() => {
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+      const id = requestAnimationFrame(() => setReached(STEPS.length));
+      return () => cancelAnimationFrame(id);
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const i = Number((e.target as HTMLElement).dataset.i);
+            setReached((r) => Math.max(r, i + 1));
+          }
+        });
+      },
+      { rootMargin: "0px 0px -35% 0px" },
+    );
+    refs.current.forEach((el) => el && io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <section className="px-5 sm:px-6 py-16 lg:py-20" style={{ background: B.sand }}>
-      <div className="max-w-6xl mx-auto flex flex-col gap-8">
-        <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+    <section className="px-5 sm:px-6 py-16 lg:py-24" style={{ background: B.sand }}>
+      <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+        <div className="lg:sticky lg:top-32 self-start flex flex-col gap-4">
           <h2 className="m-0 text-[2.125rem] sm:text-[2.75rem] leading-[1.1]" style={{ ...serif, fontWeight: 400, color: B.espresso }}>How it works</h2>
-          <Link href="/working-with-jesse" className="ml-auto text-[0.9375rem] font-semibold underline underline-offset-2 hover:text-[#4F6B7A] py-2" style={{ ...sans, color: B.espresso }}>
+          <p className="m-0 text-[1.0625rem] leading-[1.65] max-w-md" style={{ ...sans, color: B.body }}>
+            Six steps from the first call to your keys.
+          </p>
+          <Link href="/working-with-jesse" className="self-start text-[0.9375rem] font-semibold underline underline-offset-2 hover:text-[#4F6B7A] py-2" style={{ ...sans, color: B.espresso }}>
             Each step in detail
           </Link>
         </div>
 
-        <ol className="m-0 p-0 list-none grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <ol className="m-0 p-0 list-none relative">
           {STEPS.map((s, i) => {
-            const isFlipped = flipped.has(i);
+            const on = i < reached;
             const isKeys = i === last;
-            // Front: linen (Keys in hand: sky deep). Back: the inverse.
-            const front = isKeys ? { bg: B.skyDeep, fg: B.linen, num: B.linen } : { bg: B.linen, fg: B.espresso, num: B.clayDeep };
-            const back = isKeys ? { bg: B.linen, fg: B.espresso, label: B.skyDeep } : { bg: B.espresso, fg: B.onDark, label: B.clayLight };
+            const dotBg = on ? (isKeys ? B.skyDeep : B.espresso) : B.linen;
             return (
-              <li key={s.title} className="[perspective:1200px]">
-                <button
-                  type="button"
-                  onClick={() => toggle(i)}
-                  aria-pressed={isFlipped}
-                  aria-label={`Step ${i + 1}: ${s.title}. ${isFlipped ? "Show the step name" : "Show what happens"}`}
-                  className="jk-flip relative block w-full h-[230px] sm:h-[250px] cursor-pointer text-left rounded-2xl transition-transform duration-700 [transform-style:preserve-3d] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-offset-4"
-                  style={{ transform: isFlipped ? "rotateY(180deg)" : "none" }}
-                >
-                  {/* Front */}
-                  <span
-                    className="absolute inset-0 rounded-2xl p-6 flex flex-col justify-between overflow-hidden [backface-visibility:hidden]"
-                    style={{ background: front.bg, color: front.fg, boxShadow: isKeys ? "0 10px 28px rgba(79,107,122,0.35)" : "none" }}
-                  >
-                    {isKeys && (
-                      <svg aria-hidden="true" width="120" height="120" viewBox="0 0 120 120" className="absolute -right-2.5 -top-2.5">
-                        <g fill="none" stroke={B.skyLight} strokeWidth="2" strokeLinecap="round"><path d="M88 22v12M82 28h12" /><path d="M104 46v8M100 50h8" /><path d="M70 10v6M67 13h6" /></g>
-                        <circle cx="98" cy="30" r="2.5" fill={B.linen} /><circle cx="80" cy="44" r="2" fill={B.clayLight} /><circle cx="110" cy="14" r="2" fill={B.clayLight} />
-                      </svg>
-                    )}
-                    <span className="text-[2.5rem] leading-none" style={{ ...serif, color: front.num }}>0{i + 1}</span>
-                    <span className="flex items-end justify-between gap-4">
-                      <span className="flex items-center gap-2.5">
-                        {isKeys && (
-                          <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={B.linen} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="7.5" cy="15.5" r="4.5" /><path d="M10.7 12.3 20 3" /><path d="m16 7 3 3" /><path d="m18 5 2 2" />
-                          </svg>
-                        )}
-                        <span className="text-[1.375rem] leading-snug" style={{ ...serif, fontWeight: 500 }}>{s.title}</span>
-                      </span>
-                      <span aria-hidden="true" className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center" style={{ background: isKeys ? "rgba(245,239,232,0.18)" : B.white }}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3" /><path d="M18 3v4h-4M6 21v-4h4" /></svg>
-                      </span>
-                    </span>
+              <li
+                key={s.title}
+                ref={(el) => { refs.current[i] = el; }}
+                data-i={i}
+                className="relative grid grid-cols-[44px_minmax(0,1fr)] gap-x-5 pb-9 last:pb-0"
+              >
+                {/* Connecting line to the next step */}
+                {i < last && (
+                  <span aria-hidden="true" className="absolute left-[21px] top-11 bottom-0 w-[2px]" style={{ background: B.line }}>
+                    <span
+                      className="absolute inset-x-0 top-0 transition-[height] duration-700 ease-out"
+                      style={{ height: i + 1 < reached ? "100%" : "0%", background: B.espresso }}
+                    />
                   </span>
+                )}
 
-                  {/* Back */}
-                  <span
-                    className="absolute inset-0 rounded-2xl p-6 flex flex-col gap-2.5 overflow-hidden [backface-visibility:hidden] [transform:rotateY(180deg)]"
-                    style={{ background: back.bg, color: back.fg }}
-                  >
-                    <span className="text-[1.0625rem]" style={{ ...serif, fontStyle: "italic", color: back.label }}>Step {i + 1}: {s.title}</span>
-                    <span className="text-[0.9375rem] sm:text-[1rem] leading-[1.6]" style={sans}>{s.text}</span>
-                  </span>
-                </button>
+                <span
+                  aria-hidden="true"
+                  className="relative z-[1] w-11 h-11 rounded-full flex items-center justify-center text-[1.0625rem] border-[1.5px] transition-colors duration-500"
+                  style={{ ...serif, background: dotBg, borderColor: on ? dotBg : B.line, color: on ? B.linen : B.clayDeep }}
+                >
+                  {isKeys ? (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="7.5" cy="15.5" r="4.5" /><path d="M10.7 12.3 20 3" /><path d="m16 7 3 3" /><path d="m18 5 2 2" />
+                    </svg>
+                  ) : (
+                    i + 1
+                  )}
+                </span>
+
+                <div className="flex flex-col gap-1.5 pt-2">
+                  <h3 className="m-0 text-[1.375rem] leading-snug" style={{ ...serif, fontWeight: 500, color: isKeys ? B.skyDeep : B.espresso }}>
+                    <span className="sr-only">Step {i + 1}: </span>{s.title}
+                  </h3>
+                  <p className="m-0 text-[1rem] leading-[1.65] max-w-xl" style={{ ...sans, color: B.body }}>{s.text}</p>
+                </div>
               </li>
             );
           })}
