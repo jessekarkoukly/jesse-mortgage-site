@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
+import { metaCustom } from "@/lib/metaPixel";
 import { B, serif, sans } from "@/components/home/brand";
 
 export const HELP_OPTIONS = [
@@ -109,6 +110,9 @@ export function InquiryFields({ onDone, autoFocus = true }: { onDone?: () => voi
       >
         {status === "sending" ? "Sending…" : "See available times"}
       </button>
+      <p className="m-0 text-[0.8125rem] leading-snug text-center" style={{ color: B.body }}>
+        Your information stays private and is only used to contact you directly. No spam, just the occasional market email. <a href="/privacy" className="underline underline-offset-2 hover:text-[#4F6B7A]">Privacy</a>
+      </p>
     </form>
   );
 }
@@ -117,6 +121,7 @@ export function InquiryFields({ onDone, autoFocus = true }: { onDone?: () => voi
 export default function InquiryForm({ open, onClose }: { open: boolean; onClose: () => void }) {
   useEffect(() => {
     if (!open) return;
+    metaCustom("FormStart", { form: "schedule_call" });
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
