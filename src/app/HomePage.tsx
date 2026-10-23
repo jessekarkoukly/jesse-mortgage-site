@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
 import Nav from "@/components/Nav";
 import HomeHero from "@/components/home/HomeHero";
@@ -34,6 +34,16 @@ export default function HomePage() {
     setInquiryOpen(true);
   }, []);
   const closeInquiry = useCallback(() => setInquiryOpen(false), []);
+
+  // Buttons elsewhere on the page (like the Contact card) open these forms by event.
+  useEffect(() => {
+    window.addEventListener("open-booking-modal", openCalendly);
+    window.addEventListener("open-story-form", openStory);
+    return () => {
+      window.removeEventListener("open-booking-modal", openCalendly);
+      window.removeEventListener("open-story-form", openStory);
+    };
+  }, [openCalendly, openStory]);
 
   return (
     <>
