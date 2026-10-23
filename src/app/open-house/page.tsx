@@ -111,7 +111,7 @@ export default function OpenHousePage() {
               </a>
               <span className="hidden sm:inline">·</span>
               <a
-                href="https://calendly.com/working-with-jesse/30min"
+                href="https://calendly.com/working-with-jesse"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-white transition-colors"

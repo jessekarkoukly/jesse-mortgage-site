@@ -262,6 +262,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 
 Newest first.
 
+**2026-10-23: Calendly embed, About page**
+Calendly link is now Jesse's scheduling page `https://calendly.com/working-with-jesse` (his embed code: linen background, espresso text, sky deep buttons). Both homepage buttons end on `/thank-you`: the story form now saves the name and email and redirects there too. The story form is mounted in `PageShell` (event `open-story-form`) so any page can open it. About page: Jesse's hero copy, a Contact card (phone, email, office, licensing, Schedule a call and Start the conversation buttons) in place of the stats strip and credentials, "A few things worth knowing upfront" rebuilt as four white cards on linen with Jesse's wording, reviews and the closing band removed.
+
 **2026-10-22: Inquiry form and lead tables**
 The `leads`, `email_subscribers`, `renewal_reminders` and `calculator_leads` tables had never been created, so the newsletter signup (/blog), renewal reminder and calculator report forms failed, and story form leads only arrived by email. Tables created (RLS on, no public policies; server routes use the service role key, including `/api/email-subscribe` now). Matt's flow built: Schedule a call opens the inquiry form, then `/thank-you` with Calendly. `/api/leads` rewritten: honeypot, input limits, HTML-escaped email with reply-to, save and email in parallel. Email needs `RESEND_API_KEY` in Vercel and jessekarkoukly.com verified in Resend.
 

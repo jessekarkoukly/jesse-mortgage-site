@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
 import { B, JESSE_EMAIL, serif, sans } from "./brand";
 
@@ -24,6 +25,7 @@ export default function StoryForm({ open, onClose }: Props) {
   const [website, setWebsite] = useState(""); // honeypot, stays empty for people
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const panelRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   const firstRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -52,7 +54,11 @@ export default function StoryForm({ open, onClose }: Props) {
       });
       if (!res.ok) throw new Error(String(res.status));
       trackEvent("story_form_submit");
+      // Same ending as Schedule a call: the thank-you page with Calendly, name and email prefilled.
+      try { sessionStorage.setItem("jk_inquiry", JSON.stringify({ name: name.trim(), email: email.trim() })); } catch {}
       setStatus("sent");
+      onClose();
+      router.push("/thank-you");
     } catch {
       setStatus("error");
     }
