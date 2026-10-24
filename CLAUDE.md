@@ -206,7 +206,7 @@ Nav → Hero → Two-Track → LenderTicker → Rates → HowICanHelp → Proces
 
 ## REVIEWS ON THE HOMEPAGE
 
-Featured (October 2026, Jesse's pick, newest first, static grid, no rotation): Rebecca Marshello, Daniella Guzzi, Syed Aklakur Rahman, Daniel Goldhar. All 5-star on Google. The text shown is the opening of each review word for word, taken from Google's review notification emails, ending in "…" with a link to the full review on Google. Never extend or paraphrase a review. No stars displayed. To feature a different review, copy its text exactly from Google.
+Featured (October 2026, Jesse's pick, newest first, static grid, no rotation): Rebecca Marshello, Daniella Guzzi, Syed Aklakur Rahman, Daniel Goldhar. All 5-star on Google. The text shown is the opening of each review word for word, taken from Google's review notification emails, ending in "…" with a link to the full review on Google. Never extend or paraphrase a review. Five stars on each card (Jesse, Oct 24 2026). To feature a different review, copy its text exactly from Google.
 
 Earlier approved reviews (still fine to use elsewhere, verbatim): Norah Schulman, Yoni Rahamim, Nicole Boyle, Rafaela Khalimov.
 
@@ -261,6 +261,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 ## SESSION LOG
 
 Newest first.
+
+**2026-10-24: Hero line, blue reviews band, blue FAQ icons, one button in Mortgage questions**
+Hero subline (Jesse, final): "Mortgage agent based in Toronto, guiding first-time buyers and self-employed borrowers across Ontario." Homepage "Recent reviews on Google" band is sky deep with white cards, five gold stars on each card (Jesse's call, replaces the no-stars rule) and a count line "19 five-star reviews on Google". The count comes from `src/lib/googleReviews.ts`: live from the Google Places API once a day if `GOOGLE_PLACES_API_KEY` is set in Vercel, otherwise the checked fallback (19, all 5 stars, Oct 24 2026; update it when new reviews come in). Homepage FAQ +/x icons are sky deep. Mortgage questions band has one button, Start the conversation (Schedule a call removed).
 
 **2026-10-24: Submit button, quieter steps, sparkler keys, Sherwood logo in footer**
 Story form button is sky deep with white text and reads "Submit". How it works: step titles larger, step text smaller and softer (#6B5D54, 4.9:1 on sand) so titles lead; Keys in hand dot is larger and, when it scrolls in, pops and throws sparkler streaks for about 3 seconds (`.jk-spark` and `.jk-keys-lit` in `globals.css`, off for reduced motion). The white Sherwood band is gone: the official logo now sits on a white card inside the dark footer, right side on desktop, under the contact links on phones (`SherwoodFooter.tsx` removed, logo in `JesseFooter.tsx`).
