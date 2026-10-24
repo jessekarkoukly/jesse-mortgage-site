@@ -127,10 +127,10 @@ export default function StoryForm({ open, onClose }: Props) {
               <button
                 type="submit"
                 disabled={!valid || status === "sending"}
-                className="cursor-pointer disabled:cursor-not-allowed rounded-full px-7 py-4 min-h-[52px] flex items-center gap-3 text-[1rem] font-semibold transition-colors duration-150 bg-[#C4A592] text-[#352B26] hover:bg-[#9DB6C3] disabled:bg-[#6B5B52] disabled:text-[#C9BDB3]"
+                className="cursor-pointer disabled:cursor-not-allowed rounded-full px-7 py-4 min-h-[52px] flex items-center gap-3 text-[1rem] font-semibold transition-colors duration-150 bg-[#4F6B7A] text-white hover:bg-[#9DB6C3] hover:text-[#352B26] disabled:opacity-60 disabled:hover:bg-[#4F6B7A] disabled:hover:text-white"
                 style={sans}
               >
-                {status === "sending" ? "Sending…" : "Send my story"} <span aria-hidden="true">→</span>
+                {status === "sending" ? "Sending…" : "Submit"} <span aria-hidden="true">→</span>
               </button>
             </div>
             <p className="m-0 text-[0.8125rem] leading-snug text-right" style={{ ...sans, color: B.onDark }}>
