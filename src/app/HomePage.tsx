@@ -16,7 +16,6 @@ import HelpList from "@/components/home/HelpList";
 import MortgageQuestions from "@/components/home/MortgageQuestions";
 import StoryForm from "@/components/home/StoryForm";
 import InquiryForm from "@/components/InquiryForm";
-import SherwoodFooter from "@/components/SherwoodFooter";
 import JesseFooter from "@/components/JesseFooter";
 import HomeJsonLd from "@/components/HomeJsonLd";
 
@@ -52,7 +51,6 @@ export default function HomePage() {
         <HelpList />
         <MortgageQuestions onSchedule={openCalendly} onEmail={openStory} />
       </main>
-      <SherwoodFooter />
       <JesseFooter />
       <StoryForm open={storyOpen} onClose={closeStory} />
       <InquiryForm open={inquiryOpen} onClose={closeInquiry} />

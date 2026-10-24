@@ -3,7 +3,6 @@
 import { trackEvent } from "@/lib/analytics";
 import { useCallback, useEffect, useState } from "react";
 import Nav from "@/components/Nav";
-import SherwoodFooter from "@/components/SherwoodFooter";
 import JesseFooter from "@/components/JesseFooter";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import ScrollCTA from "@/components/ScrollCTA";
@@ -46,7 +45,6 @@ export default function PageShell({ children, hideFloatingCTAs }: PageShellProps
     <>
       <Nav onBookingOpen={openInquiry} />
       <main>{children}</main>
-      <SherwoodFooter />
       <JesseFooter />
       {!hideFloatingCTAs && <StickyMobileCTA />}
       {!hideFloatingCTAs && <ScrollCTA />}
