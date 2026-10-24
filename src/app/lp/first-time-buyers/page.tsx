@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageShell from "@/components/PageShell";
 import FirstTimeBuyerLanding from "@/components/landing/FirstTimeBuyerLanding";
+import { getGoogleReviews } from "@/lib/googleReviews";
 
 // Ad-only landing page (Meta and ChatGPT ads). Hidden from search.
 export const metadata: Metadata = {
@@ -9,10 +10,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function Page() {
+export default async function Page() {
+  const google = await getGoogleReviews();
   return (
     <PageShell>
-      <FirstTimeBuyerLanding />
+      <FirstTimeBuyerLanding google={google} />
     </PageShell>
   );
 }

@@ -2,6 +2,19 @@
 
 import { useRef, useState } from "react";
 import { B, GOOGLE_PROFILE_URL, serif, sans } from "@/components/home/brand";
+import type { GoogleReviews } from "@/lib/googleReviews";
+
+const STAR = "#A6741E";
+
+function Stars({ colour, size = 18 }: { colour: string; size?: number }) {
+  return (
+    <span className="inline-flex gap-0.5" aria-hidden="true">
+      {Array.from({ length: 5 }, (_, i) => (
+        <svg key={i} width={size} height={size} viewBox="0 0 20 20" fill={colour}><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z" /></svg>
+      ))}
+    </span>
+  );
+}
 
 export type Review = {
   name: string;
@@ -16,7 +29,9 @@ export type Review = {
  * Big review cards in a swipeable row. The front shows the moment that matters,
  * the back (flip) shows the full review word for word. Both sides are in the page.
  */
-export default function ReviewCarousel({ heading, reviews }: { heading: string; reviews: Review[] }) {
+export default function ReviewCarousel({ heading, reviews, google }: { heading: string; reviews: Review[]; google: GoogleReviews }) {
+  const allFive = google.rating >= 4.95;
+  const summary = allFive ? `${google.count} five-star reviews on Google` : `${google.rating.toFixed(1)} stars from ${google.count} reviews on Google`;
   const [flipped, setFlipped] = useState<Set<number>>(() => new Set());
   const rowRef = useRef<HTMLUListElement>(null);
   const toggle = (i: number) =>
@@ -34,12 +49,18 @@ export default function ReviewCarousel({ heading, reviews }: { heading: string; 
   };
 
   return (
-    <section className="bg-white py-14 lg:py-20">
+    <section className="py-14 lg:py-20" style={{ background: B.skyDeep }}>
       <div className="px-5 sm:px-6"><div className="max-w-6xl mx-auto flex items-end justify-between gap-4 mb-7">
-        <h2 className="m-0 text-[2rem] sm:text-[2.5rem] leading-[1.1]" style={{ ...serif, fontWeight: 400, color: B.espresso }}>{heading}</h2>
+        <div className="flex flex-col gap-3">
+          <h2 className="m-0 text-[2rem] sm:text-[2.5rem] leading-[1.1]" style={{ ...serif, fontWeight: 400, color: B.white }}>{heading}</h2>
+          <a href={GOOGLE_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="self-start flex items-center gap-2.5 min-h-[44px] text-[1rem] font-semibold underline-offset-4 hover:underline" style={{ ...sans, color: B.white }}>
+            <Stars colour="#F2C66D" size={20} />
+            <span>{summary}</span>
+          </a>
+        </div>
         <div className="hidden sm:flex gap-2.5 shrink-0">
-          <button type="button" aria-label="Previous review" onClick={() => scrollBy(-1)} className="cursor-pointer w-12 h-12 rounded-full border-[1.5px] border-[#D8CCC0] bg-white text-[#352B26] text-lg hover:border-[#4F6B7A] hover:text-[#4F6B7A] transition-colors duration-150">←</button>
-          <button type="button" aria-label="Next review" onClick={() => scrollBy(1)} className="cursor-pointer w-12 h-12 rounded-full border-[1.5px] border-[#D8CCC0] bg-white text-[#352B26] text-lg hover:border-[#4F6B7A] hover:text-[#4F6B7A] transition-colors duration-150">→</button>
+          <button type="button" aria-label="Previous review" onClick={() => scrollBy(-1)} className="cursor-pointer w-12 h-12 rounded-full border-[1.5px] border-white/70 bg-transparent text-white text-lg hover:bg-[#9DB6C3] hover:border-[#9DB6C3] hover:text-[#352B26] transition-colors duration-150">←</button>
+          <button type="button" aria-label="Next review" onClick={() => scrollBy(1)} className="cursor-pointer w-12 h-12 rounded-full border-[1.5px] border-white/70 bg-transparent text-white text-lg hover:bg-[#9DB6C3] hover:border-[#9DB6C3] hover:text-[#352B26] transition-colors duration-150">→</button>
         </div>
       </div></div>
 
@@ -53,13 +74,14 @@ export default function ReviewCarousel({ heading, reviews }: { heading: string; 
           return (
             <li key={r.name} className="snap-start shrink-0 w-[86vw] sm:w-[440px] [perspective:1400px]">
               <div
-                className="jk-flip relative h-[360px] sm:h-[380px] transition-transform duration-700 [transform-style:preserve-3d] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)]"
+                className="jk-flip relative h-[390px] sm:h-[400px] transition-transform duration-700 [transform-style:preserve-3d] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)]"
                 style={{ transform: isFlipped ? "rotateY(180deg)" : "none" }}
               >
                 {/* Front: the moment */}
                 <div className="absolute inset-0 rounded-[24px] p-7 sm:p-8 flex flex-col [backface-visibility:hidden]" style={{ background: B.linen }} aria-hidden={isFlipped}>
                   <span aria-hidden="true" className="text-[4rem] leading-[0.6] h-8" style={{ ...serif, color: B.clay }}>“</span>
                   <p className="m-0 text-[1.375rem] sm:text-[1.5rem] leading-[1.35]" style={{ ...serif, fontWeight: 400, color: B.espresso }}>{r.highlight}</p>
+                  <span className="mt-4" role="img" aria-label="5 out of 5 stars"><Stars colour={STAR} /></span>
                   <div className="mt-auto flex flex-col items-start gap-4 pt-6 sm:flex-row sm:items-end sm:justify-between">
                     <span className="flex flex-col gap-0.5" style={sans}>
                       <span className="text-[1rem] font-semibold" style={{ color: B.espresso }}>{r.name}</span>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import MortgageQuestions from "@/components/home/MortgageQuestions";
 import ReviewCarousel, { type Review } from "@/components/landing/ReviewCarousel";
 import { B, serif, sans } from "@/components/home/brand";
+import type { GoogleReviews } from "@/lib/googleReviews";
 
 const schedule = () => window.dispatchEvent(new CustomEvent("open-booking-modal"));
 const story = () => window.dispatchEvent(new CustomEvent("open-story-form"));
@@ -81,7 +82,7 @@ function Buttons({ dark = false }: { dark?: boolean }) {
   );
 }
 
-export default function FirstTimeBuyerLanding() {
+export default function FirstTimeBuyerLanding({ google }: { google: GoogleReviews }) {
   return (
     <>
       {/* Hero */}
@@ -103,7 +104,7 @@ export default function FirstTimeBuyerLanding() {
         </div>
       </section>
 
-      <ReviewCarousel heading="What first-time buyers say" reviews={REVIEWS} />
+      <ReviewCarousel heading="What first-time buyers say" reviews={REVIEWS} google={google} />
 
       {/* How I help */}
       <section className="px-5 sm:px-6 py-16 lg:py-20" style={{ background: B.sand }}>
