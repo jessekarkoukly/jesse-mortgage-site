@@ -148,7 +148,7 @@ export default function FirstTimeBuyerLanding({ google }: { google: GoogleReview
         </div>
       </section>
 
-      <MortgageQuestions onSchedule={schedule} onEmail={story} />
+      <MortgageQuestions onEmail={story} />
     </>
   );
 }

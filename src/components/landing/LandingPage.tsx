@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import ReviewsStrip from "@/components/home/ReviewsStrip";
+import { GOOGLE_REVIEWS_FALLBACK } from "@/lib/googleReviews";
 import MortgageQuestions from "@/components/home/MortgageQuestions";
 import { B, serif, sans } from "@/components/home/brand";
 
@@ -54,7 +55,7 @@ export default function LandingPage({ c }: { c: LandingContent }) {
         </div>
       </section>
 
-      <ReviewsStrip />
+      <ReviewsStrip google={GOOGLE_REVIEWS_FALLBACK} />
 
       {/* What you will know */}
       <section className="bg-white px-5 sm:px-6 py-16 lg:py-20">
@@ -107,7 +108,7 @@ export default function LandingPage({ c }: { c: LandingContent }) {
         </div>
       </section>
 
-      <MortgageQuestions onSchedule={schedule} onEmail={story} />
+      <MortgageQuestions onEmail={story} />
     </>
   );
 }
