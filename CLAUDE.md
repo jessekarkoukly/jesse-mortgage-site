@@ -262,6 +262,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 
 Newest first.
 
+**2026-10-24: Meta pixel on**
+`META_PIXEL_ID` is `2288575438605105` (from Matt). Pixel loads on every page with a noscript fallback. Matt's lead conversion is URL-based on `/thank-you`; the `Lead` event there still fires and does not change his setup.
+
 **2026-10-24: Hero line, blue reviews band, blue FAQ icons, one button in Mortgage questions**
 Hero subline (Jesse, final): "Mortgage agent based in Toronto, guiding first-time buyers and self-employed borrowers across Ontario." Homepage "Recent reviews on Google" band is sky deep with white cards, five gold stars on each card (Jesse's call, replaces the no-stars rule) and a count line "19 five-star reviews on Google". The count comes from `src/lib/googleReviews.ts`: live from the Google Places API once a day if `GOOGLE_PLACES_API_KEY` is set in Vercel, otherwise the checked fallback (19, all 5 stars, Oct 24 2026; update it when new reviews come in). Homepage FAQ +/x icons are sky deep. Mortgage questions band has one button, Start the conversation (Schedule a call removed).
 
