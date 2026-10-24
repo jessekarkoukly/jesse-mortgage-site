@@ -75,7 +75,7 @@ const QUESTIONS = [
 const PLAN = [
   { title: "What you qualify for", body: "Based on your income, down payment, debts and credit." },
   { title: "Your monthly payment", body: "A few options side by side, so you can pick what feels comfortable." },
-  { title: "Cash needed on closing day", body: "Down payment, land transfer tax, legal fees. No surprises." },
+  { title: "Cash needed on closing day", body: "Your down payment, land transfer tax and legal fees, worked out for your price." },
   { title: "Every program you can use", body: "FHSA, Home Buyers’ Plan, land transfer tax rebates." },
   { title: "Your next steps", body: "What to do now, and when pre-approval makes sense." },
 ];
@@ -149,33 +149,31 @@ export default function FirstTimeBuyerLanding({ google }: { google: GoogleReview
       </header>
 
       <main>
-        {/* Hero: who it's for, the promise, and the first question right away */}
-        <section className="px-5 sm:px-6 pt-6 sm:pt-10 lg:pt-14 pb-12 lg:pb-16">
-          <div className="max-w-6xl mx-auto grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-12 items-start">
-            <div className="flex flex-col gap-5 lg:pt-4">
-              <div className="relative overflow-hidden rounded-[22px] lg:hidden aspect-[16/10]">
-                <Image src="/jesse-family.jpg" alt="Jesse Karkoukly with his family on the front steps of a Toronto home" fill priority sizes="100vw" className="object-cover" style={{ objectPosition: "50% 72%" }} />
-              </div>
-              <p className="m-0 text-[1.0625rem]" style={{ ...serif, fontStyle: "italic", color: B.clayDeep }}>For first-time buyers in Ontario</p>
-              <h1 className="m-0 text-[2.375rem] sm:text-[3.25rem] lg:text-[3.875rem] leading-[1.04]" style={{ ...serif, fontWeight: 400, color: B.espresso, letterSpacing: "-0.5px" }}>
+        {/* Hero: who it's for, the promise, and the first question right away.
+            One photo element: on phones it sits on top, on desktop it moves to the right column. */}
+        <section className="px-5 sm:px-6 pt-4 sm:pt-10 lg:pt-14 pb-12 lg:pb-16">
+          <div className="max-w-6xl mx-auto grid gap-5 sm:gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-x-12 lg:gap-y-5 items-start">
+            <div className="relative overflow-hidden rounded-[18px] lg:rounded-[22px] aspect-[2/1] lg:aspect-[5/4] lg:col-start-2 lg:row-start-1">
+              <Image src="/jesse-family.jpg" alt="Jesse Karkoukly with his family on the front steps of a Toronto home" fill priority sizes="(min-width: 1024px) 520px, 100vw" className="object-cover" style={{ objectPosition: "50% 70%" }} />
+            </div>
+            <div className="flex flex-col gap-3.5 sm:gap-5 lg:pt-4 lg:col-start-1 lg:row-start-1 lg:row-span-2">
+              <p className="m-0 text-[1rem] sm:text-[1.0625rem]" style={{ ...serif, fontStyle: "italic", color: B.clayDeep }}>For first-time buyers in Ontario</p>
+              <h1 className="m-0 text-[2.125rem] sm:text-[3.25rem] lg:text-[3.875rem] leading-[1.04]" style={{ ...serif, fontWeight: 400, color: B.espresso, letterSpacing: "-0.5px" }}>
                 Your first home, without the overwhelm.
               </h1>
-              <p className="m-0 text-[1.125rem] sm:text-[1.25rem] leading-relaxed max-w-xl" style={{ ...sans, color: B.body }}>
+              <p className="m-0 sm:hidden text-[1.0625rem] leading-relaxed" style={{ ...sans, color: B.body }}>
+                I’m Jesse, a Toronto mortgage agent. I’ll show you what you can afford and how to get there.
+              </p>
+              <p className="m-0 hidden sm:block text-[1.25rem] leading-relaxed max-w-xl" style={{ ...sans, color: B.body }}>
                 I’m Jesse, a Toronto mortgage agent. I’ll show you what you can afford, what closing day really costs, and every program you can use, so you can buy with confidence.
               </p>
-              <a href={GOOGLE_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="self-start flex items-center gap-2.5 min-h-[44px] text-[0.9375rem] font-semibold hover:underline underline-offset-4" style={{ ...sans, color: B.espresso }}>
+              <a href={GOOGLE_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="self-start flex items-center gap-2.5 min-h-[36px] text-[0.9375rem] font-semibold hover:underline underline-offset-4" style={{ ...sans, color: B.espresso }}>
                 <Stars /> {count}
               </a>
             </div>
-
-            <div className="flex flex-col gap-5">
-              <div className="relative overflow-hidden rounded-[22px] hidden lg:block aspect-[5/4]">
-                <Image src="/jesse-family.jpg" alt="Jesse Karkoukly with his family on the front steps of a Toronto home" fill priority sizes="(min-width: 1024px) 520px, 100vw" className="object-cover" style={{ objectPosition: "50% 72%" }} />
-              </div>
-              <div className="rounded-[22px] bg-white p-5 sm:p-7 shadow-[0_18px_50px_-24px_rgba(53,43,38,0.35)]">
-                <p className="m-0 mb-4 text-[0.9375rem] font-semibold" style={{ ...sans, color: B.skyDeep }}>Get your first home plan. It takes about 2 minutes, and there is no cost to you.</p>
-                <PlanQuiz id="plan-hero" compact />
-              </div>
+            <div className="rounded-[22px] bg-white p-4 sm:p-7 shadow-[0_18px_50px_-24px_rgba(53,43,38,0.35)] lg:col-start-2 lg:row-start-2">
+              <p className="m-0 mb-3 text-[0.9375rem] font-semibold" style={{ ...sans, color: B.skyDeep }}>Your first home plan. About 2 minutes, and there is no cost to you.</p>
+              <PlanQuiz id="plan-hero" compact />
             </div>
           </div>
         </section>
@@ -226,7 +224,6 @@ export default function FirstTimeBuyerLanding({ google }: { google: GoogleReview
         <section className="px-5 sm:px-6 py-16 lg:py-24 overflow-hidden" style={{ background: B.linen }}>
           <div className="max-w-6xl mx-auto grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
             <div className="flex flex-col gap-6 lg:order-2">
-              <p className="m-0 text-[1.0625rem]" style={{ ...serif, fontStyle: "italic", color: B.clayDeep }}>What you walk away with</p>
               <h2 className="m-0 text-[2.125rem] sm:text-[2.75rem] leading-[1.1]" style={{ ...serif, fontWeight: 400, color: B.espresso }}>Your First Home Plan</h2>
               <p className="m-0 text-[1.125rem] leading-relaxed" style={{ ...sans, color: B.body }}>One conversation. Then I write it all down for you, so you can come back to it, share it with your partner and plan with real numbers.</p>
               <ul className="m-0 p-0 list-none flex flex-col gap-4">
@@ -285,7 +282,7 @@ export default function FirstTimeBuyerLanding({ google }: { google: GoogleReview
                   </div>
                   <figcaption className="sr-only">Preview of a First Home Plan. Every plan is built on your own numbers.</figcaption>
                 </figure>
-                <p className="relative mt-6 text-center text-[0.875rem]" style={{ ...serif, fontStyle: "italic", color: B.clayDeep }}>Preview only. Yours is built on your numbers.</p>
+                <p className="relative mt-6 text-center text-[0.875rem]" style={{ ...serif, fontStyle: "italic", color: B.body }}>Preview only. Yours is built on your numbers.</p>
               </div>
             </div>
           </div>
@@ -298,7 +295,6 @@ export default function FirstTimeBuyerLanding({ google }: { google: GoogleReview
         <section className="bg-white px-5 sm:px-6 py-16 lg:py-20">
           <div className="max-w-6xl mx-auto flex flex-col gap-10">
             <div className="flex flex-col gap-3 max-w-2xl">
-              <p className="m-0 text-[1.0625rem]" style={{ ...serif, fontStyle: "italic", color: B.clayDeep }}>How it works</p>
               <h2 className="m-0 text-[2.125rem] sm:text-[2.75rem] leading-[1.1]" style={{ ...serif, fontWeight: 400, color: B.espresso }}>From “where do I start?” to a plan you trust.</h2>
             </div>
             <ol className="m-0 p-0 list-none grid gap-4 md:grid-cols-3">
@@ -324,7 +320,6 @@ export default function FirstTimeBuyerLanding({ google }: { google: GoogleReview
         <section className="px-5 sm:px-6 py-16 lg:py-20" style={{ background: B.linen }}>
           <div className="max-w-6xl mx-auto flex flex-col gap-9">
             <div className="flex flex-col gap-3 max-w-2xl">
-              <p className="m-0 text-[1.0625rem]" style={{ ...serif, fontStyle: "italic", color: B.clayDeep }}>First-time buyer programs</p>
               <h2 className="m-0 text-[2.125rem] sm:text-[2.75rem] leading-[1.1]" style={{ ...serif, fontWeight: 400, color: B.espresso }}>Money set aside for first-time buyers.</h2>
               <p className="m-0 text-[1.0625rem] leading-relaxed" style={{ ...sans, color: B.body }}>Most people know these exist. Few know how to stack them. I’ll tell you which ones you qualify for.</p>
             </div>
@@ -369,8 +364,7 @@ export default function FirstTimeBuyerLanding({ google }: { google: GoogleReview
               <Image src="/blog/self-employed-dividends-mortgage/jesse-family-walk.jpg" alt="Jesse out for a walk in the Annex with his son" fill sizes="(min-width: 768px) 360px, 90vw" className="object-cover" />
             </div>
             <div className="flex flex-col gap-5">
-              <p className="m-0 text-[1.0625rem]" style={{ ...serif, fontStyle: "italic", color: B.clayDeep }}>Hi, I’m Jesse</p>
-              <h2 className="m-0 text-[2rem] sm:text-[2.5rem] leading-[1.12]" style={{ ...serif, fontWeight: 400, color: B.espresso }}>I explain it the way I’d want it explained to me.</h2>
+              <h2 className="m-0 text-[2rem] sm:text-[2.5rem] leading-[1.12]" style={{ ...serif, fontWeight: 400, color: B.espresso }}>Hi, I’m Jesse. I explain it the way I’d want it explained to me.</h2>
               <p className="m-0 text-[1.0625rem] leading-relaxed" style={{ ...sans, color: B.body }}>
                 I spent a decade in tech before becoming a mortgage agent. Now I help first-time buyers across Ontario go from overwhelmed to confident, one clear step at a time.
               </p>

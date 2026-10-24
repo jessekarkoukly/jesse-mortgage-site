@@ -11,9 +11,9 @@ export default function ThankYouContent() {
     () => { try { return sessionStorage.getItem("jk_inquiry") ?? ""; } catch { return ""; } },
     () => "",
   );
-  const { name, email } = useMemo(() => {
-    try { const v = JSON.parse(raw); return { name: String(v.name ?? ""), email: String(v.email ?? "") }; }
-    catch { return { name: "", email: "" }; }
+  const { name, email, plan } = useMemo(() => {
+    try { const v = JSON.parse(raw); return { name: String(v.name ?? ""), email: String(v.email ?? ""), plan: v.from === "plan" }; }
+    catch { return { name: "", email: "", plan: false }; }
   }, [raw]);
   const first = name.split(/\s+/)[0];
 
@@ -45,7 +45,7 @@ export default function ThankYouContent() {
           {first ? `Thanks, ${first}.` : "Thanks for reaching out."}
         </h1>
         <p className="m-0 text-[1.0625rem] sm:text-[1.1875rem] leading-relaxed max-w-xl" style={{ ...sans, color: B.body }}>
-          Looking forward to connecting with you.
+          {plan ? "Last step: pick a time below to go through your plan with me." : "Looking forward to connecting with you."}
         </p>
         <div key={src} className="calendly-inline-widget mt-2" data-url={src} style={{ minWidth: 320, height: 700 }} />
       </div>

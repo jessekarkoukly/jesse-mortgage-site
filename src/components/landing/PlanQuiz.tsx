@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { B, serif, sans } from "@/components/home/brand";
 import { metaCustom } from "@/lib/metaPixel";
+import { trackEvent } from "@/lib/analytics";
 
 type Choice = { key: string; q: string; options: string[] };
 
@@ -36,6 +37,9 @@ export default function PlanQuiz({ id, dark = false, compact = false }: { id: st
 
   const pick = (key: string, value: string) => {
     if (step === 0) metaCustom("FormStart", { form: "fthb_plan_quiz" });
+    // One event per answered question, so drop-off shows step by step.
+    metaCustom("QuizStep", { step: String(step + 1) });
+    trackEvent(`fthb_quiz_step_${step + 1}`);
     setAnswers((a) => ({ ...a, [key]: value }));
     setStep((s) => Math.min(s + 1, TOTAL - 1));
   };
@@ -61,7 +65,8 @@ export default function PlanQuiz({ id, dark = false, compact = false }: { id: st
         }),
       });
       if (!res.ok) throw new Error();
-      try { sessionStorage.setItem("jk_inquiry", JSON.stringify({ name: name.trim(), email: email.trim() })); } catch {}
+      trackEvent("fthb_quiz_submit");
+      try { sessionStorage.setItem("jk_inquiry", JSON.stringify({ name: name.trim(), email: email.trim(), from: "plan" })); } catch {}
       router.push("/thank-you");
     } catch {
       setStatus("error");
