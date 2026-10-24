@@ -1,6 +1,6 @@
 // Meta (Facebook and Instagram) pixel for Matt Evanoff's ad campaigns.
 // Leave the ID empty and the pixel does not load at all.
-export const META_PIXEL_ID = "";
+export const META_PIXEL_ID = "2288575438605105";
 
 type Fbq = (...args: unknown[]) => void;
 
