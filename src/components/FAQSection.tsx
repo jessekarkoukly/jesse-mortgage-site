@@ -67,8 +67,8 @@ export default function FAQSection() {
                   <span
                     className={`shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all duration-200 group-hover:scale-110 ${
                       isOpen
-                        ? "border-coral bg-coral text-white"
-                        : "border-sand-2 text-slate group-hover:border-coral group-hover:text-coral"
+                        ? "border-[#4F6B7A] bg-[#4F6B7A] text-white"
+                        : "border-[#4F6B7A] text-[#4F6B7A] group-hover:bg-[#4F6B7A] group-hover:text-white"
                     }`}
                   >
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">

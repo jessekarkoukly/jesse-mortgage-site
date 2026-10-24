@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 import HomeHero from "@/components/home/HomeHero";
 import WhatBringsYou from "@/components/home/WhatBringsYou";
 import ReviewsStrip from "@/components/home/ReviewsStrip";
+import type { GoogleReviews } from "@/lib/googleReviews";
 import BrokerDeck from "@/components/home/BrokerDeck";
 import AboutJesse from "@/components/home/AboutJesse";
 import HowItWorks from "@/components/home/HowItWorks";
@@ -20,7 +21,7 @@ import JesseFooter from "@/components/JesseFooter";
 import HomeJsonLd from "@/components/HomeJsonLd";
 
 
-export default function HomePage() {
+export default function HomePage({ google }: { google: GoogleReviews }) {
   const [storyOpen, setStoryOpen] = useState(false);
   const openStory = useCallback(() => {
     trackEvent("email_me_click");
@@ -41,7 +42,7 @@ export default function HomePage() {
       <main>
         <HomeHero onSchedule={openCalendly} onEmail={openStory} />
         <WhatBringsYou />
-        <ReviewsStrip />
+        <ReviewsStrip google={google} />
         <BrokerDeck />
         <AboutJesse onStory={openStory} />
         <HowItWorks />
@@ -49,7 +50,7 @@ export default function HomePage() {
         <FAQSection />
         <BlogPreview />
         <HelpList />
-        <MortgageQuestions onSchedule={openCalendly} onEmail={openStory} />
+        <MortgageQuestions onEmail={openStory} />
       </main>
       <JesseFooter />
       <StoryForm open={storyOpen} onClose={closeStory} />
