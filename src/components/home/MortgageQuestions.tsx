@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { B, JESSE_EMAIL, serif, sans } from "./brand";
 
-type Props = { onSchedule: () => void; onEmail: () => void };
+type Props = { onEmail: () => void };
 
-export default function MortgageQuestions({ onSchedule, onEmail }: Props) {
+export default function MortgageQuestions({ onEmail }: Props) {
   return (
     <>
       <section className="px-5 sm:px-6 py-16 lg:py-20" style={{ background: B.espresso, color: B.linen }}>
@@ -14,7 +14,7 @@ export default function MortgageQuestions({ onSchedule, onEmail }: Props) {
               Drop me a note about where you’re at, any questions you have or anything I can support with. I would be truly happy to assist any way I can.
             </p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col lg:w-[300px]">
+          <div className="flex flex-col gap-3 sm:w-[300px]">
             <button
               type="button"
               onClick={onEmail}
@@ -25,14 +25,6 @@ export default function MortgageQuestions({ onSchedule, onEmail }: Props) {
                 <rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" />
               </svg>
               Start the conversation
-            </button>
-            <button
-              type="button"
-              onClick={onSchedule}
-              className="cursor-pointer w-full rounded-full px-7 py-4 min-h-[52px] text-[1rem] font-semibold transition-colors duration-150 bg-transparent text-[#F5EFE8] border-[1.5px] border-[#6B5B52] hover:border-[#9DB6C3] hover:text-[#9DB6C3]"
-              style={sans}
-            >
-              Schedule a call
             </button>
             <a href={`mailto:${JESSE_EMAIL}`} className="text-center text-[0.875rem] py-2 underline underline-offset-2 hover:text-[#9DB6C3]" style={{ ...sans, color: B.onDark }}>
               {JESSE_EMAIL}

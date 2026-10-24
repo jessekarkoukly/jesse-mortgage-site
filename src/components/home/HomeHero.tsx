@@ -28,7 +28,7 @@ export default function HomeHero({ onSchedule, onEmail }: Props) {
             Confident mortgage decisions start here.
           </h1>
           <p className="m-0 text-[1.0625rem] sm:text-[1.1875rem] leading-relaxed max-w-xl" style={{ ...sans, color: B.body }}>
-            Toronto mortgage agent at Sherwood Mortgage Group.
+            Mortgage agent based in Toronto, guiding first-time buyers and self-employed borrowers across Ontario.
           </p>
           <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 pt-1">
             <button
