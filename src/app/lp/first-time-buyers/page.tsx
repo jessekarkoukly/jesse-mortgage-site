@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
-import PageShell from "@/components/PageShell";
 import FirstTimeBuyerLanding from "@/components/landing/FirstTimeBuyerLanding";
 import { getGoogleReviews } from "@/lib/googleReviews";
 
 // Ad-only landing page (Meta and ChatGPT ads). Hidden from search.
 export const metadata: Metadata = {
-  title: "First-Time Home Buyers in Ontario | Jesse Karkoukly",
-  description: "Planning to buy your first home? Toronto mortgage agent Jesse Karkoukly helps you make confident decisions and remove the overwhelm.",
+  title: "Your First Home Plan | Jesse Karkoukly",
+  description: "Find out what you can afford, what closing day costs and every first-time buyer program you can use. Toronto mortgage agent Jesse Karkoukly.",
   robots: { index: false, follow: false },
 };
 
 export default async function Page() {
   const google = await getGoogleReviews();
   return (
-    <PageShell>
-      <FirstTimeBuyerLanding google={google} />
-    </PageShell>
+    <FirstTimeBuyerLanding google={google} />
   );
 }
