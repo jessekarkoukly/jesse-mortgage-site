@@ -1,7 +1,6 @@
 import Image from "next/image";
 import NavWithBooking from "@/components/NavWithBooking";
 import HeroCarousel from "./HeroCarousel";
-import SherwoodFooter from "@/components/SherwoodFooter";
 import JesseFooter from "@/components/JesseFooter";
 
 export const metadata = {
@@ -267,7 +266,6 @@ export default function OpenHousePage() {
         </section>
 
       </main>
-      <SherwoodFooter />
       <JesseFooter />
     </>
   );

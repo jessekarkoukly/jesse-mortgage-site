@@ -31,7 +31,7 @@ Footer disclaimer — verbatim, no exceptions:
 
 Sherwood logo (`public/sherwood-logo-lic.png`, official "Digital_Horiz_Lic-Full_Color" artwork from the Sherwood brand kit, licence number built in):
 - Full colour only. Never greyscale. Never resized below 80px wide.
-- Appears in the compliance footer on every page.
+- Appears in the compliance footer on every page, on a white card inside the dark footer (it has dark text on a transparent background).
 - Use supplied logo files exactly as provided. Never recreate, recolour, crop, combine, or type licence text next to a logo.
 
 ---
@@ -261,6 +261,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 ## SESSION LOG
 
 Newest first.
+
+**2026-10-24: Submit button, quieter steps, sparkler keys, Sherwood logo in footer**
+Story form button is sky deep with white text and reads "Submit". How it works: step titles larger, step text smaller and softer (#6B5D54, 4.9:1 on sand) so titles lead; Keys in hand dot is larger and, when it scrolls in, pops and throws sparkler streaks for about 3 seconds (`.jk-spark` and `.jk-keys-lit` in `globals.css`, off for reduced motion). The white Sherwood band is gone: the official logo now sits on a white card inside the dark footer, right side on desktop, under the contact links on phones (`SherwoodFooter.tsx` removed, logo in `JesseFooter.tsx`).
 
 **2026-10-23: How it works timeline, shorter hero**
 How it works is a vertical timeline (numbered dots, line fills as you scroll, Keys in hand in sky deep with the key icon), replacing the flip cards. Step copy trimmed by Jesse: no "Nothing more", no "you leave knowing exactly where you stand", Keys in hand is "My job is to get you from the starting point to keys in hand." Hero subline (Jesse, final): "Toronto mortgage agent at Sherwood Mortgage Group."

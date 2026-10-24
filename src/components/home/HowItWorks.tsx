@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { B, serif, sans } from "./brand";
 
 // Step explanations use Jesse's wording from the Working with Jesse page.
@@ -14,12 +14,25 @@ const STEPS = [
   { title: "Keys in hand", text: "My job is to get you from the starting point to keys in hand." },
 ];
 
+// Step text sits back so the titles lead (4.5:1 on sand).
+const STEP_TEXT = "#6B5D54";
+
+// Sparkler around the keys: streaks fly out from the dot in a few staggered bursts.
+const SPARK_COLOURS = ["#D9A441", "#4F6B7A", "#E8B85C", "#7E6352", "#F2D9A6"];
+const SPARKS = Array.from({ length: 30 }, (_, i) => ({
+  a: i * 12 + ((i * 37) % 9) - 4,
+  r: 44 + ((i * 53) % 40),
+  d: (i * 137) % 700,
+  c: SPARK_COLOURS[i % SPARK_COLOURS.length],
+}));
+
 /**
  * Vertical timeline. Each step's dot fills in as it scrolls into view, and the line grows with it.
  * All text is always on the page.
  */
 export default function HowItWorks() {
   const [reached, setReached] = useState(0);
+  const [motion, setMotion] = useState(false);
   const refs = useRef<(HTMLLIElement | null)[]>([]);
   const last = STEPS.length - 1;
 
@@ -28,6 +41,7 @@ export default function HowItWorks() {
       const id = requestAnimationFrame(() => setReached(STEPS.length));
       return () => cancelAnimationFrame(id);
     }
+    const m = requestAnimationFrame(() => setMotion(true));
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -40,7 +54,7 @@ export default function HowItWorks() {
       { rootMargin: "0px 0px -35% 0px" },
     );
     refs.current.forEach((el) => el && io.observe(el));
-    return () => io.disconnect();
+    return () => { cancelAnimationFrame(m); io.disconnect(); };
   }, []);
 
   return (
@@ -77,11 +91,18 @@ export default function HowItWorks() {
 
                 <span
                   aria-hidden="true"
-                  className="relative z-[1] w-11 h-11 rounded-full flex items-center justify-center text-[1.0625rem] border-[1.5px] transition-colors duration-500"
+                  className={`relative z-[1] rounded-full flex items-center justify-center text-[1.0625rem] border-[1.5px] transition-colors duration-500 ${isKeys ? "w-[52px] h-[52px] -ml-1 -mt-1" : "w-11 h-11"} ${isKeys && on && motion ? "jk-keys-lit" : ""}`}
                   style={{ ...serif, background: dotBg, borderColor: on ? dotBg : B.line, color: on ? B.linen : B.clayDeep }}
                 >
+                  {isKeys && on && motion && SPARKS.map((sp, k) => (
+                    <span
+                      key={k}
+                      className="jk-spark"
+                      style={{ "--a": `${sp.a}deg`, "--r": `${sp.r}px`, "--d": `${sp.d}ms`, "--c": sp.c } as CSSProperties}
+                    />
+                  ))}
                   {isKeys ? (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                       <circle cx="7.5" cy="15.5" r="4.5" /><path d="M10.7 12.3 20 3" /><path d="m16 7 3 3" /><path d="m18 5 2 2" />
                     </svg>
                   ) : (
@@ -90,10 +111,10 @@ export default function HowItWorks() {
                 </span>
 
                 <div className="flex flex-col gap-1.5 pt-2">
-                  <h3 className="m-0 text-[1.375rem] leading-snug" style={{ ...serif, fontWeight: 500, color: isKeys ? B.skyDeep : B.espresso }}>
+                  <h3 className={`m-0 leading-snug ${isKeys ? "text-[1.75rem] sm:text-[2rem]" : "text-[1.5rem] sm:text-[1.625rem]"}`} style={{ ...serif, fontWeight: 500, color: isKeys ? B.skyDeep : B.espresso }}>
                     <span className="sr-only">Step {i + 1}: </span>{s.title}
                   </h3>
-                  <p className="m-0 text-[1rem] leading-[1.65] max-w-xl" style={{ ...sans, color: B.body }}>{s.text}</p>
+                  <p className="m-0 text-[0.9375rem] leading-[1.7] max-w-xl" style={{ ...sans, color: STEP_TEXT }}>{s.text}</p>
                 </div>
               </li>
             );
