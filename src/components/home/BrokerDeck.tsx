@@ -258,7 +258,7 @@ export default function BrokerDeck() {
                   onClick={() => { stopDemo(); setIdx(i); setDx(0); setOut(0); }}
                   className="cursor-pointer h-12 min-w-[28px] px-1.5 flex items-center justify-center"
                 >
-                  <span className="block h-2.5 rounded-full" style={{ width: i === idx ? 34 : 10, background: i === idx ? B.clay : "#D8CCC0", transition: "width 0.4s ease, background 0.4s ease" }} />
+                  <span className="block h-2.5 rounded-full" style={{ width: i === idx ? 34 : 10, background: i === idx ? B.skyDeep : B.skyLight, transition: "width 0.4s ease, background 0.4s ease" }} />
                 </button>
               ))}
             </div>

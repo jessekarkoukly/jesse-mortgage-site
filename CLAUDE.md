@@ -262,6 +262,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 
 Newest first.
 
+**2026-10-25: Broker deck dots blue**
+Broker vs bank deck: active pill is sky deep, other dots sky light (were clay and sand).
+
 **2026-10-24: Meta pixel on**
 `META_PIXEL_ID` is `2288575438605105` (from Matt). Pixel loads on every page with a noscript fallback. Matt's lead conversion is URL-based on `/thank-you`; the `Lead` event there still fires and does not change his setup.
 
