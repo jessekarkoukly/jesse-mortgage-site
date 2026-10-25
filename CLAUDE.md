@@ -262,6 +262,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 
 Newest first.
 
+**2026-10-25: First-time buyer landing options (branch `landing-pages-draft`)**
+Four ad landing pages for Matt's Meta campaign, all noindex with a fixed header (the layout's `overflow-x-hidden` wrapper stops `sticky` from working) and the compliance footer: `/lp/first-time-buyers/a` (First Home Plan, long-form on Sabri Suby's King Kong structure), `/b` (savings calculator first, cash side only, no rates), `/c` (playbook lead magnet; the playbook itself is `/lp/first-time-buyers/playbook`), `/d` (the plan questions as a text-style chat). Review page: `/lp/first-time-buyers/options`. `/lp/first-time-buyers` shows A until a winner is picked. Photo: the homepage family walk (`jesse-about.jpg`, landscape crop `public/landing/family-walk-wide.jpg`). Reviews are verbatim from Google (all 19 checked Oct 25), Guzzi then Marshello first, in `src/data/landing/fthb.ts`. Leads post to `/api/leads` with source `fthb_lp_a_plan`, `fthb_lp_b_calc`, `fthb_lp_c_playbook` or `fthb_lp_d_chat`. A, B and D end on `/thank-you` (Lead). C opens the playbook and fires `CompleteRegistration` instead, so it does not count as a Lead. Meta FormStart `form` values: `fthb_plan_quiz`, `fthb_savings_calc`, `fthb_playbook`, `fthb_chat`; QuizStep fires per question.
+
 **2026-10-24: Meta pixel on**
 `META_PIXEL_ID` is `2288575438605105` (from Matt). Pixel loads on every page with a noscript fallback. Matt's lead conversion is URL-based on `/thank-you`; the `Lead` event there still fires and does not change his setup.
 

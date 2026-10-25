@@ -5,28 +5,53 @@ import { useState } from "react";
 import { B, serif, sans } from "@/components/home/brand";
 import { metaCustom } from "@/lib/metaPixel";
 import { trackEvent } from "@/lib/analytics";
+import { isEmail, rememberLead, submitLead } from "@/components/landing/lead";
 
-type Choice = { key: string; q: string; options: string[] };
+// Name and email someone already gave on the playbook page, so they don't type them twice.
+function fromPlaybook(): { name: string; email: string } {
+  try {
+    const v = JSON.parse(sessionStorage.getItem("jk_playbook") ?? "{}");
+    return { name: String(v.name ?? ""), email: String(v.email ?? "") };
+  } catch {
+    return { name: "", email: "" };
+  }
+}
+
+export type Choice = { key: string; q: string; options: string[] };
 
 // Four taps, then contact details last (the low-effort questions come first).
-const CHOICES: Choice[] = [
-  { key: "Timeline", q: "When are you hoping to buy?", options: ["Just exploring for now", "In the next 6 to 12 months", "I'm ready to start looking", "I've found a home"] },
+export const CHOICES: Choice[] = [
+  { key: "Timeline", q: "When are you hoping to buy?", options: ["Just exploring for now", "In the next 6 to 12 months", "I’m ready to start looking", "I’ve found a home"] },
   { key: "Down payment saved", q: "Roughly how much have you saved for a down payment?", options: ["Under $25,000", "$25,000 to $75,000", "$75,000 to $150,000", "Over $150,000", "Not sure yet"] },
   { key: "Income", q: "How do you earn your income?", options: ["Salary or hourly", "Self-employed", "A mix of both"] },
-  { key: "Buying", q: "Who's buying?", options: ["Just me", "Me and a partner"] },
+  { key: "Buying", q: "Who’s buying?", options: ["Just me", "Me and a partner"] },
 ];
 const TOTAL = CHOICES.length + 1;
 
 /**
  * The first-time buyer plan quiz. Four quick taps, then name, email and phone.
  * Sends to /api/leads (saved in Supabase and emailed to Jesse), then /thank-you with Calendly.
+ * `source` names the page in Jesse's lead email; `form` names the form in Meta's FormStart event.
  */
-export default function PlanQuiz({ id, dark = false, compact = false }: { id: string; dark?: boolean; compact?: boolean }) {
+export default function PlanQuiz({
+  id,
+  dark = false,
+  compact = false,
+  source = "fthb_plan_quiz",
+  form = "fthb_plan_quiz",
+}: {
+  id: string;
+  dark?: boolean;
+  compact?: boolean;
+  source?: string;
+  form?: string;
+}) {
   const router = useRouter();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  // The contact fields only render at the last step, never on the server, so reading sessionStorage here is safe.
+  const [name, setName] = useState(() => fromPlaybook().name);
+  const [email, setEmail] = useState(() => fromPlaybook().email);
   const [phone, setPhone] = useState("");
   const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
@@ -36,7 +61,7 @@ export default function PlanQuiz({ id, dark = false, compact = false }: { id: st
   const pct = Math.round(((step + 1) / (TOTAL + 1)) * 100);
 
   const pick = (key: string, value: string) => {
-    if (step === 0) metaCustom("FormStart", { form: "fthb_plan_quiz" });
+    if (step === 0) metaCustom("FormStart", { form });
     // One event per answered question, so drop-off shows step by step.
     metaCustom("QuizStep", { step: String(step + 1) });
     trackEvent(`fthb_quiz_step_${step + 1}`);
@@ -46,31 +71,21 @@ export default function PlanQuiz({ id, dark = false, compact = false }: { id: st
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!/\S+@\S+\.\S+/.test(email) || !name.trim()) return;
+    if (!isEmail(email) || !name.trim()) return;
     setStatus("sending");
-    const [first, ...rest] = name.trim().split(/\s+/);
-    try {
-      const res = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          first_name: first,
-          last_name: rest.join(" "),
-          email: email.trim(),
-          phone: phone.trim(),
-          inquiry_type: "First home plan",
-          message: CHOICES.map((c) => `${c.key}: ${answers[c.key] ?? "Skipped"}`).join("\n"),
-          source: `fthb_plan_quiz ${window.location.pathname}`,
-          website,
-        }),
-      });
-      if (!res.ok) throw new Error();
-      trackEvent("fthb_quiz_submit");
-      try { sessionStorage.setItem("jk_inquiry", JSON.stringify({ name: name.trim(), email: email.trim(), from: "plan" })); } catch {}
-      router.push("/thank-you");
-    } catch {
-      setStatus("error");
-    }
+    const ok = await submitLead({
+      name,
+      email,
+      phone,
+      inquiryType: "First home plan",
+      message: CHOICES.map((c) => `${c.key}: ${answers[c.key] ?? "Skipped"}`).join("\n"),
+      source,
+      website,
+    });
+    if (!ok) { setStatus("error"); return; }
+    trackEvent("fthb_quiz_submit");
+    rememberLead(name, email, "plan");
+    router.push("/thank-you");
   }
 
   const field = `w-full rounded-xl px-4 py-3.5 min-h-[52px] text-[1rem] border-[1.5px] outline-none focus:border-[#4F6B7A] ${dark ? "bg-[#4A3E37] border-[#6B5B52] text-[#F5EFE8] placeholder:text-[#C9BDB3]" : "bg-white border-[#D8CCC0] text-[#352B26] placeholder:text-[#8A7A70]"}`;
@@ -82,7 +97,7 @@ export default function PlanQuiz({ id, dark = false, compact = false }: { id: st
           Step {step + 1} of {TOTAL}
         </span>
         {step > 0 && (
-          <button type="button" onClick={() => setStep((s) => s - 1)} className="cursor-pointer text-[0.875rem] font-semibold underline underline-offset-2 min-h-[44px] px-1 hover:text-[#4F6B7A]" style={{ color: ink }}>
+          <button type="button" onClick={() => setStep((s) => s - 1)} className="cursor-pointer text-[0.875rem] font-semibold underline underline-offset-2 min-h-[48px] px-1 hover:text-[#4F6B7A]" style={{ color: ink }}>
             Back
           </button>
         )}

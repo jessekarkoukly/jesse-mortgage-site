@@ -11,10 +11,15 @@ export default function ThankYouContent() {
     () => { try { return sessionStorage.getItem("jk_inquiry") ?? ""; } catch { return ""; } },
     () => "",
   );
-  const { name, email, plan } = useMemo(() => {
-    try { const v = JSON.parse(raw); return { name: String(v.name ?? ""), email: String(v.email ?? ""), plan: v.from === "plan" }; }
-    catch { return { name: "", email: "", plan: false }; }
+  const { name, email, from } = useMemo(() => {
+    try { const v = JSON.parse(raw); return { name: String(v.name ?? ""), email: String(v.email ?? ""), from: String(v.from ?? "") }; }
+    catch { return { name: "", email: "", from: "" }; }
   }, [raw]);
+  // What to say depends on the form they came from (first-time buyer landing pages).
+  const sub =
+    from === "plan" ? "Last step: pick a time below to go through your plan with me." :
+    from === "number" ? "Last step: pick a time below and I’ll work out your full number with you." :
+    "Looking forward to connecting with you.";
   const first = name.split(/\s+/)[0];
 
   // Calendly inline embed, with the visitor's name and email filled in.
@@ -45,7 +50,7 @@ export default function ThankYouContent() {
           {first ? `Thanks, ${first}.` : "Thanks for reaching out."}
         </h1>
         <p className="m-0 text-[1.0625rem] sm:text-[1.1875rem] leading-relaxed max-w-xl" style={{ ...sans, color: B.body }}>
-          {plan ? "Last step: pick a time below to go through your plan with me." : "Looking forward to connecting with you."}
+          {sub}
         </p>
         <div key={src} className="calendly-inline-widget mt-2" data-url={src} style={{ minWidth: 320, height: 700 }} />
       </div>

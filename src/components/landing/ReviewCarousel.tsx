@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { B, GOOGLE_PROFILE_URL, serif, sans } from "@/components/home/brand";
 import type { GoogleReviews } from "@/lib/googleReviews";
 
@@ -29,7 +29,7 @@ export type Review = {
  * Big review cards in a swipeable row. The front shows the moment that matters,
  * the back (flip) shows the full review word for word. Both sides are in the page.
  */
-export default function ReviewCarousel({ heading, reviews, google }: { heading: string; reviews: Review[]; google: GoogleReviews }) {
+export default function ReviewCarousel({ heading, reviews, google, children }: { heading: string; reviews: Review[]; google: GoogleReviews; children?: ReactNode }) {
   const allFive = google.rating >= 4.95;
   const summary = allFive ? `${google.count} five-star reviews on Google` : `${google.rating.toFixed(1)} stars from ${google.count} reviews on Google`;
   const [flipped, setFlipped] = useState<Set<number>>(() => new Set());
@@ -53,7 +53,7 @@ export default function ReviewCarousel({ heading, reviews, google }: { heading: 
       <div className="px-5 sm:px-6"><div className="max-w-6xl mx-auto flex items-end justify-between gap-4 mb-7">
         <div className="flex flex-col gap-3">
           <h2 className="m-0 text-[2rem] sm:text-[2.5rem] leading-[1.1]" style={{ ...serif, fontWeight: 400, color: B.white }}>{heading}</h2>
-          <a href={GOOGLE_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="self-start flex items-center gap-2.5 min-h-[44px] text-[1rem] font-semibold underline-offset-4 hover:underline" style={{ ...sans, color: B.white }}>
+          <a href={GOOGLE_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="self-start flex items-center gap-2.5 min-h-[48px] text-[1rem] font-semibold underline-offset-4 hover:underline" style={{ ...sans, color: B.white }}>
             <Stars colour="#F2C66D" size={20} />
             <span>{summary}</span>
           </a>
@@ -87,7 +87,7 @@ export default function ReviewCarousel({ heading, reviews, google }: { heading: 
                       <span className="text-[1rem] font-semibold" style={{ color: B.espresso }}>{r.name}</span>
                       {r.tag && <span className="text-[0.9375rem]" style={{ ...serif, fontStyle: "italic", color: B.clayDeep }}>{r.tag}</span>}
                     </span>
-                    <button type="button" tabIndex={isFlipped ? -1 : 0} onClick={() => toggle(i)} className="cursor-pointer shrink-0 rounded-full px-4 py-2.5 min-h-[44px] text-[0.875rem] font-semibold border-[1.5px] border-[#352B26] text-[#352B26] hover:border-[#4F6B7A] hover:text-[#4F6B7A] transition-colors duration-150" style={sans}>
+                    <button type="button" tabIndex={isFlipped ? -1 : 0} onClick={() => toggle(i)} className="cursor-pointer shrink-0 rounded-full px-4 py-2.5 min-h-[48px] text-[0.875rem] font-semibold border-[1.5px] border-[#352B26] text-[#352B26] hover:border-[#4F6B7A] hover:text-[#4F6B7A] transition-colors duration-150" style={sans}>
                       Read the full review
                     </button>
                   </div>
@@ -103,7 +103,7 @@ export default function ReviewCarousel({ heading, reviews, google }: { heading: 
                   </div>
                   <div className="flex items-center justify-between gap-4">
                     <a href={GOOGLE_PROFILE_URL} target="_blank" rel="noopener noreferrer" tabIndex={isFlipped ? 0 : -1} className="text-[0.875rem] underline underline-offset-2 hover:text-[#9DB6C3]" style={{ ...sans, color: B.onDark }}>See it on Google</a>
-                    <button type="button" tabIndex={isFlipped ? 0 : -1} onClick={() => toggle(i)} className="cursor-pointer rounded-full px-4 py-2.5 min-h-[44px] text-[0.875rem] font-semibold bg-[#C4A592] text-[#352B26] hover:bg-[#9DB6C3] transition-colors duration-150" style={sans}>
+                    <button type="button" tabIndex={isFlipped ? 0 : -1} onClick={() => toggle(i)} className="cursor-pointer rounded-full px-4 py-2.5 min-h-[48px] text-[0.875rem] font-semibold bg-[#C4A592] text-[#352B26] hover:bg-[#9DB6C3] transition-colors duration-150" style={sans}>
                       Back
                     </button>
                   </div>
@@ -113,6 +113,7 @@ export default function ReviewCarousel({ heading, reviews, google }: { heading: 
           );
         })}
       </ul>
+      {children && <div className="px-5 sm:px-6 pt-8"><div className="max-w-6xl mx-auto">{children}</div></div>}
     </section>
   );
 }
