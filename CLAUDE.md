@@ -63,7 +63,7 @@ Brand refresh, October 2026. Source: the Jesse Karkoukly Brand Book (Claude arti
 |---|---|
 | `public/jesse-hero-arch.jpg` | Homepage hero (sunlit wall headshot, arch crop). Above the headline on mobile. |
 | `public/jesse-hero.jpg` | Old hero, retired from the homepage |
-| `public/jesse-about.jpg` | Homepage about section + Annex neighbourhood page only |
+| `public/jesse-about.jpg` | Homepage about section, Annex neighbourhood page, first-time buyer landing pages (Jesse, Oct 25 2026). Landscape crop for wide frames: `public/landing/family-walk-wide.jpg` |
 | `public/sherwood-logo-lic.png` | Compliance footer, full colour, every page (official artwork with Brokerage Lic. 12176) |
 | `public/blog/jesse-face.jpg` | Blog byline avatar |
 | `public/blog/jesse-headshot.jpg` | Blog author box |
@@ -261,6 +261,9 @@ Never hardcode rates. Always read from Supabase `rates` table. Show `—` if emp
 ## SESSION LOG
 
 Newest first.
+
+**2026-10-25: First-time buyer ad pages live (Jesse picked the First Home Plan; the playbook too, for separate ads)**
+`/lp/first-time-buyers`: the First Home Plan, long-form on Sabri Suby's King Kong structure (plan quiz in the hero and at the close, sample plan with real closing-cost math, Jesse's 2021 bank story, everything that comes with it, promises, warning, P.S.). `/lp/first-time-buyers/playbook`: first name and email for the Ontario First-Time Buyer Playbook, which opens at `/lp/first-time-buyers/playbook/read` (plan quiz at the end, name and email prefilled). All noindex, fixed header (the layout's `overflow-x-hidden` wrapper stops `sticky` from working), compliance footer, pages render on the server (only forms ship JavaScript). Reviews are verbatim from Google (all 19 checked Oct 25), Guzzi then Marshello first, then Syed and Daniel Goldhar, in `src/data/landing/fthb.ts`. Lead sources in Jesse's email: `fthb_lp_plan`, `fthb_lp_playbook`, `fthb_lp_playbook_plan`. Meta: FormStart `fthb_plan_quiz` / `fthb_playbook` / `fthb_playbook_plan`, QuizStep per question, Lead on `/thank-you`; the playbook signup fires `CompleteRegistration` instead (not a Lead), so Matt needs a separate conversion for playbook ads. Playbook signups are not in the Brevo drip yet. The other drafts (savings calculator, text-style chat, options page) stay on branch `landing-pages-draft`, not published.
 
 **2026-10-25: Broker deck dots blue**
 Broker vs bank deck: active pill is sky deep, other dots sky light (were clay and sand).
