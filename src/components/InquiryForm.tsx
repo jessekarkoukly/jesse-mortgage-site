@@ -19,12 +19,19 @@ const input =
   "w-full rounded-xl border-[1.5px] border-[#E3D9CD] bg-white px-4 py-3.5 min-h-[52px] text-[1rem] text-[#352B26] placeholder:text-[#8C7A6E] focus:outline-none focus:border-[#4F6B7A] transition-colors duration-150";
 
 /** The four-field inquiry form. Used in the pop-up and on /contact. */
-export function InquiryFields({ onDone, autoFocus = true }: { onDone?: () => void; autoFocus?: boolean }) {
+export function InquiryFields({ onDone, autoFocus = true, initialHelp = "", context = "" }: {
+  onDone?: () => void;
+  autoFocus?: boolean;
+  /** Pre-fills "What can I help with?" (must be one of HELP_OPTIONS). */
+  initialHelp?: string;
+  /** Added to the lead source, for example the situation picked on the homepage. */
+  context?: string;
+}) {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [help, setHelp] = useState("");
+  const [help, setHelp] = useState(HELP_OPTIONS.includes(initialHelp) ? initialHelp : "");
   const [website, setWebsite] = useState(""); // honeypot
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const firstRef = useRef<HTMLInputElement>(null);
@@ -52,7 +59,7 @@ export function InquiryFields({ onDone, autoFocus = true }: { onDone?: () => voi
           email: email.trim(),
           phone: phone.trim(),
           inquiry_type: help,
-          source: `inquiry_form ${window.location.pathname}`,
+          source: `inquiry_form ${window.location.pathname}${context ? ` ${context}` : ""}`,
           website,
         }),
       });
@@ -118,7 +125,7 @@ export function InquiryFields({ onDone, autoFocus = true }: { onDone?: () => voi
 }
 
 /** Pop-up version, opened by every "Schedule a call" button. */
-export default function InquiryForm({ open, onClose }: { open: boolean; onClose: () => void }) {
+export default function InquiryForm({ open, onClose, initialHelp, context }: { open: boolean; onClose: () => void; initialHelp?: string; context?: string }) {
   useEffect(() => {
     if (!open) return;
     metaCustom("FormStart", { form: "schedule_call" });
@@ -144,7 +151,7 @@ export default function InquiryForm({ open, onClose }: { open: boolean; onClose:
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 6l12 12M18 6 6 18" /></svg>
           </button>
         </div>
-        <InquiryFields onDone={onClose} />
+        <InquiryFields onDone={onClose} initialHelp={initialHelp} context={context} />
       </div>
     </div>
   );
