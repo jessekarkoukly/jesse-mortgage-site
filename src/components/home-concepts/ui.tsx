@@ -367,7 +367,7 @@ export function StoryBlock({ tone = "linen", photo = "family", full = true }: { 
               <figcaption className="text-[1rem]" style={{ ...serif, fontStyle: "italic", color: B.clayDeep }}>Out for a walk with my family.</figcaption>
             </figure>
           ) : (
-            <ArchPortrait className="lg:items-start lg:ml-8" caption="Jesse Karkoukly, Sherwood Mortgage Group" />
+            <ArchPortrait caption="Jesse Karkoukly, Sherwood Mortgage Group" />
           )}
         </div>
         <div className="flex flex-col gap-5 lg:col-start-2 lg:row-start-1 lg:row-span-2">
