@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   ...social("Privacy Policy | Jesse Karkoukly", "How Jesse Karkoukly collects, uses and protects your personal information on jessekarkoukly.com, in line with Canadian privacy law (PIPEDA).", "/privacy"),
 };
 
-const UPDATED = "October 17, 2026";
+const UPDATED = "October 28, 2026";
 const CONTACT_EMAIL = "jkarkoukly@sherwoodmortgagegroup.com";
 
 const SECTIONS: { heading: string; body: React.ReactNode }[] = [
@@ -43,9 +43,9 @@ const SECTIONS: { heading: string; body: React.ReactNode }[] = [
           on, and which buttons you clicked. This does not identify you by name.
         </li>
         <li>
-          <b>Ad measurement.</b> If you arrive from one of my ads on Facebook or Instagram, the Meta
-          pixel records which pages you visit and whether you send a form, so I can see which ads
-          help people. Meta may use cookies for this.
+          <b>Ad measurement.</b> If you arrive from one of my ads on Facebook, Instagram or ChatGPT,
+          the Meta and OpenAI pixels may record which pages you visit and whether you send a form or
+          book a call, so I can see which ads help people. They may use cookies for this.
         </li>
       </ul>
     ),
@@ -81,6 +81,9 @@ const SECTIONS: { heading: string; body: React.ReactNode }[] = [
           <li>
             <b>Meta</b> (Facebook and Instagram) measures how my ads perform through its pixel. You
             can control ad tracking in your Facebook or Instagram ad settings.
+          </li>
+          <li>
+            <b>OpenAI</b> measures how my ads in ChatGPT perform through its pixel.
           </li>
           <li>
             <b>Scarlett Network</b> handles your mortgage application if you start one.
