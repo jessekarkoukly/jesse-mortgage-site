@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useSyncExternalStore } from "react";
 import { B, CALENDLY_URL, serif, sans } from "@/components/home/brand";
 import { metaTrack } from "@/lib/metaPixel";
+import { openaiMeasure } from "@/lib/openaiPixel";
 
 export default function ThankYouContent() {
   // Name and email from the inquiry form, kept in this browser tab only.
@@ -31,6 +32,17 @@ export default function ThankYouContent() {
 
   // A completed form lands here, so this is the lead Meta counts.
   useEffect(() => { metaTrack("Lead"); }, []);
+
+  // Calendly tells this page when a call is booked. That booking is the ChatGPT ads conversion.
+  useEffect(() => {
+    const onMessage = (e: MessageEvent) => {
+      if (e.origin !== "https://calendly.com") return;
+      const event = (e.data as { event?: unknown } | null)?.event;
+      if (event === "calendly.event_scheduled") openaiMeasure("appointment_scheduled", { type: "customer_action" });
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
 
   useEffect(() => {
     const w = window as unknown as { Calendly?: { initInlineWidgets?: () => void } };

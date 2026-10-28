@@ -3,6 +3,7 @@ import { Newsreader, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 import MetaPixel from "@/components/MetaPixel";
+import OpenAIPixel from "@/components/OpenAIPixel";
 
 // Brand refresh: headlines are Newsreader. The CSS variable keeps its old name (--font-spectral)
 // so every existing heading picks up the new face without touching each file.
@@ -91,6 +92,7 @@ export default function RootLayout({
         />
         <AnalyticsTracker />
         <MetaPixel />
+        <OpenAIPixel />
         <div className="w-full overflow-x-hidden">
           {children}
         </div>
