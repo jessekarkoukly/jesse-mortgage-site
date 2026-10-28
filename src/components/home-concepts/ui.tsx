@@ -356,8 +356,9 @@ function Credentials({ className = "" }: { className?: string }) {
 export function StoryBlock({ tone = "linen", photo = "family", full = true }: { tone?: Tone; photo?: "family" | "arch"; full?: boolean }) {
   return (
     <Band tone={tone} id="about" labelledBy="about-h" className={PAD}>
-      <Wrap className="grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16 items-start">
-        <div className="flex flex-col gap-6">
+      {/* Phones read photo, story, credentials. Desktop: photo and credentials on the left, the story on the right. */}
+      <Wrap className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:grid-rows-[auto_1fr] items-start">
+        <div className="lg:col-start-1 lg:row-start-1">
           {photo === "family" ? (
             <figure className="m-0 flex flex-col gap-3">
               <div className="relative overflow-hidden rounded-[2px] aspect-[16/10]">
@@ -366,11 +367,10 @@ export function StoryBlock({ tone = "linen", photo = "family", full = true }: { 
               <figcaption className="text-[1rem]" style={{ ...serif, fontStyle: "italic", color: B.clayDeep }}>Out for a walk with my family.</figcaption>
             </figure>
           ) : (
-            <ArchPortrait className="self-center lg:self-start lg:ml-8" caption="Jesse Karkoukly, Sherwood Mortgage Group" />
+            <ArchPortrait className="lg:items-start lg:ml-8" caption="Jesse Karkoukly, Sherwood Mortgage Group" />
           )}
-          <Credentials />
         </div>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 lg:col-start-2 lg:row-start-1 lg:row-span-2">
           <H2 id="about-h">I learned this the expensive way.</H2>
           {STORY.map((p, i) => <Body key={p} strong={i === 2}>{p}</Body>)}
           {full && <Body>{TECH_LINE}</Body>}
@@ -381,6 +381,7 @@ export function StoryBlock({ tone = "linen", photo = "family", full = true }: { 
             <NoteLink />
           </div>
         </div>
+        <Credentials className="lg:col-start-1 lg:row-start-2" />
       </Wrap>
     </Band>
   );
